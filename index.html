@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerPicker</title>
+
+  <style>
+    :root{
+      --blue:#003b95;
+      --blue2:#0a4bb6;
+      --yellow:#febb02;
+      --text:#1a1a1a;
+      --muted:#6b7280;
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --stroke:#e5e7eb;
+      --shadow:0 18px 40px rgba(0,0,0,.10);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    /* Header */
+    .topbar{
+      background:var(--blue);
+      color:#fff;
+      padding:18px 0 24px;
+    }
+    .wrap{
+      width:min(1100px, 92vw);
+      margin:0 auto;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size:22px;
+    }
+    .right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:600;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.35);
+      background:transparent;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .pill.primary{
+      background:#fff;
+      color:var(--blue);
+      border-color:#fff;
+    }
+
+    .hero{
+      padding:38px 0 18px;
+    }
+    .hero h1{
+      margin:0;
+      font-size:56px;
+      line-height:1.02;
+      letter-spacing:-.5px;
+    }
+    .hero p{
+      margin:10px 0 0;
+      font-size:18px;
+      color:rgba(255,255,255,.88);
+      max-width:720px;
+    }
+
+    /* Search Bar */
+    .searchbar{
+      margin-top:18px;
+      background:var(--yellow);
+      border-radius:18px;
+      padding:4px;
+      display:grid;
+      grid-template-columns: 1.7fr .6fr .7fr .35fr;
+      gap:4px;
+      box-shadow:var(--shadow);
+    }
+    .field{
+      background:#fff;
+      border-radius:14px;
+      padding:12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-height:74px;
+    }
+    .label{
+      font-size:12px;
+      font-weight:800;
+      color:#4b5563;
+      letter-spacing:.2px;
+    }
+    .input, select{
+      border:0;
+      outline:none;
+      font-size:16px;
+      font-weight:700;
+      color:#111827;
+      background:transparent;
+    }
+    .input::placeholder{color:#9ca3af;font-weight:700}
+
+    .btn{
+      border:0;
+      border-radius:14px;
+      background:var(--blue2);
+      color:#fff;
+      font-weight:900;
+      font-size:18px;
+      cursor:pointer;
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn:disabled{opacity:.7; cursor:not-allowed}
+
+    /* Main */
+    main{padding:26px 0 60px}
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:14px;
+    }
+    .info{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      padding:16px 16px 14px;
+      box-shadow:0 10px 20px rgba(0,0,0,.05);
+    }
+    .info h3{
+      margin:0;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    .info p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-weight:600;
+      line-height:1.35;
+      font-size:13px;
+    }
+
+    .section-title{
+      margin:26px 0 10px;
+      font-size:28px;
+      letter-spacing:-.3px;
+    }
+
+    /* Results */
+    #results{display:none;}
+    .result-card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,.07);
+      padding:18px;
+      margin:14px 0;
+    }
+    .result-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .result-title{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.2px;
+    }
+    .match{
+      font-weight:900;
+      color:var(--blue2);
+      font-size:20px;
+      white-space:nowrap;
+      padding-top:4px;
+    }
+    .chips{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      border:1px solid var(--stroke);
+      background:#f8fafc;
+      color:#334155;
+      font-weight:800;
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .why{
+      margin-top:12px;
+      color:#374151;
+      font-weight:650;
+      line-height:1.35;
+      font-size:14px;
+    }
+    .why ul{margin:8px 0 0 18px; padding:0}
+    .why li{margin:4px 0}
+
+    .actions{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+    }
+    .ghost{
+      border:1px solid var(--stroke);
+      background:#fff;
+      color:#111827;
+      font-weight:900;
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .searchbar{grid-template-columns: 1fr 1fr; }
+      .btn{grid-column:1 / -1}
+      .hero h1{font-size:44px}
+    }
+    @media (max-width: 520px){
+      .cards{grid-template-columns:1fr}
+      .hero h1{font-size:36px}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">CareerPicker</div>
+        <div class="right">
+          <span style="opacity:.85;font-weight:800;">AUD</span>
+          <button class="pill">Register</button>
+          <button class="pill primary">Sign in</button>
+        </div>
+      </div>
+
+      <div class="hero">
+        <h1>Find your next career</h1>
+        <p>Answer a few questions and get a shortlist you can act on.</p>
+
+        <div class="searchbar" role="search" aria-label="Career search">
+          <div class="field">
+            <div class="label">What do you enjoy?</div>
+            <input id="likes" class="input" placeholder="e.g. tech, helping people, design, business..." />
+          </div>
+
+          <div class="field">
+            <div class="label">ATAR / GPA</div>
+            <input id="score" class="input" type="number" min="0" max="100" value="70" />
+          </div>
+
+          <div class="field">
+            <div class="label">Salary goal</div>
+            <select id="salary">
+              <option value="low">Low</option>
+              <option value="mid" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          <button id="searchBtn" class="btn">Search</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="cards">
+        <div class="info">
+          <h3>Fast shortlist</h3>
+          <p>Get top career paths in seconds. No sign-up needed.</p>
+        </div>
+        <div class="info">
+          <h3>Explainable matches</h3>
+          <p>We show why something fits, not just a random answer.</p>
+        </div>
+        <div class="info">
+          <h3>Designed for students</h3>
+          <p>Works great for Year 9–12, ATAR planning, and early uni.</p>
+        </div>
+        <div class="info">
+          <h3>Simple, private</h3>
+          <p>No personal sensitive details needed to get value.</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Your shortlist</h2>
+
+      <section id="results">
+        <div id="resultsGrid"></div>
+        <div class="actions">
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function tokenize(s) {
+      return (s || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s\-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .split(" ")
+        .filter(Boolean);
+    }
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+    // Real roles (scored using the user's typed words)
+    const JOBS = [
+      // Tech
+      { title: "Software Developer", cluster: "Technology & Software", keywords:["code","coding","programming","software","developer","dev","app","apps","web","website","javascript","python","java","c#","react"] },
+      { title: "Game Developer", cluster: "Technology & Software", keywords:["game","games","unity","unreal","3d","2d","gaming","play"] },
+      { title: "Cybersecurity Analyst", cluster: "Technology & Software", keywords:["cyber","security","hacking","hack","network","networks","firewall","penetration","pentest","privacy"] },
+      { title: "Data Analyst", cluster: "Technology & Software", keywords:["data","analysis","analytics","excel","sql","statistics","stats","graphs","numbers","dashboard","insights"] },
+      { title: "Cloud Engineer", cluster: "Technology & Software", keywords:["cloud","aws","azure","gcp","devops","docker","kubernetes","server","servers","infra","infrastructure"] },
+
+      // Creative
+      { title: "UI/UX Designer", cluster: "Creative & Media", keywords:["ui","ux","design","prototype","figma","layout","interface","wireframe","user"] },
+      { title: "Graphic Designer", cluster: "Creative & Media", keywords:["graphic","design","logo","branding","poster","photoshop","illustrator","art"] },
+      { title: "Video Editor", cluster: "Creative & Media", keywords:["video","editing","edit","premiere","aftereffects","youtube","tiktok","content"] },
+      { title: "Content Creator", cluster: "Creative & Media", keywords:["content","social","media","instagram","tiktok","youtube","creator","influencer"] },
+
+      // Business
+      { title: "Business Analyst", cluster: "Business & Management", keywords:["business","analyst","requirements","process","stakeholder","strategy","improve","improvement"] },
+      { title: "Product Manager", cluster: "Business & Management", keywords:["product","roadmap","feature","customers","market","prioritize","planning"] },
+      { title: "Marketing Specialist", cluster: "Business & Management", keywords:["marketing","ads","advertising","brand","growth","seo","campaign"] },
+      { title: "Entrepreneur / Startup", cluster: "Business & Management", keywords:["startup","founder","entrepreneur","business","company","sell","sales","idea"] },
+
+      // Health
+      { title: "Nurse", cluster: "Health & Helping Professions", keywords:["nurse","nursing","hospital","care","patient","health"] },
+      { title: "Psychologist", cluster: "Health & Helping Professions", keywords:["psychology","psychologist","therapy","counselling","mental","help","support"] },
+      { title: "Teacher", cluster: "Health & Helping Professions", keywords:["teach","teacher","school","kids","children","education","learning"] },
+
+      // Trades / Engineering
+      { title: "Mechanical Engineer", cluster: "Engineering & Trades", keywords:["mechanical","engineer","engineering","machines","mechanic","cars","engine"] },
+      { title: "Electrician", cluster: "Engineering & Trades", keywords:["electrician","wiring","electric","power","hands","fix","repair"] },
+      { title: "Builder / Construction", cluster: "Engineering & Trades", keywords:["build","builder","construction","carpentry","site","tools","hands-on"] },
+
+      // Law / Public
+      { title: "Lawyer", cluster: "Law & Public Service", keywords:["law","lawyer","legal","court","judge","rights","justice","debate"] },
+      { title: "Police / Investigation", cluster: "Law & Public Service", keywords:["police","crime","justice","investigation","detective","case"] },
+    ];
+
+    const CLUSTER_INFO = {
+      "Technology & Software": [
+        "You mentioned tech/coding style interests.",
+        "This cluster often has strong salary growth.",
+        "Many paths exist (uni/TAFE/self-taught depending on role)."
+      ],
+      "Creative & Media": [
+        "You mentioned design/content/media style interests.",
+        "Portfolio/skills matter a lot in this space.",
+        "Many paths exist (uni/TAFE/freelance depending on role)."
+      ],
+      "Business & Management": [
+        "Your input matches business/product/strategy keywords.",
+        "Good if you like planning and coordinating.",
+        "Progression improves a lot with experience."
+      ],
+      "Health & Helping Professions": [
+        "Your input matches helping/health/teaching keywords.",
+        "Good if you enjoy working directly with people.",
+        "Specialisations open up over time."
+      ],
+      "Engineering & Trades": [
+        "Your input matches hands-on/build/fix keywords.",
+        "Practical pathways exist (apprenticeship/TAFE/uni).",
+        "Skilled roles are consistently in demand."
+      ],
+      "Law & Public Service": [
+        "Your input matches law/justice/investigation keywords.",
+        "Strong fit for communication and structured thinking.",
+        "Usually needs specific study/training."
+      ]
+    };
+
+    function scoreJob(job, tokens, score, salary) {
+      let hit = 0;
+      for (const kw of job.keywords) if (tokens.includes(kw)) hit += 1;
+
+      // nudges (small, not dominant)
+      let salaryAdj = 0;
+      if (salary === "high") {
+        if (job.cluster === "Technology & Software" || job.cluster === "Engineering & Trades" || job.cluster === "Law & Public Service") salaryAdj = 1.2;
+        if (job.cluster === "Business & Management") salaryAdj = 0.8;
+      } else if (salary === "mid") salaryAdj = 0.4;
+
+      const a = clamp(Number(score) || 0, 0, 100);
+      let academicAdj = 0;
+      if (job.cluster === "Technology & Software" || job.cluster === "Engineering & Trades" || job.cluster === "Law & Public Service") academicAdj = a * 0.015;
+      else academicAdj = a * 0.010;
+
+      // Overlap dominates so it relates to what they typed
+      return (hit * 6) + salaryAdj + academicAdj;
+    }
+
+    function buildResults(likes, score, salary) {
+      const tokens = tokenize(likes);
+
+      // If user typed almost nothing, avoid pretending we know.
+      const hasMeaningfulInput = tokens.length >= 1;
+
+      const scoredJobs = JOBS.map(j => ({
+        ...j,
+        jobScore: hasMeaningfulInput ? scoreJob(j, tokens, score, salary) : 0
+      })).sort((a,b) => b.jobScore - a.jobScore);
+
+      // Group into clusters based on top jobs
+      const clusterMap = new Map();
+      scoredJobs.forEach(j => {
+        const cur = clusterMap.get(j.cluster) || { cluster: j.cluster, total: 0, jobs: [] };
+        cur.total += j.jobScore;
+        cur.jobs.push(j);
+        clusterMap.set(j.cluster, cur);
+      });
+
+      const clusters = Array.from(clusterMap.values())
+        .sort((a,b) => b.total - a.total)
+        .slice(0,3);
+
+      const best = clusters[0]?.total || 1;
+      clusters.forEach(c => {
+        c.match = hasMeaningfulInput ? clamp(Math.round((c.total / best) * 100), 35, 95) : 0;
+      });
+
+      return clusters.map(c => ({
+        title: c.cluster,
+        match: c.match,
+        tags: c.jobs.slice(0,4).map(x => x.title),
+        why: CLUSTER_INFO[c.cluster] || [
+          "Matched your input keywords.",
+          "Good starting cluster based on what you typed.",
+          "Many pathways exist."
+        ]
+      }));
+    }
+
+    function renderResults(items) {
+      const grid = $("resultsGrid");
+      grid.innerHTML = "";
+
+      items.forEach((c, idx) => {
+        const div = document.createElement("div");
+        div.className = "result-card";
+        div.innerHTML = `
+          <div class="result-head">
+            <div>
+              <h3 class="result-title">${idx + 1}. ${c.title}</h3>
+              <div class="chips">
+                ${c.tags.map(t => `<span class="chip">${t}</span>`).join("")}
+              </div>
+              <div class="why">
+                <strong>Why it fits:</strong>
+                <ul>${c.why.map(x => `<li>${x}</li>`).join("")}</ul>
+              </div>
+            </div>
+            <div class="match">${c.match}% match</div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+
+      $("results").style.display = "block";
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    $("searchBtn").addEventListener("click", () => {
+      const likes = $("likes").value;
+      const score = $("score").value;
+      const salary = $("salary").value;
+
+      const out = buildResults(likes, score, salary);
+      renderResults(out);
+    });
+
+    $("resetBtn").addEventListener("click", () => {
+      $("likes").value = "";
+      $("score").value = 70;
+      $("salary").value = "mid";
+      $("results").style.display = "none";
+      $("resultsGrid").innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
