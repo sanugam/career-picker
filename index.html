@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CareerPicker</title>
+
   <style>
     :root{
-      --blue:#003580;
-      --blue2:#004cb8;
+      --blue:#003b95;
+      --blue2:#002f7a;
       --yellow:#febb02;
       --bg:#f5f7fb;
-      --text:#111;
+      --card:#ffffff;
+      --text:#111827;
       --muted:#6b7280;
-      --card:#fff;
-      --stroke:#e5e7eb;
-      --shadow: 0 10px 28px rgba(16,24,40,.10);
-      --shadow2: 0 6px 18px rgba(16,24,40,.12);
-      --radius:16px;
-      --radius2:14px;
+      --shadow: 0 18px 40px rgba(0,0,0,.12);
+      --softshadow: 0 10px 28px rgba(0,0,0,.08);
+      --radius:18px;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -32,64 +31,48 @@
     .topbar{
       background:var(--blue);
       color:#fff;
-      padding:14px 18px;
-      position:sticky;
-      top:0;
-      z-index:50;
+      padding:18px 20px;
     }
-    .topbar-inner{
+    .topbarInner{
       max-width:1100px;
       margin:0 auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
+      gap:16px;
     }
     .brand{
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
+      font-size:20px;
     }
-    .nav{
+    .topActions{
       display:flex;
-      gap:10px;
       align-items:center;
-      font-size:14px;
-      opacity:.95;
+      gap:10px;
+      font-weight:700;
     }
     .pill{
-      border:1px solid rgba(255,255,255,.25);
-      padding:8px 10px;
-      border-radius:999px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      white-space:nowrap;
-    }
-    .btn-ghost{
       border:1px solid rgba(255,255,255,.35);
+      border-radius:999px;
+      padding:8px 12px;
       background:transparent;
       color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .btn-ghost:hover{background:rgba(255,255,255,.08)}
-    .btn-light{
-      background:#fff;
-      color:var(--blue);
-      border:1px solid rgba(255,255,255,.3);
-      padding:8px 12px;
-      border-radius:999px;
       font-weight:800;
       cursor:pointer;
+    }
+    .pill.white{
+      background:#fff;
+      color:var(--blue);
+      border-color:#fff;
     }
 
     /* Hero */
     .hero{
-      background:linear-gradient(180deg, var(--blue) 0%, #002a64 100%);
+      background:linear-gradient(180deg,var(--blue) 0%, var(--blue2) 100%);
       color:#fff;
-      padding:38px 18px 34px;
+      padding:34px 20px 54px;
+      position:relative;
     }
     .wrap{
       max-width:1100px;
@@ -97,9 +80,9 @@
     }
     .hero h1{
       margin:0;
-      font-size:54px;
-      line-height:1.02;
+      font-size:56px;
       letter-spacing:-.6px;
+      line-height:1.02;
     }
     .hero p{
       margin:10px 0 0;
@@ -114,941 +97,738 @@
       background:var(--yellow);
       border-radius:18px;
       padding:4px;
-      display:grid;
-      grid-template-columns: 1.7fr .6fr .75fr .35fr;
-      gap:4px;
       box-shadow: var(--shadow);
-      position:relative;
+      display:grid;
+      grid-template-columns: 1.6fr .7fr .7fr .38fr;
+      gap:4px;
+      align-items:stretch;
     }
     .field{
       background:#fff;
       border-radius:14px;
       padding:12px 14px;
       display:flex;
-      flex-direction:column;
-      gap:6px;
+      gap:10px;
+      align-items:flex-start;
       min-height:74px;
       position:relative;
     }
-    .label{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:700;
+    .icon{
+      width:26px;
+      height:26px;
       display:flex;
       align-items:center;
-      gap:8px;
+      justify-content:center;
+      margin-top:6px;
+      opacity:.7;
+      font-weight:900;
     }
-    .input{
+    .label{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:800;
+      margin-bottom:6px;
+    }
+    input, select{
+      width:100%;
       border:none;
       outline:none;
-      font-size:16px;
-      font-weight:700;
-      width:100%;
+      font-size:18px;
+      font-weight:800;
+      color:var(--text);
       background:transparent;
     }
-    .select{
-      border:none;
-      outline:none;
-      font-size:16px;
-      font-weight:700;
-      width:100%;
-      background:transparent;
-      appearance:none;
-      cursor:pointer;
-    }
-    .searchbtn{
+    select{ padding-right:10px; cursor:pointer; }
+
+    .btn{
       background:var(--blue);
       color:#fff;
       border:none;
       border-radius:14px;
-      font-weight:900;
       font-size:18px;
-      cursor:pointer;
-      box-shadow: var(--shadow2);
-    }
-    .searchbtn:hover{background:#002d6b}
-
-    /* Dropdown panel (Booking-like) */
-    .dropdown{
-      position:absolute;
-      left:0;
-      right:0;
-      top:78px;
-      z-index:40;
-      display:none;
-      padding:0 0 0 0;
-    }
-    .dropdown.open{display:block;}
-    .dd-card{
-      background:#fff;
-      border:1px solid var(--stroke);
-      border-radius:16px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      max-width:520px;
-      margin-left:0; /* aligns under first field */
-    }
-    .dd-title{
-      padding:14px 16px;
       font-weight:900;
-      color:#111;
-      border-bottom:1px solid var(--stroke);
-      background:#fafafa;
+      cursor:pointer;
     }
-    .dd-list{
-      max-height:340px;
-      overflow:auto;
+    .btn:hover{ filter:brightness(1.05); }
+
+    /* Dropdown suggestions (booking-style) */
+    .suggest{
+      position:absolute;
+      left:8px;
+      right:8px;
+      top:82px;
+      background:#fff;
+      border-radius:16px;
+      box-shadow: var(--softshadow);
+      border: 1px solid rgba(0,0,0,.08);
+      overflow:hidden;
+      display:none;
+      z-index:30;
     }
-    .dd-item{
+    .suggestHeader{
+      padding:14px 14px 10px;
+      font-weight:900;
+      color:#111827;
+    }
+    .suggestItem{
       display:flex;
       gap:12px;
-      padding:14px 16px;
+      padding:14px;
+      align-items:center;
+      border-top:1px solid rgba(0,0,0,.06);
       cursor:pointer;
-      border-bottom:1px solid #f0f2f6;
-      align-items:flex-start;
     }
-    .dd-item:last-child{border-bottom:none;}
-    .dd-item:hover{background:#f6f9ff;}
-    .dd-ico{
-      width:34px;height:34px;
-      border-radius:10px;
-      background:#f1f5ff;
-      display:flex;align-items:center;justify-content:center;
+    .suggestItem:hover{ background:#f6f7fb; }
+    .locIcon{
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      background:#f3f4f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      opacity:.75;
       flex:0 0 auto;
-      color:var(--blue2);
-      font-weight:900;
     }
-    .dd-main{min-width:0}
-    .dd-name{
-      font-weight:900;
-      margin:0;
-      line-height:1.1;
-    }
-    .dd-sub{
-      margin:3px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.2;
-    }
-    .hint{
-      margin-top:10px;
-      font-size:13px;
-      color:rgba(255,255,255,.85);
-    }
+    .sTitle{ font-weight:900; font-size:18px; }
+    .sSub{ color:var(--muted); font-weight:800; margin-top:2px; }
 
-    /* Cards row */
-    .cards{
-      margin:18px 0 8px;
+    /* Content sections */
+    .section{
+      padding:26px 20px;
+    }
+    .cards4{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
-      gap:14px;
+      gap:16px;
+      margin-top:18px;
     }
-    .mini{
-      background:var(--card);
-      border:1px solid var(--stroke);
+    .miniCard{
+      background:#fff;
       border-radius:16px;
-      padding:14px;
-      box-shadow: 0 1px 0 rgba(16,24,40,.04);
+      border:1px solid rgba(0,0,0,.06);
+      padding:16px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
     }
-    .mini h3{
-      margin:0;
-      font-size:15px;
-      font-weight:900;
-    }
-    .mini p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.3;
+    .miniTitle{ font-weight:900; }
+    .miniText{ margin-top:6px; color:var(--muted); font-weight:700; line-height:1.35; }
+
+    .resultsTitle{
+      margin:10px 0 0;
+      font-size:34px;
+      font-weight:1000;
+      letter-spacing:-.4px;
     }
 
     /* Results */
-    .section{
-      padding:18px 18px 40px;
+    #results{ display:none; margin-top:12px; }
+    .resultCard{
+      background:#fff;
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
+      padding:18px;
+      margin:14px 0;
+      cursor:pointer;
+      transition: transform .08s ease;
     }
-    .section h2{
-      margin:10px 0 14px;
-      font-size:28px;
-      letter-spacing:-.2px;
-    }
-    .results{
+    .resultCard:hover{ transform: translateY(-1px); }
+    .resultTop{
       display:flex;
-      flex-direction:column;
+      align-items:flex-start;
+      justify-content:space-between;
       gap:14px;
     }
-    .result{
-      background:#fff;
-      border:1px solid var(--stroke);
-      border-radius:18px;
-      box-shadow: 0 12px 22px rgba(16,24,40,.05);
-      overflow:hidden;
-    }
-    .result-top{
-      padding:16px 18px 12px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .result h3{
-      margin:0;
-      font-size:22px;
-      font-weight:950;
+    .resultName{
+      font-size:28px;
+      font-weight:1000;
       letter-spacing:-.2px;
+      margin:0;
     }
     .match{
-      font-weight:950;
-      color:var(--blue2);
-      font-size:20px;
+      font-weight:1000;
+      color:var(--blue);
+      font-size:22px;
       white-space:nowrap;
+      margin-top:2px;
     }
-    .chips{
+    .tags{
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      padding:0 18px 12px;
+      margin-top:10px;
     }
-    .chip{
-      padding:6px 10px;
+    .tag{
+      border:1px solid rgba(0,0,0,.10);
+      background:#f7f8fb;
       border-radius:999px;
-      background:#f6f7fb;
-      border:1px solid #e9ecf3;
+      padding:7px 10px;
+      font-weight:900;
       color:#334155;
-      font-size:13px;
-      font-weight:800;
+      font-size:14px;
     }
     .why{
-      padding:0 18px 16px;
-      color:#111;
-    }
-    .why-title{
-      margin:0 0 6px;
+      margin-top:12px;
+      color:#111827;
       font-weight:900;
-      color:#374151;
     }
-    .why ul{
-      margin:0;
-      padding-left:18px;
+    ul{
+      margin:8px 0 0 18px;
       color:#475569;
+      font-weight:700;
       line-height:1.45;
     }
-    .actions{
-      display:flex;
-      gap:10px;
-      padding:8px 18px 18px;
+
+    /* Expand details */
+    .details{
+      display:none;
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid rgba(0,0,0,.08);
     }
-    .btn{
-      border:none;
-      border-radius:12px;
-      padding:10px 14px;
+    .resultCard.expanded .details{ display:block; }
+
+    .detailsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px 16px;
+      margin-top:10px;
+    }
+    .detailItem{
+      background:#f7f8fb;
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:12px 12px;
+      font-size:14px;
+    }
+    .detailTitle{
+      font-weight:1000;
+      margin-bottom:4px;
+      color:#0f172a;
+    }
+    .detailText{
+      color:#334155;
+      font-weight:750;
+      line-height:1.35;
+    }
+
+    .moreRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:12px;
+    }
+    .hint{
+      opacity:.65;
+      font-weight:900;
+    }
+    .pillBtn{
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      padding:8px 10px;
+      border-radius:999px;
       font-weight:900;
       cursor:pointer;
     }
-    .btn.secondary{
-      background:#eef2ff;
-      color:#1e40af;
-    }
-    .btn.secondary:hover{background:#e0e7ff}
-    .btn.danger{
-      background:#fff;
-      border:1px solid var(--stroke);
-      color:#111;
-    }
-    .btn.danger:hover{background:#fafafa}
 
-    .hidden{display:none;}
+    .bottomRow{
+      display:flex;
+      gap:10px;
+      margin:16px 0 30px;
+    }
+    .secondaryBtn{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:1000;
+      cursor:pointer;
+    }
 
     @media (max-width: 980px){
-      .hero h1{font-size:40px;}
-      .searchbar{grid-template-columns:1fr; }
-      .dropdown{top: 86px;}
-      .dd-card{max-width:100%; margin:0;}
-      .cards{grid-template-columns:1fr 1fr;}
-    }
-    @media (max-width: 520px){
-      .cards{grid-template-columns:1fr;}
+      .searchbar{ grid-template-columns: 1fr; }
+      .cards4{ grid-template-columns: 1fr; }
+      .hero h1{ font-size:42px; }
+      .detailsGrid{ grid-template-columns: 1fr; }
+      .suggest{ top:76px; }
     }
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
+  <div class="topbar">
+    <div class="topbarInner">
       <div class="brand">CareerPicker</div>
-      <div class="nav">
-        <div class="pill">AUD</div>
-        <button class="btn-ghost" type="button">Register</button>
-        <button class="btn-light" type="button">Sign in</button>
+      <div class="topActions">
+        <span style="opacity:.9;font-weight:900">AUD</span>
+        <button class="pill">Register</button>
+        <button class="pill white">Sign in</button>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <h1>Find your next career</h1>
-        <p>Pick what you enjoy, add your ATAR/GPA, and your salary goal — then get a shortlist that matches your choice.</p>
+  <div class="hero">
+    <div class="wrap">
+      <h1>Find your next career</h1>
+      <p>Type what you’re interested in, add your ATAR/GPA and salary goal, and get a shortlist that actually matches.</p>
 
-        <div class="searchbar" id="searchbar">
-          <!-- Interest field -->
-          <div class="field" id="interestField">
-            <div class="label">🧭 What do you enjoy?</div>
-            <input class="input" id="interestInput" placeholder="e.g., Tech, Health, Animals, Law…" autocomplete="off" />
-            <input type="hidden" id="interestValue" />
+      <div class="searchbar" id="searchbar">
+        <!-- Interests -->
+        <div class="field" id="interestField">
+          <div class="icon">🏛️</div>
+          <div style="width:100%">
+            <div class="label">What do you enjoy?</div>
+            <input id="likes" autocomplete="off" placeholder="e.g. law, helping people, coding, design…" />
           </div>
 
-          <!-- ATAR -->
-          <div class="field">
-            <div class="label">📊 ATAR / GPA</div>
-            <input class="input" id="score" type="number" min="0" max="100" value="70" />
+          <div class="suggest" id="suggest">
+            <div class="suggestHeader">Trending interests</div>
+            <div id="suggestList"></div>
           </div>
+        </div>
 
-          <!-- Salary -->
-          <div class="field">
-            <div class="label">💰 Salary goal</div>
-            <select class="select" id="salary">
+        <!-- ATAR/GPA -->
+        <div class="field">
+          <div class="icon">🧾</div>
+          <div style="width:100%">
+            <div class="label">ATAR / GPA</div>
+            <input id="score" type="number" min="0" max="100" value="70" />
+          </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="field">
+          <div class="icon">💰</div>
+          <div style="width:100%">
+            <div class="label">Salary goal</div>
+            <select id="salary">
               <option value="low">Low</option>
               <option value="mid" selected>Medium</option>
               <option value="high">High</option>
             </select>
           </div>
-
-          <button class="searchbtn" id="searchBtn">Search</button>
-
-          <!-- Dropdown panel (under the bar; aligns with first field) -->
-          <div class="dropdown" id="dropdown">
-            <div class="dd-card">
-              <div class="dd-title">Trending interests</div>
-              <div class="dd-list" id="ddList"></div>
-            </div>
-          </div>
         </div>
 
-        <div class="hint">Tip: click the first box to open suggestions. Start typing to filter.</div>
+        <!-- Search button -->
+        <button class="btn" id="searchBtn">Search</button>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="section">
-      <div class="wrap">
-        <div class="cards">
-          <div class="mini">
-            <h3>Fast shortlist</h3>
-            <p>Get career clusters instantly. No sign-up needed.</p>
-          </div>
-          <div class="mini">
-            <h3>Matches that make sense</h3>
-            <p>Your shortlist is driven by the interest you pick.</p>
-          </div>
-          <div class="mini">
-            <h3>Designed for students</h3>
-            <p>Works for Year 9–12, ATAR planning, and early uni.</p>
-          </div>
-          <div class="mini">
-            <h3>Simple, private</h3>
-            <p>No personal sensitive details needed to get value.</p>
-          </div>
+  <div class="section">
+    <div class="wrap">
+      <div class="cards4">
+        <div class="miniCard">
+          <div class="miniTitle">Fast shortlist</div>
+          <div class="miniText">Get top career clusters in seconds. No sign-up needed.</div>
         </div>
-
-        <h2>Your shortlist</h2>
-
-        <div id="results" class="results hidden"></div>
-
-        <div class="actions hidden" id="afterActions">
-          <button class="btn danger" id="resetBtn">Reset</button>
+        <div class="miniCard">
+          <div class="miniTitle">Explainable matches</div>
+          <div class="miniText">We show why something fits, not just a random answer.</div>
+        </div>
+        <div class="miniCard">
+          <div class="miniTitle">Designed for students</div>
+          <div class="miniText">Works great for Year 9–12, ATAR planning, and early uni.</div>
+        </div>
+        <div class="miniCard">
+          <div class="miniTitle">Simple, private</div>
+          <div class="miniText">No personal sensitive details needed to get value.</div>
         </div>
       </div>
-    </section>
-  </main>
+
+      <div class="resultsTitle">Your shortlist</div>
+
+      <div id="results"></div>
+
+      <div class="bottomRow">
+        <button class="secondaryBtn" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // ---------- Interest options (this is your "Booking.com-style" list) ----------
-    const INTERESTS = [
-      { id: "tech", name: "Technology", sub: "Software, AI, data, cybersecurity", icon: "⌘" },
-      { id: "health", name: "Health & Medicine", sub: "Doctors, nurses, allied health", icon: "✚" },
-      { id: "animals", name: "Animals", sub: "Vet, wildlife, animal care", icon: "🐾" },
-      { id: "law", name: "Law & Justice", sub: "Law, policing, legal services", icon: "⚖" },
-      { id: "engineering", name: "Engineering", sub: "Civil, mechanical, electrical", icon: "⚙" },
-      { id: "creative", name: "Creative & Design", sub: "UI/UX, media, design, content", icon: "✦" },
-      { id: "business", name: "Business", sub: "Finance, management, marketing", icon: "▦" },
-      { id: "science", name: "Science", sub: "Biology, chemistry, research", icon: "🧪" },
-      { id: "education", name: "Education", sub: "Teaching, tutoring, learning design", icon: "🎓" },
-      { id: "sports", name: "Sports & Fitness", sub: "Coaching, physio, performance", icon: "🏃" },
-      { id: "hospitality", name: "Hospitality", sub: "Food, hotels, tourism, events", icon: "☕" },
-      { id: "trades", name: "Trades", sub: "Electrician, plumbing, construction", icon: "🔧" },
-      { id: "transport", name: "Transport", sub: "Aviation, logistics, driving", icon: "✈" }
+    // === Data: categories + matching keywords + details ===
+    const CATEGORIES = [
+      {
+        id: "law",
+        name: "Law",
+        keywords: ["law","lawyer","legal","court","debate","justice","contracts","rights","argument","writing"],
+        tags: ["Lawyer","Paralegal","Legal Aid","Corporate"],
+        why: [
+          "Good match if you enjoy debating, reading, writing, and rules.",
+          "Entry depends on ATAR and university choices.",
+          "Strong progression once qualified."
+        ],
+        details: {
+          subjects: "English, Legal Studies, Humanities, Business/Accounting",
+          pathways: "Uni law degree → clerkship/grad role → specialization",
+          skills: "Writing, analysis, public speaking, attention to detail",
+          salary: "Can grow strongly with experience (varies by role and firm).",
+          next: "Try Legal Studies, join debating, read case summaries, talk to a lawyer."
+        }
+      },
+      {
+        id: "policing",
+        name: "Justice & Policing",
+        keywords: ["police","detective","forensics","crime","criminal","justice","investigation","security","law enforcement"],
+        tags: ["Police","Detective","Corrections","Forensics"],
+        why: [
+          "Fits if you like structure + public service work.",
+          "Physical + communication skills matter a lot.",
+          "Clear training pipelines."
+        ],
+        details: {
+          subjects: "Health/PE, Psychology, English, Science",
+          pathways: "Recruit training → probation → specialist units (optional)",
+          skills: "Communication, resilience, fitness, teamwork, decision-making",
+          salary: "Stable public-sector progression (varies by state/role).",
+          next: "Look at state police entry requirements, fitness plan, volunteer/community work."
+        }
+      },
+      {
+        id: "government",
+        name: "Policy & Government",
+        keywords: ["policy","government","public service","regulation","compliance","systems","politics","community","impact","strategy"],
+        tags: ["Policy","Compliance","Regulation","Public Service"],
+        why: [
+          "Great if you like systems, fairness, and large-scale impact.",
+          "Good career stability.",
+          "Can combine with business/law."
+        ],
+        details: {
+          subjects: "English, Humanities, Economics, Legal Studies",
+          pathways: "Uni/TAFE → grad programs → policy/ops specializations",
+          skills: "Research, writing, stakeholder management, systems thinking",
+          salary: "Stable ranges; higher with seniority and specialization.",
+          next: "Read gov role descriptions, practice writing briefs, join student leadership."
+        }
+      },
+      {
+        id: "tech",
+        name: "Technology & Software",
+        keywords: ["tech","coding","programming","software","computer","ai","data","cyber","cloud","developer","engineer"],
+        tags: ["Software Dev","Cybersecurity","Data","Cloud"],
+        why: [
+          "Good for analytical problem-solving.",
+          "Often strong salary growth.",
+          "Many paths (uni/TAFE/self-taught)."
+        ],
+        details: {
+          subjects: "Maths, Software Dev, Physics, Digital Tech",
+          pathways: "Uni/TAFE/self-taught → portfolio → junior role → specialization",
+          skills: "Problem solving, coding, debugging, communication",
+          salary: "Often strong with experience (varies by specialty).",
+          next: "Build small projects, learn Git, try Python/JS, create a portfolio."
+        }
+      },
+      {
+        id: "health",
+        name: "Healthcare",
+        keywords: ["doctor","medicine","nurse","health","hospital","help people","biology","patient","psychology","physio","pharmacy"],
+        tags: ["Medicine","Nursing","Allied Health","Psychology"],
+        why: [
+          "Fits if you like helping people and science.",
+          "Entry can be competitive (depends on role).",
+          "Clear training + meaningful work."
+        ],
+        details: {
+          subjects: "Biology, Chemistry, English, Maths",
+          pathways: "Uni/TAFE → placements → registration → specialization",
+          skills: "Empathy, communication, teamwork, stamina",
+          salary: "Stable with clear progression in many roles.",
+          next: "Check prerequisites, volunteer, talk to professionals, choose sciences early."
+        }
+      },
+      {
+        id: "business",
+        name: "Business & Management",
+        keywords: ["business","management","leader","startup","finance","accounting","marketing","sales","entrepreneur","commerce","project"],
+        tags: ["Business Analyst","Project","Sales","Ops"],
+        why: [
+          "Good for communication + coordination.",
+          "Flexible across industries.",
+          "Clear progression with experience."
+        ],
+        details: {
+          subjects: "Business, Economics, Accounting, English",
+          pathways: "Uni/TAFE → grad roles → specialization (BA/PM/Marketing/etc.)",
+          skills: "Communication, planning, analysis, people skills",
+          salary: "Can grow strongly with responsibility and results.",
+          next: "Join leadership roles, learn Excel, run small projects, read case studies."
+        }
+      },
+      {
+        id: "creative",
+        name: "Creative & Media",
+        keywords: ["design","ui","ux","creative","video","film","music","art","content","media","photography","editing"],
+        tags: ["UI/UX","Design","Content","Media"],
+        why: [
+          "Strong for creative problem solving.",
+          "Portfolio-based entry for many roles.",
+          "Many freelance options."
+        ],
+        details: {
+          subjects: "Art, Media, English, Digital Tech",
+          pathways: "Portfolio → uni/short courses → internships → niche specialization",
+          skills: "Taste, storytelling, iteration, feedback, tools",
+          salary: "Varies widely; can grow with niche + strong portfolio.",
+          next: "Build a portfolio, redesign apps, learn Figma/Adobe, post work regularly."
+        }
+      },
+      {
+        id: "engineering",
+        name: "Engineering",
+        keywords: ["engineering","engineer","mechanical","civil","electrical","robotics","build","physics","maths","structures"],
+        tags: ["Civil","Mechanical","Electrical","Mechatronics"],
+        why: [
+          "Great for maths + physics + building systems.",
+          "Many stable, high-impact industries.",
+          "Strong long-term progression."
+        ],
+        details: {
+          subjects: "Maths Methods/Specialist, Physics, Chemistry",
+          pathways: "Uni engineering → placements → graduate engineer → chartered/specialist",
+          skills: "Maths, modeling, design, teamwork, safety mindset",
+          salary: "Often strong, especially in specialized areas.",
+          next: "Choose advanced maths, do STEM projects, join robotics/engineering clubs."
+        }
+      }
     ];
 
-    // ---------- Shortlist templates mapped to interest ----------
-    // Each interest produces TOP 3 clusters + job tags + reasons.
-    const SHORTLIST_BY_INTEREST = {
-      tech: [
-        {
-          title: "Software & AI",
-          tags: ["Software Dev", "AI/ML", "Web/App", "Cloud"],
-          why: [
-            "Strong match if you like coding, problem-solving, building apps.",
-            "High growth and many specialisations (frontend, backend, AI, mobile).",
-            "Multiple paths: uni/TAFE/self-taught + projects."
-          ]
-        },
-        {
-          title: "Cybersecurity & Networks",
-          tags: ["Security", "Networking", "SOC", "Cloud Security"],
-          why: [
-            "Great if you enjoy puzzles, systems, and finding weaknesses.",
-            "Clear certifications + pathways into entry roles.",
-            "Good long-term salary upside."
-          ]
-        },
-        {
-          title: "Data & Analytics",
-          tags: ["Data Analyst", "BI", "Data Eng", "Stats"],
-          why: [
-            "Fits if you like patterns, numbers, and evidence-based decisions.",
-            "Useful across almost every industry.",
-            "Pairs well with strong maths."
-          ]
-        }
-      ],
+    // Quick "booking-like" suggestion list
+    const TRENDING = [
+      { label: "Law", sub: "debate • writing • rules", pick: "law" },
+      { label: "Technology", sub: "coding • data • cyber", pick: "tech" },
+      { label: "Healthcare", sub: "helping people • science", pick: "health" },
+      { label: "Business", sub: "leadership • finance • marketing", pick: "business" },
+      { label: "Creative", sub: "design • media • content", pick: "creative" },
+      { label: "Engineering", sub: "maths • physics • building", pick: "engineering" },
+      { label: "Justice & Policing", sub: "investigation • public service", pick: "policing" },
+      { label: "Policy & Government", sub: "systems • regulation • impact", pick: "government" }
+    ];
 
-      health: [
-        {
-          title: "Medicine",
-          tags: ["Doctor", "Specialist", "Medical Research", "Public Health"],
-          why: [
-            "High impact if you want to help people at a deep level.",
-            "Competitive entry (ATAR matters a lot).",
-            "Long training, strong career stability."
-          ]
-        },
-        {
-          title: "Nursing",
-          tags: ["Registered Nurse", "Emergency", "Aged Care", "Mental Health"],
-          why: [
-            "Hands-on people-focused work with many specialties.",
-            "Clear pathways via uni/TAFE depending on role.",
-            "Strong job demand."
-          ]
-        },
-        {
-          title: "Allied Health",
-          tags: ["Physio", "OT", "Speech", "Dietitian"],
-          why: [
-            "Great if you like practical problem-solving + people care.",
-            "Often good work-life balance options.",
-            "Clear uni pathways."
-          ]
-        }
-      ],
-
-      animals: [
-        {
-          title: "Veterinary",
-          tags: ["Veterinarian", "Vet Nurse", "Animal Hospital", "Surgery"],
-          why: [
-            "Best match if your interest is animals + science/biology.",
-            "Vet is competitive (ATAR matters).",
-            "Many paths: vet nurse (faster), vet (longer)."
-          ]
-        },
-        {
-          title: "Wildlife & Conservation",
-          tags: ["Wildlife Carer", "Conservation", "Ranger", "Research"],
-          why: [
-            "Fits if you like animals + outdoors + protecting habitats.",
-            "Often pairs with science/environment studies.",
-            "Can start with volunteering to build experience."
-          ]
-        },
-        {
-          title: "Animal Care",
-          tags: ["Trainer", "Groomer", "Shelter Work", "Pet Services"],
-          why: [
-            "Practical hands-on work with animals daily.",
-            "Lower barrier to entry for many roles.",
-            "Good for people who enjoy caring roles."
-          ]
-        }
-      ],
-
-      law: [
-        {
-          title: "Law",
-          tags: ["Lawyer", "Paralegal", "Legal Aid", "Corporate"],
-          why: [
-            "Good match if you enjoy debating, reading, writing, and rules.",
-            "Entry depends on ATAR and university choices.",
-            "Strong progression once qualified."
-          ]
-        },
-        {
-          title: "Justice & Policing",
-          tags: ["Police", "Detective", "Corrections", "Forensics"],
-          why: [
-            "Fits if you like structure + public service work.",
-            "Physical + communication skills matter a lot.",
-            "Clear training pipelines."
-          ]
-        },
-        {
-          title: "Policy & Government",
-          tags: ["Policy", "Compliance", "Regulation", "Public Service"],
-          why: [
-            "Great if you like systems, fairness, and large-scale impact.",
-            "Good career stability.",
-            "Can combine with business/law."
-          ]
-        }
-      ],
-
-      engineering: [
-        {
-          title: "Engineering (Core)",
-          tags: ["Civil", "Mechanical", "Electrical", "Mechatronics"],
-          why: [
-            "Strong match if you like maths + building how things work.",
-            "ATAR matters for many uni engineering courses.",
-            "Wide range of industries."
-          ]
-        },
-        {
-          title: "Software Engineering",
-          tags: ["Systems", "Embedded", "Robotics", "IoT"],
-          why: [
-            "Great if you like tech + engineering mindset.",
-            "Project-based learning helps a lot.",
-            "High demand roles."
-          ]
-        },
-        {
-          title: "Project & Construction",
-          tags: ["Site Eng", "Estimator", "Project Mgmt", "Safety"],
-          why: [
-            "Fits if you like coordination + real-world projects.",
-            "Strong employment in infrastructure-heavy areas.",
-            "Clear certifications/experience ladder."
-          ]
-        }
-      ],
-
-      creative: [
-        {
-          title: "UI/UX & Product",
-          tags: ["UI/UX", "Product Design", "Research", "Prototyping"],
-          why: [
-            "Best match if you enjoy design + people + problem-solving.",
-            "Portfolio matters more than grades for many roles.",
-            "Pairs well with tech/product."
-          ]
-        },
-        {
-          title: "Media & Content",
-          tags: ["Video", "Writing", "Social", "Editing"],
-          why: [
-            "Great if you like storytelling and making things people watch/read.",
-            "Portfolio + consistency is key.",
-            "Many freelance/creator paths."
-          ]
-        },
-        {
-          title: "Creative Tech",
-          tags: ["Game Dev", "3D", "Animation", "Motion"],
-          why: [
-            "Perfect if you like art + computers together.",
-            "Projects show skill quickly.",
-            "Strong crossover with tech."
-          ]
-        }
-      ],
-
-      business: [
-        {
-          title: "Business & Management",
-          tags: ["Management", "Ops", "Entrepreneurship", "HR"],
-          why: [
-            "Good if you like leading, organising, and improving systems.",
-            "Can apply across almost any industry.",
-            "Clear progression ladder."
-          ]
-        },
-        {
-          title: "Finance & Accounting",
-          tags: ["Accounting", "Finance", "Banking", "Audit"],
-          why: [
-            "Strong if you like numbers + structure.",
-            "Clear certifications and stable demand.",
-            "Good salary progression."
-          ]
-        },
-        {
-          title: "Marketing & Sales",
-          tags: ["Marketing", "Sales", "Brand", "Growth"],
-          why: [
-            "Great for communication + persuasion + creativity.",
-            "Performance-based career paths exist.",
-            "Works well with business ownership."
-          ]
-        }
-      ],
-
-      science: [
-        {
-          title: "Laboratory & Research",
-          tags: ["Lab Tech", "Research", "Biology", "Chemistry"],
-          why: [
-            "Good match if you enjoy experiments and discovery.",
-            "Often needs uni pathways.",
-            "Can lead into medicine/pharma."
-          ]
-        },
-        {
-          title: "Environmental Science",
-          tags: ["Climate", "Ecology", "Field Work", "Sustainability"],
-          why: [
-            "Great if you like nature + science + impact.",
-            "Mix of field + analysis work.",
-            "Growing importance globally."
-          ]
-        },
-        {
-          title: "Science + Tech",
-          tags: ["Bioinformatics", "Data Science", "Medical Tech", "AI"],
-          why: [
-            "Perfect if you like science + computers.",
-            "High-demand hybrid roles.",
-            "Strong future-proofing."
-          ]
-        }
-      ],
-
-      education: [
-        {
-          title: "Teaching",
-          tags: ["Primary", "Secondary", "VCE", "Special Ed"],
-          why: [
-            "Best if you enjoy helping others learn and improve.",
-            "Communication + patience matters most.",
-            "Stable career with clear qualification path."
-          ]
-        },
-        {
-          title: "Tutoring & Coaching",
-          tags: ["Tutoring", "Coaching", "Mentoring", "Study Skills"],
-          why: [
-            "Great if you like explaining concepts clearly.",
-            "Can start early and build experience.",
-            "Flexible schedules."
-          ]
-        },
-        {
-          title: "Learning Design",
-          tags: ["EdTech", "Course Design", "Training", "Content"],
-          why: [
-            "Good if you like teaching + building systems/materials.",
-            "Strong crossover with tech/UX.",
-            "Growing online learning space."
-          ]
-        }
-      ],
-
-      sports: [
-        {
-          title: "Fitness & Coaching",
-          tags: ["Coach", "Personal Trainer", "Strength", "Sports Science"],
-          why: [
-            "Best match if you like training and helping people improve.",
-            "Certifications + experience matter a lot.",
-            "Can build your own business."
-          ]
-        },
-        {
-          title: "Physio & Rehab",
-          tags: ["Physio", "Rehab", "Sports Injury", "Health"],
-          why: [
-            "Great if you like sport + caring for people.",
-            "Uni pathways usually required.",
-            "Strong demand."
-          ]
-        },
-        {
-          title: "Performance Pathways",
-          tags: ["Elite Sport", "Analytics", "Nutrition", "Teams"],
-          why: [
-            "Fits if you like high performance environments.",
-            "Competitive but rewarding.",
-            "Build portfolio/experience early."
-          ]
-        }
-      ],
-
-      hospitality: [
-        {
-          title: "Hospitality",
-          tags: ["Hotels", "Restaurants", "Events", "Customer Service"],
-          why: [
-            "Best if you like people + fast-paced environments.",
-            "Easy entry and strong experience ladder.",
-            "Good international opportunities."
-          ]
-        },
-        {
-          title: "Tourism",
-          tags: ["Travel", "Tours", "Airlines", "Cruise"],
-          why: [
-            "Great if you like travel + planning experiences.",
-            "People skills are key.",
-            "Many seasonal options."
-          ]
-        },
-        {
-          title: "Events & Management",
-          tags: ["Events", "Operations", "Venues", "Logistics"],
-          why: [
-            "Fits if you like organising big things.",
-            "Strong project skills.",
-            "Clear growth with experience."
-          ]
-        }
-      ],
-
-      trades: [
-        {
-          title: "Electrical",
-          tags: ["Electrician", "Solar", "Automation", "Maintenance"],
-          why: [
-            "Strong if you like hands-on work and problem-solving.",
-            "Great pay once qualified.",
-            "Clear apprenticeship path."
-          ]
-        },
-        {
-          title: "Construction",
-          tags: ["Carpentry", "Builder", "Site", "Plumbing"],
-          why: [
-            "Fits if you like building things and being active.",
-            "Apprenticeships give you real experience early.",
-            "Very practical career."
-          ]
-        },
-        {
-          title: "Trade + Tech",
-          tags: ["HVAC", "Smart Homes", "Diagnostics", "Systems"],
-          why: [
-            "Great hybrid if you like tech but hands-on work.",
-            "Good future demand.",
-            "Strong growth."
-          ]
-        }
-      ],
-
-      transport: [
-        {
-          title: "Aviation",
-          tags: ["Pilot", "Engineer", "Ground Ops", "ATC"],
-          why: [
-            "Best if you like travel, systems, and structured training.",
-            "Some roles are competitive/expensive training.",
-            "Strong long-term paths."
-          ]
-        },
-        {
-          title: "Logistics",
-          tags: ["Supply Chain", "Warehouse", "Planning", "Dispatch"],
-          why: [
-            "Great if you like organising movement of goods.",
-            "Huge industry with many entry points.",
-            "Good career growth."
-          ]
-        },
-        {
-          title: "Transport Ops",
-          tags: ["Driver", "Rail", "Fleet", "Maintenance"],
-          why: [
-            "Practical career with clear job pathways.",
-            "Many roles value reliability + safety focus.",
-            "Stable demand."
-          ]
-        }
-      ]
-    };
-
-    // ---------- Helpers ----------
     const $ = (id) => document.getElementById(id);
 
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-    function salaryBoost(salary){
-      // nudges match % (not the category)
-      if(salary === "high") return 10;
-      if(salary === "mid") return 5;
-      return 2;
-    }
-
-    function atarBoost(score){
-      // small boost for higher scores
-      return clamp(Math.round((Number(score) - 50) / 10), -10, 15);
-    }
-
-    function baseMatch(i){
-      // gentle descending base for top 3
-      return [62, 55, 50][i] ?? 45;
-    }
-
-    // ---------- Dropdown rendering ----------
-    function renderDropdownList(filterText=""){
-      const list = $("ddList");
+    // Render suggestion dropdown
+    function renderSuggestions(items){
+      const list = $("suggestList");
       list.innerHTML = "";
-      const q = filterText.trim().toLowerCase();
-
-      const filtered = INTERESTS.filter(x =>
-        x.name.toLowerCase().includes(q) || x.sub.toLowerCase().includes(q)
-      );
-
-      (filtered.length ? filtered : INTERESTS).forEach(item => {
-        const row = document.createElement("div");
-        row.className = "dd-item";
-        row.innerHTML = `
-          <div class="dd-ico">${item.icon}</div>
-          <div class="dd-main">
-            <div class="dd-name">${item.name}</div>
-            <div class="dd-sub">${item.sub}</div>
+      items.forEach(it => {
+        const div = document.createElement("div");
+        div.className = "suggestItem";
+        div.innerHTML = `
+          <div class="locIcon">📍</div>
+          <div>
+            <div class="sTitle">${it.label}</div>
+            <div class="sSub">${it.sub}</div>
           </div>
         `;
-        row.addEventListener("click", () => selectInterest(item));
-        list.appendChild(row);
+        div.addEventListener("click", () => {
+          // Fill input with a clean keyword that matches
+          const cat = CATEGORIES.find(c => c.id === it.pick);
+          $("likes").value = cat ? cat.name : it.label;
+          hideSuggest();
+          $("likes").focus();
+        });
+        list.appendChild(div);
       });
     }
 
-    function openDropdown(){
-      $("dropdown").classList.add("open");
-      renderDropdownList($("interestInput").value);
-    }
-    function closeDropdown(){
-      $("dropdown").classList.remove("open");
+    function showSuggest(){ $("suggest").style.display = "block"; }
+    function hideSuggest(){ $("suggest").style.display = "none"; }
+
+    // Match scoring
+    function scoreCategory(cat, text, score, salary){
+      const t = (text || "").toLowerCase().trim();
+
+      // Keyword match
+      let hits = 0;
+      cat.keywords.forEach(k => { if (t.includes(k)) hits++; });
+
+      // Strong bias: if user typed the category name itself
+      const typedCatName = t.includes(cat.name.toLowerCase());
+
+      // Base
+      let s = hits * 18 + (typedCatName ? 35 : 0);
+
+      // ATAR/GPA influence (simple)
+      const g = Number(score) || 0;
+      if (cat.id === "law" || cat.id === "health" || cat.id === "engineering") {
+        s += (g >= 85 ? 18 : g >= 70 ? 10 : 2);
+      } else {
+        s += (g >= 70 ? 10 : 5);
+      }
+
+      // Salary goal influence
+      if (salary === "high") {
+        if (["tech","engineering","law","business"].includes(cat.id)) s += 12;
+        else s += 4;
+      }
+      if (salary === "low") {
+        if (["government","policing","health"].includes(cat.id)) s += 10;
+      }
+
+      return s;
     }
 
-    function selectInterest(item){
-      $("interestInput").value = item.name;
-      $("interestValue").value = item.id;
-      closeDropdown();
+    function toPercent(rankIndex, topScore, score){
+      // Create nice-looking % values
+      const raw = Math.max(0, Math.min(100, Math.round((score / topScore) * 100)));
+      // Keep it not-too-high unless it's clearly best
+      if (rankIndex === 0) return Math.max(raw, 55);
+      if (rankIndex === 1) return Math.min(raw, 88);
+      return Math.min(raw, 80);
     }
 
-    // ---------- Results ----------
-    function buildResults(){
-      const interestId = $("interestValue").value || guessInterest($("interestInput").value);
-      const score = Number($("score").value || 0);
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function renderResults(sorted, likesText, score, salary){
+      const results = $("results");
+      results.style.display = "block";
+      results.innerHTML = "";
+
+      const top3 = sorted.slice(0,3);
+      const topScore = top3[0].score;
+
+      top3.forEach((item, idx) => {
+        const cat = item.cat;
+        const pct = toPercent(idx, topScore, item.score);
+
+        const card = document.createElement("div");
+        card.className = "resultCard";
+        card.innerHTML = `
+          <div class="resultTop">
+            <div>
+              <h3 class="resultName">${idx+1}. ${escapeHtml(cat.name)}</h3>
+              <div class="tags">
+                ${cat.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+              </div>
+            </div>
+            <div class="match">${pct}% match</div>
+          </div>
+
+          <div class="why">Why it fits:</div>
+          <ul>
+            ${cat.why.map(x => `<li>${escapeHtml(x)}</li>`).join("")}
+          </ul>
+
+          <div class="moreRow">
+            <span class="hint">Click to expand</span>
+            <button class="pillBtn" data-toggle-details>More details</button>
+          </div>
+
+          <div class="details">
+            <div class="detailsGrid">
+              <div class="detailItem">
+                <div class="detailTitle">Best subjects</div>
+                <div class="detailText">${escapeHtml(cat.details.subjects)}</div>
+              </div>
+              <div class="detailItem">
+                <div class="detailTitle">Typical pathways</div>
+                <div class="detailText">${escapeHtml(cat.details.pathways)}</div>
+              </div>
+              <div class="detailItem">
+                <div class="detailTitle">Key skills</div>
+                <div class="detailText">${escapeHtml(cat.details.skills)}</div>
+              </div>
+              <div class="detailItem">
+                <div class="detailTitle">Salary notes</div>
+                <div class="detailText">${escapeHtml(cat.details.salary)}</div>
+              </div>
+              <div class="detailItem" style="grid-column:1/-1;">
+                <div class="detailTitle">Next steps (this week)</div>
+                <div class="detailText">${escapeHtml(cat.details.next)}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        results.appendChild(card);
+      });
+
+      // Scroll to results
+      results.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+
+    function run(){
+      const likes = $("likes").value;
+      const score = $("score").value;
       const salary = $("salary").value;
 
-      if(!interestId || !SHORTLIST_BY_INTEREST[interestId]){
-        alert("Pick an interest from the dropdown (click the first box).");
-        return;
-      }
+      // Score all categories
+      const scored = CATEGORIES.map(cat => ({
+        cat,
+        score: scoreCategory(cat, likes, score, salary)
+      })).sort((a,b) => b.score - a.score);
 
-      const templates = SHORTLIST_BY_INTEREST[interestId];
-
-      const b = salaryBoost(salary) + atarBoost(score);
-
-      // Create 3 result cards with % that feels realistic
-      const results = templates.map((t, i) => {
-        const pct = clamp(baseMatch(i) + b - (i*3), 35, 99);
-        return { ...t, pct };
-      });
-
-      renderResults(results);
+      $("results").style.display = "block";
+      renderResults(scored, likes, score, salary);
     }
 
-    function renderResults(items){
-      const container = $("results");
-      container.innerHTML = "";
-
-      items.forEach((it, idx) => {
-        const card = document.createElement("div");
-        card.className = "result";
-        card.innerHTML = `
-          <div class="result-top">
-            <div>
-              <h3>${idx+1}. ${it.title}</h3>
-            </div>
-            <div class="match">${it.pct}% match</div>
-          </div>
-          <div class="chips">
-            ${it.tags.map(t => `<span class="chip">${t}</span>`).join("")}
-          </div>
-          <div class="why">
-            <div class="why-title">Why it fits:</div>
-            <ul>
-              ${it.why.map(x => `<li>${x}</li>`).join("")}
-            </ul>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      container.classList.remove("hidden");
-      $("afterActions").classList.remove("hidden");
-
-      window.scrollTo({ top: container.getBoundingClientRect().top + window.scrollY - 90, behavior:"smooth" });
-    }
-
-    // If user types something random, try to guess an interest.
-    function guessInterest(text){
-      const q = (text || "").toLowerCase();
-      if(q.includes("tech") || q.includes("code") || q.includes("software") || q.includes("ai")) return "tech";
-      if(q.includes("doctor") || q.includes("nurse") || q.includes("health") || q.includes("med")) return "health";
-      if(q.includes("animal") || q.includes("vet") || q.includes("wildlife")) return "animals";
-      if(q.includes("law") || q.includes("police") || q.includes("justice")) return "law";
-      if(q.includes("engineer") || q.includes("mechanic") || q.includes("electrical")) return "engineering";
-      if(q.includes("design") || q.includes("ui") || q.includes("ux") || q.includes("media")) return "creative";
-      if(q.includes("business") || q.includes("finance") || q.includes("marketing")) return "business";
-      if(q.includes("science") || q.includes("chem") || q.includes("bio")) return "science";
-      if(q.includes("teach") || q.includes("tutor") || q.includes("education")) return "education";
-      if(q.includes("sport") || q.includes("fitness") || q.includes("gym")) return "sports";
-      if(q.includes("hotel") || q.includes("food") || q.includes("tour")) return "hospitality";
-      if(q.includes("trade") || q.includes("electrician") || q.includes("plumb")) return "trades";
-      if(q.includes("plane") || q.includes("logistics") || q.includes("transport")) return "transport";
-      return "";
-    }
-
-    // ---------- Wire up events ----------
-    $("interestInput").addEventListener("focus", openDropdown);
-    $("interestInput").addEventListener("click", openDropdown);
-    $("interestInput").addEventListener("input", () => {
-      // user typing: open dropdown and filter
-      $("interestValue").value = ""; // reset selected
-      openDropdown();
-    });
-
-    // close dropdown when clicking outside
-    document.addEventListener("click", (e) => {
-      const bar = $("searchbar");
-      if(!bar.contains(e.target)) closeDropdown();
-    });
-
-    // Enter key triggers search if dropdown closed
-    $("interestInput").addEventListener("keydown", (e) => {
-      if(e.key === "Enter"){
-        e.preventDefault();
-        closeDropdown();
-        buildResults();
-      }
-      if(e.key === "Escape"){
-        closeDropdown();
-      }
-    });
-
-    $("searchBtn").addEventListener("click", buildResults);
+    // === Events ===
+    $("searchBtn").addEventListener("click", run);
 
     $("resetBtn").addEventListener("click", () => {
-      $("interestInput").value = "";
-      $("interestValue").value = "";
+      $("likes").value = "";
       $("score").value = 70;
       $("salary").value = "mid";
-      $("results").classList.add("hidden");
-      $("afterActions").classList.add("hidden");
+      $("results").style.display = "none";
+      $("results").innerHTML = "";
       window.scrollTo({ top: 0, behavior:"smooth" });
     });
 
-    // initial populate
-    renderDropdownList("");
+    // Booking-like dropdown behavior
+    renderSuggestions(TRENDING);
+
+    $("likes").addEventListener("focus", () => showSuggest());
+
+    $("likes").addEventListener("input", () => {
+      const q = $("likes").value.toLowerCase().trim();
+      if (!q){
+        renderSuggestions(TRENDING);
+        showSuggest();
+        return;
+      }
+      const filtered = TRENDING.filter(t =>
+        t.label.toLowerCase().includes(q) || t.sub.toLowerCase().includes(q)
+      );
+      renderSuggestions(filtered.length ? filtered : TRENDING);
+      showSuggest();
+    });
+
+    // Close suggestions if click outside
+    document.addEventListener("click", (e) => {
+      const field = $("interestField");
+      if (!field.contains(e.target)) hideSuggest();
+    });
+
+    // Expand/collapse details (click card or button)
+    document.addEventListener("click", (e) => {
+      const toggleBtn = e.target.closest("[data-toggle-details]");
+      if (toggleBtn){
+        e.preventDefault();
+        const card = toggleBtn.closest(".resultCard");
+        if (card) card.classList.toggle("expanded");
+        return;
+      }
+
+      const card = e.target.closest(".resultCard");
+      if (!card) return;
+
+      // If clicking something interactive, ignore
+      if (e.target.closest("a, button, input, select, textarea")) return;
+
+      card.classList.toggle("expanded");
+    });
   </script>
 </body>
 </html>
