@@ -2,190 +2,196 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CareerPicker</title>
-
   <style>
     :root{
-      /* More original palette (still premium) */
       --ink:#0b1220;
-      --muted:#64748b;
-      --bg:#f6f8fc;
+      --muted:#5b6b86;
+      --bg:#f7f8ff;
+
       --card:#ffffff;
       --line:rgba(15, 23, 42, .10);
 
-      --brand:#1c3d8f;      /* deep cobalt */
-      --brand2:#102a63;     /* midnight */
-      --accent:#ffcf33;     /* warm gold */
-      --accent2:#ffd95b;
+      --brand:#5b2cff;     /* electric violet */
+      --brand2:#1a6bff;    /* vivid blue */
+      --accent:#ff4fd8;    /* neon pink */
+      --accent2:#25f4c9;   /* mint */
 
-      --shadow: 0 18px 40px rgba(2, 6, 23, .14);
-      --softshadow: 0 10px 26px rgba(2, 6, 23, .08);
+      --shadow: 0 24px 60px rgba(2, 6, 23, .18);
+      --softshadow: 0 12px 28px rgba(2, 6, 23, .10);
 
-      --r-xl:26px;
+      --r-xl:28px;
       --r-lg:18px;
       --r-md:14px;
     }
 
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--ink);
-      background:radial-gradient(900px 360px at 18% -8%, rgba(28,61,143,.22), transparent 60%),
-                 radial-gradient(900px 380px at 86% -10%, rgba(255,207,51,.18), transparent 55%),
-                 var(--bg);
+      background:
+        radial-gradient(900px 420px at 14% 2%, rgba(91,44,255,.25), transparent 60%),
+        radial-gradient(720px 360px at 86% 4%, rgba(255,79,216,.18), transparent 58%),
+        radial-gradient(720px 380px at 66% 92%, rgba(37,244,201,.12), transparent 55%),
+        var(--bg);
     }
 
-    /* Top */
+    a{ color:inherit; text-decoration:none; }
+
     .topbar{
       position:sticky; top:0; z-index:50;
+      background: rgba(255,255,255,.72);
       backdrop-filter: blur(10px);
-      background: rgba(246,248,252,.75);
-      border-bottom: 1px solid rgba(15,23,42,.08);
-      padding:14px 18px;
+      border-bottom:1px solid rgba(15,23,42,.06);
     }
     .topbarInner{
-      max-width:1100px; margin:0 auto;
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      max-width:1200px; margin:0 auto;
+      padding:14px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight:1000; letter-spacing:-.2px;
+      font-weight:1000;
+      letter-spacing:-.3px;
     }
-    .logoDot{
-      width:12px; height:12px; border-radius:999px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--brand) 90%);
-      box-shadow: 0 8px 18px rgba(28,61,143,.25);
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(255,79,216,.12);
     }
-    .brand span{ font-size:18px; }
-    .topActions{ display:flex; align-items:center; gap:10px; }
-    .chipBtn{
-      border:1px solid rgba(15,23,42,.12);
-      background:rgba(255,255,255,.75);
+    .topActions{ display:flex; gap:10px; align-items:center; }
+    .pillBtn{
+      border:1px solid rgba(15,23,42,.10);
+      background:#fff;
       border-radius:999px;
-      padding:9px 12px;
-      font-weight:900;
+      padding:10px 14px;
+      font-weight:950;
       cursor:pointer;
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
     }
-    .chipBtn.primary{
-      border-color: transparent;
-      background: linear-gradient(180deg, var(--brand) 0%, var(--brand2) 100%);
+    .pillBtn.primary{
+      border:none;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand2) 70%, var(--accent) 130%);
       color:#fff;
-      box-shadow: 0 12px 26px rgba(16,42,99,.22);
+      box-shadow: 0 14px 26px rgba(91,44,255,.22);
     }
 
-    /* Hero */
-    .hero{
-      padding:28px 18px 10px;
-    }
-    .wrap{ max-width:1100px; margin:0 auto; }
+    .wrap{ max-width:1200px; margin:0 auto; padding:0 18px; }
+
+    /* HERO */
+    .hero{ padding:30px 0 12px; }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.3fr .7fr;
       gap:18px;
       align-items:stretch;
     }
     .heroLeft{
-      background: linear-gradient(180deg, rgba(28,61,143,.95) 0%, rgba(16,42,99,.96) 100%);
       border-radius: var(--r-xl);
-      padding:26px 22px 22px;
+      padding:30px 26px 24px;
       color:#fff;
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
+
+      background:
+        radial-gradient(600px 260px at 18% 12%, rgba(255,79,216,.35), transparent 60%),
+        radial-gradient(700px 320px at 86% 18%, rgba(37,244,201,.22), transparent 55%),
+        linear-gradient(135deg, rgba(91,44,255,1) 0%, rgba(26,107,255,1) 60%, rgba(11,18,32,1) 125%);
     }
     .heroLeft:before{
       content:"";
-      position:absolute; inset:-80px -120px auto auto;
-      width:260px; height:260px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,207,51,.55), transparent 60%);
+      position:absolute; inset:-120px -180px auto auto;
+      width:380px; height:380px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.20), transparent 60%);
       transform: rotate(18deg);
       opacity:.85;
     }
     .heroLeft h1{
       margin:0;
-      font-size:46px;
-      letter-spacing:-.7px;
+      font-size:54px;
+      letter-spacing:-1px;
       line-height:1.02;
       position:relative;
     }
     .heroLeft p{
-      margin:10px 0 0;
+      margin:12px 0 0;
       font-size:16px;
-      line-height:1.4;
+      line-height:1.55;
       color: rgba(255,255,255,.88);
-      max-width:740px;
+      max-width:780px;
       position:relative;
     }
 
-    .heroRight{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+    .heroRight{ display:flex; flex-direction:column; gap:14px; }
     .miniCard{
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.88);
       border: 1px solid rgba(15,23,42,.08);
       border-radius: var(--r-xl);
-      padding:16px 16px;
+      padding:18px 18px;
       box-shadow: var(--softshadow);
     }
-    .miniTitle{
-      font-weight:1000;
-      letter-spacing:-.2px;
-      margin:0 0 6px;
-    }
+    .miniTitle{ font-weight:1000; letter-spacing:-.2px; margin:0 0 8px; }
     .miniText{
       margin:0;
       color:var(--muted);
       font-weight:850;
-      line-height:1.35;
-      font-size:13px;
+      line-height:1.55;
+      font-size:13.5px;
+      letter-spacing:.1px;
     }
 
-    /* Search bar (more original) */
     .searchWrap{
-      margin-top:14px;
+      margin-top:18px;
       border-radius: var(--r-xl);
-      background: rgba(255,255,255,.85);
-      border: 1px solid rgba(15,23,42,.10);
-      box-shadow: var(--shadow);
-      padding:10px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 26px 70px rgba(2,6,23,.20);
+      padding:14px;
       position:relative;
     }
+
     .searchbar{
       display:grid;
-      grid-template-columns: 1.7fr .7fr 1fr .45fr;
-      gap:10px;
+      grid-template-columns: 1.9fr .9fr 1.2fr .55fr;
+      gap:12px;
       align-items:stretch;
     }
+
     .field{
-      background:#fff;
+      background: rgba(255,255,255,.92);
       border:1px solid rgba(15,23,42,.10);
       border-radius: var(--r-lg);
-      padding:12px 12px;
-      min-height:74px;
+      padding:14px 14px;
+      min-height:92px;
       display:flex;
-      gap:10px;
+      gap:12px;
       align-items:flex-start;
       position:relative;
     }
+
     .icon{
-      width:30px; height:30px;
-      border-radius:12px;
+      width:34px; height:34px;
+      border-radius:14px;
       display:flex; align-items:center; justify-content:center;
-      background: rgba(255,207,51,.22);
-      border: 1px solid rgba(255,207,51,.45);
+      background: rgba(255,79,216,.16);
+      border: 1px solid rgba(255,79,216,.35);
       font-weight:1000;
-      margin-top:4px;
+      margin-top:5px;
+      flex: 0 0 auto;
     }
+
     .label{
       font-size:13px;
       font-weight:1000;
-      color:var(--muted);
-      margin-bottom:6px;
+      color: rgba(15,23,42,.72);
+      margin-bottom:8px;
     }
+
     input, select{
       width:100%;
       border:none;
@@ -194,8 +200,8 @@
       font-size:18px;
       font-weight:950;
       color:var(--ink);
+      line-height:1.3;
     }
-    select{ cursor:pointer; }
 
     .btn{
       border:none;
@@ -203,50 +209,54 @@
       font-size:16px;
       font-weight:1000;
       cursor:pointer;
-      background: linear-gradient(180deg, var(--brand) 0%, var(--brand2) 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--brand) 55%, var(--brand2) 100%);
       color:#fff;
-      box-shadow: 0 12px 26px rgba(16,42,99,.22);
+      box-shadow: 0 18px 36px rgba(91,44,255,.28);
+      min-height:92px;
     }
-    .btn:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; box-shadow:none; transform:none; }
 
     .metaLine{
-      margin-top:10px;
+      margin-top:12px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      padding:0 4px;
+      padding:2px 2px;
     }
     .metaPill{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:8px 10px;
+      padding:10px 12px;
       border-radius:999px;
-      border:1px solid rgba(15,23,42,.10);
-      background: rgba(255,255,255,.75);
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.14);
       font-weight:950;
-      color: rgba(11,18,32,.82);
+      color: rgba(255,255,255,.92);
       font-size:13px;
+      white-space:nowrap;
     }
-    .metaPill b{ color: var(--ink); }
+    .metaPill b{ color:#fff; }
+
     .errorLine{
       display:none;
-      margin-top:10px;
+      margin-top:12px;
       border-radius: 16px;
-      padding:10px 12px;
+      padding:12px 12px;
       font-weight:950;
-      background: rgba(239, 68, 68, .10);
-      border: 1px solid rgba(239, 68, 68, .25);
-      color: rgba(153, 27, 27, 1);
+      background: rgba(255, 79, 216, .14);
+      border: 1px solid rgba(255, 79, 216, .28);
+      color: rgba(255,255,255,.92);
     }
 
-    /* Dropdown panel */
+    /* Dropdown */
     .comboPanel{
       position:absolute;
-      left:10px; right:10px;
-      top:86px;
+      left:14px; right:14px;
+      top:108px;
       background:#fff;
       border-radius: var(--r-xl);
       border: 1px solid rgba(15,23,42,.10);
@@ -256,1155 +266,883 @@
       z-index:40;
       color: var(--ink);
     }
-    .panelHeader{
-      padding:14px 14px 12px;
+    .comboHeader{
       display:flex;
+      align-items:center;
       justify-content:space-between;
-      gap:10px;
-      background: linear-gradient(180deg, rgba(28,61,143,.06) 0%, rgba(255,255,255,1) 70%);
+      padding:14px 16px;
+      border-bottom:1px solid rgba(15,23,42,.08);
+      background: linear-gradient(180deg, rgba(91,44,255,.06), rgba(255,255,255,1));
     }
-    .panelTitle{
+    .comboTitle{
       font-weight:1000;
       letter-spacing:-.2px;
+      display:flex; gap:10px; align-items:center;
     }
-    .panelHint{
-      font-weight:950;
+    .comboHint{
       color:var(--muted);
-      font-size:12px;
+      font-weight:850;
+      font-size:13px;
     }
-    .panelList{
-      max-height:380px;
+    .comboList{
+      max-height:360px;
       overflow:auto;
-      border-top:1px solid rgba(15,23,42,.08);
+      padding:8px;
       background:#fff;
     }
-    .panelItem{
+    .row{
       display:flex;
       gap:12px;
-      padding:12px 14px;
       align-items:center;
-      border-top:1px solid rgba(15,23,42,.06);
+      padding:14px 12px;
+      border-radius:18px;
       cursor:pointer;
-      background:#fff;
+      border:1px solid transparent;
     }
-    .panelItem:first-child{ border-top:none; }
-    .panelItem:hover{ background:#f4f7ff; }
-    .panelItem.active{ background:#eef2ff; }
-    .badge{
-      width:38px; height:38px;
+    .row:hover{
+      background: rgba(91,44,255,.06);
+      border-color: rgba(91,44,255,.12);
+    }
+    .rowIcon{
+      width:40px; height:40px;
       border-radius:999px;
-      background: rgba(15,23,42,.04);
-      border: 1px solid rgba(15,23,42,.08);
       display:flex; align-items:center; justify-content:center;
-      font-weight:1000;
+      background: rgba(15,23,42,.04);
+      border:1px solid rgba(15,23,42,.08);
+      font-size:18px;
       flex:0 0 auto;
     }
-    .pTitle{ font-weight:1000; font-size:16px; color:var(--ink); }
-    .pSub{ color:var(--muted); font-weight:900; margin-top:2px; font-size:12.5px; }
+    .rowMain{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+    .rowName{ font-weight:1000; letter-spacing:-.2px; }
+    .rowMeta{ color:var(--muted); font-weight:850; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-    /* Results */
-    .section{ padding:20px 18px 44px; }
-    .resultsHeader{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-top:6px;
+    /* CONTENT BELOW */
+    .section{ padding:22px 0 50px; }
+    .h2{
+      margin:0 0 8px;
+      font-size:38px;
+      letter-spacing:-.7px;
     }
-    .resultsTitle{
-      margin:0;
-      font-size:30px;
-      font-weight:1000;
-      letter-spacing:-.4px;
-    }
-    .resultsSub{
-      margin:0;
+    .sub{
+      margin:0 0 18px;
       color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-    }
-    #results{ display:none; margin-top:14px; }
-
-    .resultCard{
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: var(--r-xl);
-      box-shadow: var(--softshadow);
-      padding:16px 16px;
-      margin:12px 0;
-      cursor:pointer;
-      transition: transform .08s ease;
-    }
-    .resultCard:hover{ transform: translateY(-1px); }
-
-    .resultTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .resultName{
-      margin:0;
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:-.2px;
-    }
-    .match{
-      font-weight:1000;
-      color: var(--brand);
-      font-size:18px;
-      white-space:nowrap;
-      margin-top:2px;
-    }
-    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .tag{
-      border:1px solid rgba(15,23,42,.10);
-      background: rgba(28,61,143,.05);
-      border-radius:999px;
-      padding:7px 10px;
-      font-weight:1000;
-      color: rgba(28,61,143,.92);
-      font-size:13px;
-    }
-    .whyLabel{ margin-top:12px; font-weight:1000; }
-    ul{
-      margin:8px 0 0 18px;
-      color: rgba(11,18,32,.74);
-      font-weight:900;
+      font-weight:850;
       line-height:1.5;
     }
 
-    .moreRow{
+    .cards{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:12px;
+      flex-direction:column;
+      gap:14px;
     }
-    .pillBtn{
-      border:1px solid rgba(15,23,42,.12);
-      background:#fff;
+    .card{
+      background: rgba(255,255,255,.88);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius: var(--r-xl);
+      box-shadow: var(--softshadow);
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .cardTop{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 18px;
+      align-items:flex-start;
+    }
+    .cardTitle{
+      font-weight:1000;
+      font-size:22px;
+      letter-spacing:-.3px;
+      margin:0 0 8px;
+    }
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+    .tag{
       padding:8px 10px;
       border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.7);
+      font-weight:950;
+      color: rgba(15,23,42,.72);
+      font-size:12.5px;
+    }
+    .match{
       font-weight:1000;
-      cursor:pointer;
+      font-size:20px;
+      color: #103d9b;
+      white-space:nowrap;
+      padding-top:2px;
     }
-    .hint{ color:var(--muted); font-weight:950; }
-
-    .details{ display:none; margin-top:14px; padding-top:14px; border-top:1px solid rgba(15,23,42,.10); }
-    .resultCard.expanded .details{ display:block; }
-
-    .detailsGrid{
+    .cardBody{
+      display:none;
+      padding:0 18px 18px;
+      border-top:1px solid rgba(15,23,42,.08);
+      background: rgba(255,255,255,.82);
+    }
+    .bodyGrid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px 12px;
-      margin-top:10px;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      padding-top:14px;
     }
-    .detailItem{
-      background:#fff;
+    .box{
       border:1px solid rgba(15,23,42,.08);
-      border-radius: var(--r-lg);
-      padding:12px 12px;
+      background: rgba(255,255,255,.9);
+      border-radius: 18px;
+      padding:14px;
     }
-    .detailTitle{ font-weight:1000; margin-bottom:4px; }
-    .detailText{ color: rgba(11,18,32,.76); font-weight:900; line-height:1.4; font-size:13.5px; }
-
-    .bottomRow{ display:flex; gap:10px; margin:16px 0 10px; }
-    .secondaryBtn{
-      background:#fff;
-      border:1px solid rgba(15,23,42,.12);
-      border-radius: var(--r-lg);
-      padding:12px 14px;
+    .box h4{
+      margin:0 0 10px;
       font-weight:1000;
-      cursor:pointer;
+      letter-spacing:-.2px;
+    }
+    .box p, .box li{
+      margin:0;
+      color: var(--muted);
+      font-weight:850;
+      line-height:1.55;
+      font-size:14px;
+    }
+    .box ul{
+      margin:0;
+      padding-left:18px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
 
-    /* Modal */
-    .modalOverlay{
-      position:fixed; inset:0;
-      background: rgba(2,6,23,.55);
-      display:flex; align-items:center; justify-content:center;
-      z-index:9999;
-      padding:18px;
+    .actionsRow{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
     }
-    .modal{
-      width:min(760px, 100%);
-      background:#fff;
-      border-radius: var(--r-xl);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      border:1px solid rgba(15,23,42,.12);
-    }
-    .modalTop{
-      padding:18px 18px 14px;
-      background: linear-gradient(180deg, rgba(28,61,143,1) 0%, rgba(16,42,99,1) 100%);
-      color:#fff;
-    }
-    .modalTop h2{ margin:0; font-size:24px; font-weight:1000; letter-spacing:-.2px; }
-    .modalTop p{ margin:8px 0 0; opacity:.9; font-weight:900; line-height:1.35; }
-    .modalBody{ padding:16px 18px 18px; }
-    .choiceGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    .choiceBtn{
+    .ghost{
       border:1px solid rgba(15,23,42,.10);
       background:#fff;
-      border-radius: var(--r-xl);
-      padding:14px 14px;
+      border-radius: 999px;
+      padding:10px 14px;
+      font-weight:1000;
       cursor:pointer;
-      text-align:left;
-      box-shadow: var(--softshadow);
-    }
-    .choiceBtn:hover{ transform: translateY(-1px); }
-    .choiceTitle{ font-weight:1000; font-size:17px; }
-    .choiceSub{ margin-top:6px; color:var(--muted); font-weight:900; line-height:1.35; font-size:13px; }
-    .finePrint{
-      margin-top:12px;
-      color:var(--muted);
-      font-weight:900;
-      font-size:12.8px;
-      line-height:1.35;
     }
 
     @media (max-width: 980px){
       .heroGrid{ grid-template-columns: 1fr; }
-      .heroLeft h1{ font-size:40px; }
+      .heroLeft h1{ font-size:44px; }
       .searchbar{ grid-template-columns: 1fr; }
-      .comboPanel{ top:82px; }
-      .detailsGrid{ grid-template-columns: 1fr; }
-      .choiceGrid{ grid-template-columns: 1fr; }
+      .comboPanel{ top:104px; }
+      .bodyGrid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 
 <body>
-  <div class="modalOverlay" id="startModal">
-    <div class="modal">
-      <div class="modalTop">
-        <h2>Start: Which score are you using?</h2>
-        <p>
-          We filter professions using a simple “eligibility score”.
-          <br>It’s not official entry requirements — just a smart filter for a prototype.
-        </p>
-      </div>
-      <div class="modalBody">
-        <div class="choiceGrid">
-          <button class="choiceBtn" id="chooseATAR">
-            <div class="choiceTitle">ATAR (0.00–99.95)</div>
-            <div class="choiceSub">ATAR is capped at 99.95 — not 100. We'll use it directly.</div>
-          </button>
-          <button class="choiceBtn" id="chooseGPA7">
-            <div class="choiceTitle">GPA (0.00–7.00)</div>
-            <div class="choiceSub">Common in Australian universities (7-point scale). We'll convert it to an eligibility score.</div>
-          </button>
-        </div>
-        <div class="finePrint">
-          If you need a 4.0 GPA scale later, tell me and I’ll add a third option (0.00–4.00).
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="topbar">
     <div class="topbarInner">
-      <div class="brand">
-        <div class="logoDot"></div>
-        <span>CareerPicker</span>
-      </div>
+      <div class="brand"><span class="dot"></span> CareerPicker</div>
       <div class="topActions">
-        <button class="chipBtn">About</button>
-        <button class="chipBtn primary">Save (later)</button>
+        <button class="pillBtn" id="aboutBtn">About</button>
+        <button class="pillBtn primary" id="saveBtn">Save (later)</button>
       </div>
     </div>
   </div>
 
-  <div class="hero">
-    <div class="wrap">
-      <div class="heroGrid">
-        <div class="heroLeft">
-          <h1>Pick a real profession, then see related paths.</h1>
-          <p id="heroSubtitle">
-            Type to search. Scroll to browse. If it’s not in the list, it won’t match (real job list only).
-          </p>
+  <div class="wrap hero">
+    <div class="heroGrid">
+      <div class="heroLeft">
+        <h1>Pick a real profession, then see related paths.</h1>
+        <p>
+          Type to search. Scroll to browse. If it’s not in the list, it won’t match (real job list only).
+          Your score unlocks more options — low scores still have trades, logistics, hospitality, and more.
+        </p>
 
-          <div class="searchWrap">
-            <div class="searchbar">
-              <div class="field" id="jobField">
-                <div class="icon">💼</div>
-                <div style="width:100%">
-                  <div class="label">Profession (must pick from list)</div>
-                  <input id="jobInput" autocomplete="off" placeholder="Start typing… (e.g. Electrician, Nurse, Data Analyst)" />
-                  <div class="label" style="margin-top:6px" id="jobCountNote"></div>
-                </div>
-
-                <div class="comboPanel" id="comboPanel">
-                  <div class="panelHeader">
-                    <div class="panelTitle">Eligible professions</div>
-                    <div class="panelHint">Type to filter • Scroll • Enter to select</div>
-                  </div>
-                  <div class="panelList" id="panelList"></div>
+        <div class="searchWrap">
+          <div class="searchbar">
+            <!-- Profession -->
+            <div class="field" id="professionField">
+              <div class="icon">🧭</div>
+              <div style="width:100%">
+                <div class="label">Profession (must pick from list)</div>
+                <input id="professionInput" placeholder="Type a profession (e.g., Electrician, Lawyer, Nurse)"/>
+                <div style="margin-top:6px; color:rgba(15,23,42,.58); font-weight:900; font-size:12.5px;">
+                  <span id="shownCount">0</span> shown • <span id="eligibleCount">0</span> eligible in total
                 </div>
               </div>
-
-              <div class="field">
-                <div class="icon">🧾</div>
-                <div style="width:100%">
-                  <div class="label" id="scoreLabel">ATAR</div>
-                  <input id="scoreInput" type="number" step="0.05" min="0" max="99.95" value="70" />
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="icon">💰</div>
-                <div style="width:100%">
-                  <div class="label">Salary circumstance (AUD)</div>
-                  <select id="salary">
-                    <option value="solo" selected>Low: supporting only yourself — $45k–$70k</option>
-                    <option value="family">Medium: supporting a family — $70k–$120k</option>
-                    <option value="wealth">High: wealth-building / high growth — $120k–$250k+</option>
-                  </select>
-                </div>
-              </div>
-
-              <button class="btn" id="searchBtn" disabled>Get shortlist</button>
             </div>
 
-            <div class="errorLine" id="errorLine">
-              Please select a profession from the dropdown list (only eligible professions are shown).
+            <!-- ATAR/GPA -->
+            <div class="field">
+              <div class="icon">📌</div>
+              <div style="width:100%">
+                <div class="label" id="scoreLabel">ATAR (0.00–99.95)</div>
+                <input id="scoreInput" type="number" step="0.05" min="0" max="99.95" value="70.00"/>
+              </div>
             </div>
 
-            <div class="metaLine">
-              <div class="metaPill">
-                Mode: <b id="modeText">ATAR</b> • Input: <b id="rawScoreText">70</b> • Eligibility: <b id="eligScoreText">70</b>/100
-              </div>
-              <div class="metaPill">
-                Tip: raise your score to unlock more professions. Low scores still have options (trades, logistics, hospitality).
+            <!-- Salary -->
+            <div class="field">
+              <div class="icon">💰</div>
+              <div style="width:100%">
+                <div class="label">Salary circumstance (AUD)</div>
+                <select id="salarySelect">
+                  <option value="low">Low: supporting self • $40k–$70k</option>
+                  <option value="mid" selected>Medium: family support • $70k–$120k</option>
+                  <option value="high">High: maximise earnings • $120k+</option>
+                </select>
               </div>
             </div>
+
+            <button class="btn" id="searchBtn" disabled>Get shortlist</button>
+          </div>
+
+          <div class="metaLine">
+            <div class="metaPill">Mode: <b id="modePill">ATAR</b></div>
+            <div class="metaPill">Input: <b id="inputPill">70.00</b></div>
+            <div class="metaPill">Eligibility: <b id="eligPill">—</b></div>
+          </div>
+
+          <div class="errorLine" id="errorLine">Pick a profession from the list to continue.</div>
+
+          <!-- Dropdown Panel -->
+          <div class="comboPanel" id="comboPanel">
+            <div class="comboHeader">
+              <div class="comboTitle">Professions</div>
+              <div class="comboHint">Type to filter • Scroll • Enter to select</div>
+            </div>
+            <div class="comboList" id="comboList"></div>
           </div>
         </div>
+      </div>
 
-        <div class="heroRight">
-          <div class="miniCard">
-            <p class="miniTitle">Real-list matching</p>
-            <p class="miniText">You can’t type a random job and force it — it must exist in the list.</p>
-          </div>
-          <div class="miniCard">
-            <p class="miniTitle">Explainable output</p>
-            <p class="miniText">Shortlist shows why it fits, plus what you’d do day-to-day and how to start.</p>
-          </div>
-          <div class="miniCard">
-            <p class="miniTitle">Prototype-safe evidence notes</p>
-            <p class="miniText">We label what’s a “rule of thumb” vs what’s a formal requirement, so we don’t pretend certainty.</p>
-          </div>
+      <div class="heroRight">
+        <div class="miniCard">
+          <div class="miniTitle">Real-list matching</div>
+          <p class="miniText">You can’t type a random job and force it — it must exist in the list.</p>
+        </div>
+        <div class="miniCard">
+          <div class="miniTitle">Explainable output</div>
+          <p class="miniText">Shortlist shows why it fits, day-to-day tasks, and how to start.</p>
+        </div>
+        <div class="miniCard">
+          <div class="miniTitle">Prototype-safe evidence notes</div>
+          <p class="miniText">We label “rule of thumb” vs “formal requirement”, so we don’t pretend certainty.</p>
+        </div>
+        <div class="miniCard">
+          <div class="miniTitle">Mode switch</div>
+          <p class="miniText">ATAR uses 0–99.95. GPA uses 0–7. (Not 100.)</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <div class="wrap">
-      <div class="resultsHeader">
-        <div>
-          <h2 class="resultsTitle">Your shortlist</h2>
-          <p class="resultsSub">Click a card to expand details. (Each card is different.)</p>
-        </div>
-      </div>
+  <div class="wrap section">
+    <div class="h2">Your shortlist</div>
+    <div class="sub">Click a card to expand details. (Each card is different.)</div>
 
-      <div id="results"></div>
+    <div class="cards" id="results"></div>
 
-      <div class="bottomRow">
-        <button class="secondaryBtn" id="resetBtn">Reset</button>
-      </div>
+    <div class="actionsRow">
+      <button class="ghost" id="resetBtn">Reset</button>
+      <button class="ghost" id="modeBtn">Switch to GPA</button>
     </div>
   </div>
 
-<script>
-  const $ = (id) => document.getElementById(id);
+  <script>
+    const $ = (id) => document.getElementById(id);
 
-  // -----------------------
-  // Category library (unique details per category)
-  // -----------------------
-  const CATEGORIES = [
-    { id:"hospitality", name:"Hospitality & Retail", tags:["Retail","Cafe","Customer service","Shift lead"],
-      detail:{
-        env:"Fast-paced, public-facing, shift-based.",
-        tools:"POS systems, scheduling apps, inventory tools.",
-        tasks:["Serve customers","Handle payments","Stock & setup","Resolve issues quickly"],
-        entry:"Very accessible; reliability and attitude matter most.",
-        growth:"Supervisor → manager → (optionally) owner.",
-        evidence:"Requirements vary by employer; this is a common hiring pattern, not a guarantee."
-      }
-    },
-    { id:"logistics", name:"Transport & Logistics", tags:["Warehouse","Delivery","Forklift","Scheduling"],
-      detail:{
-        env:"Warehouses, depots, routes; safety-focused.",
-        tools:"Scanners, inventory systems, route/scheduling tools.",
-        tasks:["Pick/pack","Dispatch","Operate equipment (ticketed)","Track stock"],
-        entry:"Accessible; some roles require licenses/tickets.",
-        growth:"Lead hand → supervisor → planner/supply chain.",
-        evidence:"Licensing/tickets depend on role and state; verify locally."
-      }
-    },
-    { id:"trades", name:"Trades & Apprenticeships", tags:["Apprentice","TAFE","On-site","Skilled work"],
-      detail:{
-        env:"On-site, hands-on work; safety + practical problem-solving.",
-        tools:"Trade-specific tools, safety gear, job sheets.",
-        tasks:["Install/repair","Read plans","Safety checks","Customer communication"],
-        entry:"Often via apprenticeship/TAFE; ATAR usually not the gate.",
-        growth:"Qualified → specialist → run your own business.",
-        evidence:"Entry routes differ by trade/employer; this is a typical pathway."
-      }
-    },
-    { id:"business", name:"Business & Management", tags:["Ops","Project","Marketing","Finance"],
-      detail:{
-        env:"Office/hybrid; meetings + planning + analysis.",
-        tools:"Docs, spreadsheets, analytics dashboards, project tools.",
-        tasks:["Coordinate work","Analyse metrics","Write plans","Manage stakeholders"],
-        entry:"Degrees help; so do projects/internships.",
-        growth:"Specialise (BA/PM/Marketing/Finance) → leadership.",
-        evidence:"Some roles are portfolio-based; requirements vary by company."
-      }
-    },
-    { id:"government", name:"Policy & Government", tags:["Policy","Compliance","Regulation","Public service"],
-      detail:{
-        env:"Structured orgs; procedures, fairness, accountability.",
-        tools:"Brief templates, reporting systems, stakeholder registers.",
-        tasks:["Write briefs","Interpret rules","Consult stakeholders","Improve processes"],
-        entry:"Communication + writing are big; degrees often preferred.",
-        growth:"Policy/program streams → senior adviser → leadership.",
-        evidence:"Public sector criteria vary by agency; check job listings."
-      }
-    },
-    { id:"policing", name:"Justice & Policing", tags:["Police","Corrections","Forensics","Emergency"],
-      detail:{
-        env:"Field + desk work; high responsibility; teamwork.",
-        tools:"Reporting systems, radios, evidence procedures.",
-        tasks:["Respond & report","Interview/communicate","De-escalate","Follow protocols"],
-        entry:"Fitness/background checks; training pipelines vary.",
-        growth:"Specialist units after experience.",
-        evidence:"Formal entry standards are state-specific; verify official sites."
-      }
-    },
-    { id:"education", name:"Education", tags:["Teaching","Tutoring","Support","Early childhood"],
-      detail:{
-        env:"Schools/centres; structured timetable; lots of people time.",
-        tools:"Learning platforms, lesson plans, assessments.",
-        tasks:["Teach","Plan lessons","Assess progress","Support students"],
-        entry:"Qualifications + placements; requirements vary.",
-        growth:"Leadership roles (leading teacher, coordinator).",
-        evidence:"Registration rules vary by state; confirm local authority."
-      }
-    },
-    { id:"health", name:"Healthcare", tags:["Nursing","Allied health","Medicine","Care"],
-      detail:{
-        env:"Clinics/hospitals; teamwork; documentation-heavy.",
-        tools:"Clinical systems, patient notes, protocols.",
-        tasks:["Assess & support","Communicate","Follow procedures","Work placements"],
-        entry:"Competitive for some professions (medicine/dentistry).",
-        growth:"Specialise via further training/experience.",
-        evidence:"This app uses rule-of-thumb cutoffs; not official admissions thresholds."
-      }
-    },
-    { id:"tech", name:"Technology & Software", tags:["Software","Cyber","Data","Cloud"],
-      detail:{
-        env:"Teams; project work; constant learning; often hybrid.",
-        tools:"Git, IDEs, cloud consoles, tickets, monitoring.",
-        tasks:["Build features","Debug","Review code","Automate & improve"],
-        entry:"Portfolio can matter a lot; some roles still prefer degrees.",
-        growth:"Specialise (cloud/data/security) → senior/lead.",
-        evidence:"Hiring depends on portfolio + interviews; not purely score-based."
-      }
-    },
-    { id:"engineering", name:"Engineering", tags:["Civil","Electrical","Mechanical","Design"],
-      detail:{
-        env:"Design + field checks; safety and standards matter.",
-        tools:"CAD, modelling, documentation, testing rigs.",
-        tasks:["Design","Model & test","Document","Coordinate with teams"],
-        entry:"Often needs strong maths/science prerequisites.",
-        growth:"Grad → professional engineer → chartered/specialist.",
-        evidence:"University prerequisites vary; verify course pages."
-      }
-    },
-    { id:"law", name:"Law", tags:["Lawyer","Paralegal","Contracts","Corporate"],
-      detail:{
-        env:"Reading + writing heavy; accuracy and ethics.",
-        tools:"Document systems, legal databases, templates.",
-        tasks:["Draft documents","Research","Advise","Negotiate"],
-        entry:"Often university-based and competitive.",
-        growth:"Specialise (corporate/criminal/family) → senior roles.",
-        evidence:"Cutoffs vary by university; confirm official admissions data."
-      }
-    },
-    { id:"creative", name:"Creative & Media", tags:["UI/UX","Design","Video","Content"],
-      detail:{
-        env:"Studio/remote; feedback loops; portfolio-driven.",
-        tools:"Figma/Adobe, editors, content tools.",
-        tasks:["Design iterations","Produce content","Gather feedback","Ship improvements"],
-        entry:"Portfolio often outweighs scores.",
-        growth:"Specialise (UX/video/brand) → lead/agency/freelance.",
-        evidence:"Entry depends on portfolio quality; this is a common industry pattern."
-      }
-    },
-  ];
+    // ---------- Data ----------
+    // NOTE: This includes a lot, and you can keep adding.
+    // Each job has: title, emoji, category, tags, atarMin, gpaMin, salaryBand
+    // salaryBand: low | mid | high (rough)
+    const JOBS = [
+      // Healthcare
+      job("Doctor", "🩺", "Healthcare", ["Medicine","Hospital","Patient care"], 95, 6.6, "high", {
+        day: "Diagnose, treat, manage care plans, coordinate with specialists.",
+        start: "ATAR usually very high. Start with strong science subjects + UMAT/UCAT style prep (varies).",
+        evidence: "Formal requirements vary by uni + state. Score shown is a prototype rule-of-thumb."
+      }),
+      job("Nurse", "🧑‍⚕️", "Healthcare", ["Ward","Patient care","Clinical"], 70, 5.5, "mid", {
+        day: "Assess patients, administer meds, monitor vitals, coordinate care.",
+        start: "ATAR often moderate. Multiple pathways (uni/TAFE-to-uni).",
+        evidence: "Exact cutoffs vary by institution."
+      }),
+      job("Paramedic", "🚑", "Healthcare", ["Emergency","First response","Trauma"], 75, 5.8, "mid", {
+        day: "Emergency response, triage, stabilise patients, transport safely.",
+        start: "Fitness + communication matter. Pathways depend on state + uni.",
+        evidence: "Entry requirements vary."
+      }),
+      job("Pharmacist", "💊", "Healthcare", ["Medicines","Counselling","Chemistry"], 80, 6.0, "mid", {
+        day: "Dispense medicines, advise patients, check interactions.",
+        start: "Strong science helps. Uni pathway.",
+        evidence: "Cutoffs vary by course demand."
+      }),
+      job("Physiotherapist", "🦴", "Healthcare", ["Rehab","Movement","Sports"], 80, 6.0, "mid", {
+        day: "Rehab plans, exercises, injury recovery, mobility improvement.",
+        start: "Uni pathway. Sport/biology helpful.",
+        evidence: "Varies by university."
+      }),
 
-  const RELATED = {
-    law:        ["government","business","policing"],
-    policing:   ["government","law","health"],
-    government: ["law","business","tech"],
-    tech:       ["engineering","business","creative"],
-    health:     ["policing","education","government"],
-    business:   ["government","tech","law"],
-    creative:   ["tech","business","education"],
-    engineering:["tech","business","government"],
-    education:  ["health","government","creative"],
+      // Law & justice
+      job("Lawyer", "⚖️", "Law", ["Court","Contracts","Advice"], 85, 6.0, "high", {
+        day: "Research, draft documents, advise clients, negotiate, sometimes court.",
+        start: "Strong writing + reasoning. Uni pathway. Competitive.",
+        evidence: "ATAR shown is a guideline; exact cutoffs differ."
+      }),
+      job("Paralegal", "📚", "Law", ["Legal support","Documents","Research"], 55, 4.5, "mid", {
+        day: "Prepare documents, manage case files, support lawyers.",
+        start: "TAFE/uni pathways. Organisation matters.",
+        evidence: "Some roles accept experience over score."
+      }),
+      job("Police Officer", "🚓", "Justice", ["Public safety","Community","Training"], 45, 4.0, "mid", {
+        day: "Community policing, respond to incidents, investigations support.",
+        start: "Fitness + background checks. Academy training.",
+        evidence: "Entry is not purely ATAR/GPA—more holistic."
+      }),
+      job("Detective", "🕵️", "Justice", ["Investigations","Evidence","Interviews"], 55, 4.5, "mid", {
+        day: "Investigate cases, gather evidence, interview suspects/witnesses.",
+        start: "Usually after experience as police officer.",
+        evidence: "Progression role (not direct entry)."
+      }),
 
-    trades:     ["logistics","business","engineering"],
-    hospitality:["business","logistics","creative"],
-    logistics:  ["business","trades","government"]
-  };
+      // Tech
+      job("Software Developer", "💻", "Technology", ["Coding","Apps","Systems"], 60, 5.0, "high", {
+        day: "Build software, debug, design features, collaborate in teams.",
+        start: "Uni or self-taught + portfolio. Maths helps.",
+        evidence: "ATAR can be low with strong alt pathways."
+      }),
+      job("Cybersecurity Analyst", "🛡️", "Technology", ["Security","Threats","Networks"], 65, 5.2, "high", {
+        day: "Monitor threats, respond to incidents, harden systems.",
+        start: "IT foundations + security certs. Labs/CTFs help.",
+        evidence: "Certifications often matter as much as score."
+      }),
+      job("Data Analyst", "📊", "Technology", ["Data","Insights","Excel/SQL"], 55, 4.8, "mid", {
+        day: "Clean data, build dashboards, answer business questions.",
+        start: "Learn Excel/SQL + basic stats. Portfolio projects help.",
+        evidence: "Many entry routes."
+      }),
+      job("UX Designer", "🎨", "Creative", ["Design","User research","Prototypes"], 50, 4.5, "mid", {
+        day: "Design flows, test with users, iterate UI prototypes.",
+        start: "Portfolio is key. Many non-ATAR pathways.",
+        evidence: "Often portfolio > score."
+      }),
 
-  // Category minimums are in *eligibility score* (0–100)
-  const CATEGORY_MIN = {
-    hospitality: 0,
-    logistics: 10,
-    trades: 20,
-    creative: 40,
-    tech: 45,
-    business: 50,
-    policing: 55,
-    government: 60,
-    education: 60,
-    health: 70,
-    engineering: 75,
-    law: 80
-  };
+      // Trades
+      job("Electrician", "⚡", "Trades", ["Wiring","Safety","Apprenticeship"], 30, 3.5, "mid", {
+        day: "Install/repair wiring, test systems, follow safety rules.",
+        start: "Apprenticeship pathway. Strong demand.",
+        evidence: "Score not the main gate—training + apprenticeship is."
+      }),
+      job("Plumber", "🚰", "Trades", ["Pipes","Repairs","Apprenticeship"], 30, 3.5, "mid", {
+        day: "Install/repair plumbing, diagnose leaks, compliance work.",
+        start: "Apprenticeship. On-the-job learning.",
+        evidence: "Often not ATAR-gated."
+      }),
+      job("Carpenter", "🪚", "Trades", ["Construction","Build","Apprenticeship"], 25, 3.2, "mid", {
+        day: "Frame structures, measure/cut materials, site work.",
+        start: "Apprenticeship. Practical skills.",
+        evidence: "Entry is training-based."
+      }),
 
-  const JOB_MIN_OVERRIDE = {
-    "Doctor": 95,
-    "Surgeon": 98,
-    "General Practitioner": 95,
-    "Dentist": 92,
-    "Psychologist": 85,
-    "Pharmacist": 85,
-    "Paramedic": 78,
-    "Midwife": 78,
+      // Business
+      job("Accountant", "🧾", "Business", ["Finance","Tax","Reporting"], 55, 4.8, "mid", {
+        day: "Prepare reports, manage budgets, tax planning, audits.",
+        start: "Uni pathway or vocational stepping-stones.",
+        evidence: "Requirements vary by role."
+      }),
+      job("Business Analyst", "🧠", "Business", ["Processes","Requirements","Stakeholders"], 55, 4.8, "high", {
+        day: "Translate business needs into requirements, improve processes.",
+        start: "Communication + analysis. Tech/business mix helps.",
+        evidence: "Portfolio/case studies can help entry."
+      }),
 
-    "Lawyer": 85,
-    "Barrister": 90,
-
-    "AI Engineer": 75,
-    "Machine Learning Engineer": 78,
-    "Data Scientist": 75,
-    "Solutions Architect": 70,
-
-    "Civil Engineer": 78,
-    "Electrical Engineer": 80,
-    "Mechanical Engineer": 78,
-
-    "Teacher (Secondary)": 70,
-    "Teacher (Primary)": 65
-  };
-
-  function getCategory(id){ return CATEGORIES.find(c => c.id === id); }
-  function escapeHtml(str){
-    return String(str)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-  function categoryIcon(cat){
-    const map = {
-      law:"⚖️", policing:"🚓", government:"🏛️", tech:"💻",
-      engineering:"🛠️", health:"🩺", business:"📈", creative:"🎨", education:"📚",
-      trades:"🧰", hospitality:"🛍️", logistics:"🚚"
-    };
-    return map[cat] || "💼";
-  }
-
-  // -----------------------
-  // Massive jobs list generator (~450+)
-  // -----------------------
-  function uniqueJobs(list){
-    const seen = new Set();
-    const out = [];
-    for (const j of list){
-      const key = j.title.toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key);
-      out.push(j);
-    }
-    return out;
-  }
-
-  function generateJobs(){
-    const out = [];
-    const add = (title, category, sub) => out.push({ title, category, sub });
-    const addMany = (arr, cat, sub) => arr.forEach(t => add(t, cat, sub));
-    const addLevels = (levels, roles, cat, sub) => levels.forEach(l => roles.forEach(r => add(`${l} ${r}`, cat, sub)));
-
-    addMany([
-      "Retail Assistant","Retail Sales Associate","Cashier","Store Team Member","Customer Service Assistant",
-      "Call Centre Agent","Receptionist (Entry)","Barista","Cafe All-rounder","Waiter","Kitchen Hand",
-      "Fast Food Team Member","Housekeeper","Cleaner","Event Staff","Stock Replenisher","Merchandiser",
-      "Shift Supervisor (Retail)","Assistant Store Manager","Store Manager","Restaurant Manager"
-    ], "hospitality", "Entry-friendly • customer service • teamwork");
-
-    addMany([
-      "Warehouse Assistant","Picker Packer","Storeperson","Forklift Operator","Dispatch Coordinator",
-      "Delivery Driver","Courier Driver","Inventory Controller","Logistics Coordinator","Transport Scheduler",
-      "Route Planner","Freight Handler"
-    ], "logistics", "Demand • safety • reliability");
-
-    addMany([
-      "Apprentice Electrician","Apprentice Plumber","Apprentice Carpenter","Apprentice Painter","Apprentice Mechanic",
-      "Electrician","Plumber","Carpenter","Painter","Tiler","Welder","Mechanic","Diesel Mechanic","Auto Electrician",
-      "HVAC Technician","Solar Installer","Locksmith","Landscaper"
-    ], "trades", "Hands-on • apprenticeship/TAFE");
-
-    addMany([
-      "Software Engineer","Frontend Developer","Backend Developer","Full Stack Developer","Mobile App Developer",
-      "QA Engineer","Test Automation Engineer","DevOps Engineer","Cloud Engineer","Network Engineer",
-      "IT Support Officer","Helpdesk Technician","Cybersecurity Analyst","Security Engineer",
-      "Data Analyst","Data Engineer","Data Scientist","Machine Learning Engineer","AI Engineer","Solutions Architect"
-    ], "tech", "Build • debug • ship");
-
-    addLevels(["Junior","Mid","Senior","Lead"], ["Software Engineer","Data Analyst","Cloud Engineer","Security Engineer"], "tech", "Progression • portfolio");
-
-    addMany([
-      "Business Analyst","Project Manager","Product Manager","Operations Coordinator","Digital Marketer",
-      "Accountant","Bookkeeper","Financial Analyst","Sales Representative","Account Manager",
-      "HR Officer","Recruiter","Procurement Officer","Office Manager","Administrative Assistant"
-    ], "business", "Planning • people • outcomes");
-
-    addMany([
-      "Policy Officer","Policy Analyst","Program Officer","Compliance Officer (Government)",
-      "Community Engagement Officer","Inspector (Regulatory)","Urban Planner"
-    ], "government", "Systems • briefs • stakeholders");
-
-    addMany([
-      "Police Officer","Detective","Corrections Officer","Security Officer",
-      "Crime Scene Investigator","Forensic Analyst","Emergency Dispatcher","Firefighter","Paramedic"
-    ], "policing", "Public service • protocols");
-
-    addMany([
-      "Teacher (Primary)","Teacher (Secondary)","Early Childhood Educator","Teacher Aide","Tutor",
-      "Special Education Teacher","School Counsellor"
-    ], "education", "Teaching • support • structure");
-
-    addMany([
-      "Nurse","Registered Nurse","Enrolled Nurse","Doctor","General Practitioner","Surgeon",
-      "Psychologist","Physiotherapist","Occupational Therapist","Pharmacist","Dentist","Radiographer","Dietitian","Midwife"
-    ], "health", "Care • science • teamwork");
-
-    addMany([
-      "Civil Engineer","Structural Engineer","Mechanical Engineer","Electrical Engineer",
-      "Environmental Engineer","Surveyor","CAD Technician"
-    ], "engineering", "Design • test • safety");
-
-    addMany([
-      "Lawyer","Solicitor","Barrister","Paralegal","Legal Assistant","Contracts Manager","Mediator"
-    ], "law", "Rules • writing • evidence");
-
-    addMany([
-      "UI/UX Designer","Graphic Designer","Video Editor","Content Creator","Motion Designer","Photographer"
-    ], "creative", "Portfolio • iteration • storytelling");
-
-    // add more role variants to reach ~450+
-    const adminRoles = ["Administrator","Coordinator","Officer","Assistant","Associate"];
-    const domains = [
-      {cat:"business", d:"Operations"},
-      {cat:"business", d:"Sales"},
-      {cat:"business", d:"Marketing"},
-      {cat:"government", d:"Compliance"},
-      {cat:"logistics", d:"Transport"},
-      {cat:"hospitality", d:"Customer Service"},
-      {cat:"tech", d:"IT Support"}
+      // Logistics / hospitality so low scores still have options
+      job("Chef", "🍳", "Hospitality", ["Kitchen","Food","Pressure"], 25, 3.2, "mid", {
+        day: "Prep/cook meals, manage service, food safety.",
+        start: "Apprenticeship/TAFE. Build experience fast.",
+        evidence: "Skills + experience dominant."
+      }),
+      job("Hotel Manager", "🏨", "Hospitality", ["Operations","Guests","Teams"], 45, 4.0, "mid", {
+        day: "Run operations, manage staff, improve guest experience.",
+        start: "Experience-driven, hospitality courses help.",
+        evidence: "Often promotion-based."
+      }),
+      job("Truck Driver", "🚚", "Logistics", ["Transport","Routes","Licensing"], 20, 3.0, "mid", {
+        day: "Deliver goods, plan routes, comply with safety rules.",
+        start: "Licensing + safety. Reliability matters.",
+        evidence: "Not score-gated."
+      }),
+      job("Warehouse Supervisor", "📦", "Logistics", ["Inventory","Team","Safety"], 25, 3.2, "mid", {
+        day: "Coordinate dispatch, manage stock, improve efficiency.",
+        start: "Often starts as warehouse worker then promoted.",
+        evidence: "Experience-led."
+      }),
     ];
-    domains.forEach(x => adminRoles.forEach(r => add(`${x.d} ${r}`, x.cat, "Common role • transferable skills")));
 
-    // language dev variants
-    ["Python","Java","JavaScript","TypeScript","C#","Go"].forEach(lang => add(`${lang} Developer`, "tech", "Programming • features"));
+    // “More jobs”: we’ll generate additional realistic titles by variations
+    // (still prototype list — you can replace with your own curated dataset later)
+    const EXTRA_TITLES = [
+      ["Healthcare","🧬", ["Lab","Testing","Science"], 55, 4.7, "mid",
+        ["Medical Laboratory Technician","Radiology Assistant","Dental Assistant","Aged Care Worker","Occupational Therapy Assistant"]],
+      ["Technology","🧩", ["IT","Support","Systems"], 40, 4.0, "mid",
+        ["IT Support Technician","Network Technician","Cloud Support Associate","QA Tester","Product Manager"]],
+      ["Creative","🖌️", ["Media","Content","Brand"], 35, 3.8, "mid",
+        ["Graphic Designer","Videographer","Content Creator","Animator","Photographer"]],
+      ["Business","📈", ["Sales","Ops","Growth"], 35, 3.8, "mid",
+        ["Sales Representative","Operations Coordinator","HR Assistant","Marketing Coordinator","Project Coordinator"]],
+      ["Trades","🧰", ["Hands-on","Apprentice","Site"], 20, 3.0, "mid",
+        ["Mechanic","Welder","HVAC Technician","Painter","Bricklayer"]],
+      ["Education","🍎", ["Teaching","Learning","Kids"], 60, 5.0, "mid",
+        ["Primary Teacher","Secondary Teacher","Teacher Aide","Tutor","Early Childhood Educator"]],
+    ];
 
-    // trade variants
-    addLevels(["Apprentice","Qualified"], ["Electrician","Plumber","Carpenter","Mechanic","Welder","HVAC Technician"], "trades", "Trade pathway");
+    // Expand to roughly ~200 by adding variants
+    const VARIANTS = ["(Entry)","(Associate)","(Specialist)","(Junior)","(Senior)"];
+    function buildExtras(){
+      const list = [];
+      for(const block of EXTRA_TITLES){
+        const [cat, emoji, tags, atarMin, gpaMin, salaryBand, titles] = block;
+        for(const t of titles){
+          list.push(job(t, emoji, cat, tags, atarMin, gpaMin, salaryBand, makeDetails(t, cat)));
+          // create a couple variants
+          list.push(job(t+" "+VARIANTS[0], emoji, cat, tags, Math.max(0, atarMin-10), Math.max(0, gpaMin-0.6), salaryBand, makeDetails(t+" "+VARIANTS[0], cat)));
+          list.push(job(t+" "+VARIANTS[2], emoji, cat, tags, atarMin+5, gpaMin+0.3, salaryBand, makeDetails(t+" "+VARIANTS[2], cat)));
+        }
+      }
 
-    // fill more “real” variants
-    addLevels(["Junior","Senior"], ["Warehouse Assistant","Logistics Coordinator","Inventory Controller","Delivery Driver"], "logistics", "Demand • schedules");
-    addLevels(["Junior","Senior"], ["Barista","Waiter","Customer Service Assistant","Receptionist"], "hospitality", "Entry-friendly");
-
-    return uniqueJobs(out).sort((a,b)=>a.title.localeCompare(b.title));
-  }
-
-  const JOBS_ALL = generateJobs();
-
-  // -----------------------
-  // Mode & score conversion
-  // -----------------------
-  let mode = null;          // "ATAR" or "GPA7"
-  let selectedJob = null;
-  let filteredJobs = [];
-  let activeIndex = -1;
-
-  function clamp(n, min, max){ return Math.min(max, Math.max(min, n)); }
-
-  function getRawScore(){
-    const v = Number($("scoreInput").value);
-    if (Number.isNaN(v)) return 0;
-    return v;
-  }
-
-  function rawToEligibility(raw){
-    if (mode === "ATAR"){
-      // ATAR: 0.00–99.95 mapped to 0–100
-      const r = clamp(raw, 0, 99.95);
-      return Math.round((r / 99.95) * 100);
+      // Ensure we have lots; duplicate with small tag changes for prototype
+      while(list.length < 170){
+        const base = list[list.length % list.length];
+        const cloneTitle = base.title + " " + VARIANTS[(list.length % VARIANTS.length)];
+        list.push(job(
+          cloneTitle,
+          base.emoji,
+          base.category,
+          base.tags.slice(0,2).concat(["Pathways"]),
+          clampATAR(base.atarMin + (list.length % 3)*2),
+          clampGPA(base.gpaMin + (list.length % 3)*0.1),
+          base.salaryBand,
+          makeDetails(cloneTitle, base.category)
+        ));
+      }
+      return list;
     }
-    if (mode === "GPA7"){
-      // GPA: 0.00–7.00 mapped to 0–100
-      const r = clamp(raw, 0, 7);
-      return Math.round((r / 7) * 100);
-    }
-    return 0;
-  }
+    JOBS.push(...buildExtras());
 
-  function updateScoreUI(){
-    const raw = getRawScore();
-    const elig = rawToEligibility(raw);
-    $("rawScoreText").textContent = (mode === "ATAR") ? raw.toFixed(2) : raw.toFixed(2);
-    $("eligScoreText").textContent = String(elig);
-    return elig;
-  }
-
-  function setMode(newMode){
-    mode = newMode;
-    $("startModal").style.display = "none";
-
-    if (mode === "ATAR"){
-      $("scoreLabel").textContent = "ATAR (0.00–99.95)";
-      $("modeText").textContent = "ATAR";
-      $("scoreInput").min = "0";
-      $("scoreInput").max = "99.95";
-      $("scoreInput").step = "0.05";
-      $("scoreInput").value = "70.00";
-    } else {
-      $("scoreLabel").textContent = "GPA (0.00–7.00)";
-      $("modeText").textContent = "GPA";
-      $("scoreInput").min = "0";
-      $("scoreInput").max = "7";
-      $("scoreInput").step = "0.01";
-      $("scoreInput").value = "5.00";
+    function job(title, emoji, category, tags, atarMin, gpaMin, salaryBand, details){
+      return { title, emoji, category, tags, atarMin, gpaMin, salaryBand, details };
     }
 
-    updateScoreUI();
-    refreshPanel();
-  }
-
-  $("chooseATAR").addEventListener("click", () => setMode("ATAR"));
-  $("chooseGPA7").addEventListener("click", () => setMode("GPA7"));
-
-  // -----------------------
-  // Eligibility checks
-  // -----------------------
-  function minScoreForJob(jobTitle, catId){
-    if (JOB_MIN_OVERRIDE[jobTitle] != null) return JOB_MIN_OVERRIDE[jobTitle];
-    return CATEGORY_MIN[catId] ?? 40;
-  }
-
-  function isEligible(job, eligScore){
-    return eligScore >= minScoreForJob(job.title, job.category);
-  }
-
-  // -----------------------
-  // Dropdown panel logic
-  // -----------------------
-  function showPanel(){ $("comboPanel").style.display = "block"; }
-  function hidePanel(){ $("comboPanel").style.display = "none"; activeIndex=-1; renderPanelList(); }
-  function setError(on){ $("errorLine").style.display = on ? "block" : "none"; }
-
-  function buildEligibleJobs(){
-    const elig = updateScoreUI();
-    const eligible = JOBS_ALL.filter(j => isEligible(j, elig));
-    if (!eligible.length){
-      return JOBS_ALL.filter(j => ["hospitality","logistics","trades"].includes(j.category)).slice(0, 250);
-    }
-    return eligible;
-  }
-
-  function filterJobs(query){
-    const q = (query || "").trim().toLowerCase();
-    const eligible = buildEligibleJobs();
-    if (!q) return eligible.slice(0, 320);
-    return eligible
-      .filter(j => j.title.toLowerCase().includes(q) || (j.sub||"").toLowerCase().includes(q))
-      .slice(0, 320);
-  }
-
-  function validateExactJobEligible(){
-    const val = $("jobInput").value.trim().toLowerCase();
-    if (!val) return null;
-    return filteredJobs.find(j => j.title.toLowerCase() === val) || null;
-  }
-
-  function setSelected(job){
-    selectedJob = job;
-    $("jobInput").value = job.title;
-    $("searchBtn").disabled = false;
-    setError(false);
-    hidePanel();
-  }
-
-  function renderPanelList(){
-    const list = $("panelList");
-    list.innerHTML = "";
-    const items = filteredJobs;
-
-    const eligibleCount = buildEligibleJobs().length;
-    $("jobCountNote").textContent = items.length
-      ? `${items.length} shown • ${eligibleCount} eligible in total`
-      : `0 shown • ${eligibleCount} eligible in total`;
-
-    if (!items.length){
-      const empty = document.createElement("div");
-      empty.className = "panelItem";
-      empty.style.cursor = "default";
-      empty.innerHTML = `
-        <div class="badge">❌</div>
-        <div>
-          <div class="pTitle">No eligible match</div>
-          <div class="pSub">Try another term or increase your score.</div>
-        </div>
-      `;
-      list.appendChild(empty);
-      return;
+    function makeDetails(title, category){
+      const starts = {
+        "Healthcare":"Study path + placements matter. Communication and responsibility are key.",
+        "Law":"Strong writing, reading, and argument skills. Pathways often uni-based.",
+        "Justice":"Fitness, ethics, communication, and training pipelines matter.",
+        "Technology":"Portfolio/projects help a lot. You can enter via uni or self-taught paths.",
+        "Trades":"Apprenticeships and hands-on training. Reliability and safety matter.",
+        "Business":"Communication + problem-solving. Internships/experience help.",
+        "Creative":"Portfolio matters most. Practice + feedback loops are key.",
+        "Hospitality":"Experience-led. Consistency and teamwork matter.",
+        "Logistics":"Reliability and safety. Often promotion-based."
+      };
+      const day = {
+        "Healthcare":"Client/patient facing tasks, teamwork, careful documentation, safety protocols.",
+        "Law":"Research, drafting, advice, negotiation, structured reasoning.",
+        "Justice":"Public-facing work, rules/procedures, communication, reporting.",
+        "Technology":"Building/testing systems, debugging, planning features, collaboration.",
+        "Trades":"Hands-on work, tools, safety, practical problem solving.",
+        "Business":"Meetings, planning, analysis, coordination, stakeholder work.",
+        "Creative":"Designing, iterating, producing, presenting, feedback cycles.",
+        "Hospitality":"Service delivery, operations, time pressure, teamwork.",
+        "Logistics":"Planning, movement of goods, safety, coordination."
+      };
+      return {
+        day: `${day[category] || "Day-to-day depends on the exact employer and role type."}`,
+        start: `${starts[category] || "Multiple pathways exist. Build skills + experience."}`,
+        evidence: "Prototype notes: requirements differ by institution/employer. Treat as guidance, not a promise."
+      };
     }
 
-    items.forEach((job, idx) => {
-      const div = document.createElement("div");
-      div.className = "panelItem" + (idx === activeIndex ? " active" : "");
-      const minReq = minScoreForJob(job.title, job.category);
-      const catName = getCategory(job.category)?.name || "Career";
-      div.innerHTML = `
-        <div class="badge">${categoryIcon(job.category)}</div>
-        <div style="min-width:0">
-          <div class="pTitle">${escapeHtml(job.title)}</div>
-          <div class="pSub">${escapeHtml(catName)} • min eligibility: ${minReq}/100</div>
-        </div>
-      `;
-      div.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        setSelected(job);
-      });
-      list.appendChild(div);
-    });
-  }
+    function clampATAR(x){ return Math.max(0, Math.min(99.95, Number(x.toFixed(2)))); }
+    function clampGPA(x){ return Math.max(0, Math.min(7.0, Number(x.toFixed(2)))); }
 
-  function ensureActiveVisible(){
-    const list = $("panelList");
-    const item = list.children[activeIndex];
-    if (!item) return;
-    const itemTop = item.offsetTop;
-    const itemBottom = itemTop + item.offsetHeight;
-    const viewTop = list.scrollTop;
-    const viewBottom = viewTop + list.clientHeight;
-    if (itemTop < viewTop) list.scrollTop = itemTop;
-    else if (itemBottom > viewBottom) list.scrollTop = itemBottom - list.clientHeight;
-  }
+    // ---------- State ----------
+    let mode = "ATAR"; // or "GPA"
+    let selectedJob = null;
 
-  function refreshPanel(){
-    filteredJobs = filterJobs($("jobInput").value);
-    renderPanelList();
-  }
+    // ---------- Elements ----------
+    const professionInput = $("professionInput");
+    const comboPanel = $("comboPanel");
+    const comboList = $("comboList");
+    const searchBtn = $("searchBtn");
+    const scoreInput = $("scoreInput");
+    const scoreLabel = $("scoreLabel");
+    const modeBtn = $("modeBtn");
+    const errorLine = $("errorLine");
 
-  // -----------------------
-  // Shortlist scoring (less repetitive)
-  // -----------------------
-  function salaryBias(salaryKey, catId){
-    if (salaryKey === "wealth"){
-      if (["tech","engineering","law","business","trades"].includes(catId)) return 10;
-      return 4;
+    // ---------- Helpers ----------
+    function currentScore(){
+      const v = parseFloat(scoreInput.value || "0");
+      return isNaN(v) ? 0 : v;
     }
-    if (salaryKey === "solo"){
-      if (["hospitality","logistics","trades","government","policing"].includes(catId)) return 7;
+
+    function eligible(jobObj){
+      preventsNaN(jobObj);
+      if(mode === "ATAR"){
+        return currentScore() >= jobObj.atarMin;
+      }
+      return currentScore() >= jobObj.gpaMin;
+    }
+
+    function preventsNaN(j){
+      j.atarMin = clampATAR(Number(j.atarMin || 0));
+      j.gpaMin = clampGPA(Number(j.gpaMin || 0));
+    }
+
+    function salaryWeight(jobObj){
+      const v = $("salarySelect").value; // low/mid/high
+      // simple nudge: match salary band -> bonus
+      if(jobObj.salaryBand === v) return 10;
+      if(v === "high" && jobObj.salaryBand === "mid") return 6;
+      if(v === "mid" && (jobObj.salaryBand === "low" || jobObj.salaryBand === "high")) return 6;
+      if(v === "low" && jobObj.salaryBand === "mid") return 6;
       return 3;
     }
-    // family
-    if (["business","government","tech","trades","health","education"].includes(catId)) return 7;
-    return 3;
-  }
 
-  function scoreCategory(catId, eligScore, salaryKey, primaryCat){
-    let s = 0;
-    s += (catId === primaryCat) ? 110 : 62;
-    s += salaryBias(salaryKey, catId);
+    function matchPercent(jobObj){
+      // not AI — just transparent scoring
+      // score components: eligibility + salary alignment + closeness to requirement
+      const s = currentScore();
+      const req = (mode==="ATAR") ? jobObj.atarMin : jobObj.gpaMin;
+      const max = (mode==="ATAR") ? 99.95 : 7.0;
 
-    // Gentle boost if eligScore is strong and category is competitive
-    const competitive = ["law","health","engineering"];
-    if (competitive.includes(catId)){
-      s += (eligScore >= 90 ? 18 : eligScore >= 80 ? 12 : eligScore >= 70 ? 6 : 2);
-    } else {
-      s += (eligScore >= 80 ? 10 : eligScore >= 70 ? 7 : 4);
-    }
-    return s;
-  }
+      // closeness: if way above requirement -> higher confidence
+      const headroom = Math.max(0, Math.min(1, (s-req)/(max-req || 1)));
+      const elig = eligible(jobObj) ? 1 : 0;
 
-  function toPercent(rankIndex, topScore, score){
-    const raw = Math.max(0, Math.min(100, Math.round((score / topScore) * 100)));
-    if (rankIndex === 0) return Math.max(raw, 76);
-    if (rankIndex === 1) return Math.min(Math.max(raw, 64), 92);
-    if (rankIndex === 2) return Math.min(Math.max(raw, 56), 88);
-    return Math.min(Math.max(raw, 50), 82);
-  }
+      // if not eligible, still compute a “near” score so low scores still see options
+      const near = Math.max(0, Math.min(1, s/(req || 1)));
 
-  function sampleJobsForCategory(catId, excludeTitle){
-    const elig = updateScoreUI();
-    const eligible = JOBS_ALL.filter(j => j.category === catId && j.title !== excludeTitle && isEligible(j, elig));
-    return eligible.slice(0, 10).map(j => j.title);
-  }
+      const base = (elig ? (0.55 + 0.30*headroom) : (0.15 + 0.25*near));
+      const sal = salaryWeight(jobObj)/10 * 0.15;
 
-  function buildWhyBullets(catId, primaryJob, eligScore, salaryKey){
-    const cat = getCategory(catId);
-    const bullets = [];
-
-    // Unique “fit signal” bullets (not repeated across cards)
-    bullets.push(`Chosen profession: ${primaryJob.title}. This category stays close to that path.`);
-    if (catId === primaryJob.category){
-      bullets.push("Same category match: we keep the shortlist near your selected profession (strict mode).");
-    } else {
-      bullets.push("Related category match: this is a neighboring path (skills transfer well).");
+      return Math.round((base + sal) * 100);
     }
 
-    // Salary framing, different wording
-    if (salaryKey === "solo") bullets.push("Salary circumstance: solo support → prioritises accessible entry + stable progression.");
-    if (salaryKey === "family") bullets.push("Salary circumstance: family support → prioritises steady growth and predictable pathways.");
-    if (salaryKey === "wealth") bullets.push("Salary circumstance: wealth-building → prioritises higher ceiling paths (with effort/time).");
+    function shortlistForSelected(){
+      if(!selectedJob) return [];
 
-    // Score framing
-    bullets.push(`Eligibility score: ${eligScore}/100 → affects what roles are unlocked in the dropdown.`);
+      // Use selected job to propose related careers: same category first, then adjacent categories
+      const sameCat = JOBS.filter(j => j.category === selectedJob.category);
+      const adjacentCats = JOBS.filter(j => j.category !== selectedJob.category);
 
-    // Category-specific extra bullet
-    const extra = {
-      hospitality:"Best for fast hiring + confidence building + customer communication.",
-      logistics:"Best for stable demand + clear tickets/licenses + progression into coordination.",
-      trades:"Best for earn-while-you-learn pathways + strong long-term income with experience.",
-      business:"Best for people + planning + improving systems; internships matter.",
-      government:"Best for writing/structure/fairness; roles are process-heavy.",
-      policing:"Best for public service + protocol-based work; entry is state-specific.",
-      education:"Best for explaining and coaching; requires placements/registration.",
-      health:"Best for care + science; some pathways are highly competitive.",
-      tech:"Best for building and problem-solving; portfolio can matter a lot.",
-      engineering:"Best for maths/physics + safety; prerequisites vary by uni.",
-      law:"Best for reading/writing + rules; uni entry is competitive.",
-      creative:"Best for portfolio-driven careers; practice and feedback loops win."
-    }[catId] || "Good fit based on your inputs.";
-    bullets.push(extra);
+      const candidates = [...sameCat, ...adjacentCats];
 
-    return bullets;
-  }
+      // Must be eligible — BUT if score is low, still show eligible ones (always exist due to trades/logistics etc.)
+      const eligibles = candidates.filter(eligible);
 
-  function renderResults(sorted, primaryJob, eligScore, salaryKey){
-    const results = $("results");
-    results.style.display = "block";
-    results.innerHTML = "";
+      // If eligible list is small, still show some close-to-eligible from same category as “stretch” (marked)
+      const stretch = candidates
+        .filter(j => !eligible(j))
+        .sort((a,b)=> matchPercent(b)-matchPercent(a))
+        .slice(0, 3);
 
-    const topScore = sorted[0]?.score || 1;
+      const rankedEligible = eligibles
+        .sort((a,b)=> (matchPercent(b)-matchPercent(a)) || (b.atarMin-a.atarMin))
+        .slice(0, 6);
 
-    sorted.forEach((item, idx) => {
-      const cat = getCategory(item.catId);
-      const pct = toPercent(idx, topScore, item.score);
-      const suggested = sampleJobsForCategory(item.catId, primaryJob.title).slice(0, 10);
-      const whyBullets = buildWhyBullets(item.catId, primaryJob, eligScore, salaryKey);
+      // ensure we always return at least 3
+      const out = [...rankedEligible];
+      while(out.length < 3){
+        // fallback: add easiest eligible jobs overall
+        const allEligible = JOBS.filter(eligible).sort((a,b)=> matchPercent(b)-matchPercent(a));
+        for(const j of allEligible){
+          if(out.length>=3) break;
+          if(!out.some(x=>x.title===j.title)) out.push(j);
+        }
+        break;
+      }
 
-      const d = cat.detail;
+      // Add stretch options if they’re close and not duplicates
+      for(const j of stretch){
+        if(out.length>=6) break;
+        if(!out.some(x=>x.title===j.title)) out.push(j);
+      }
 
-      const card = document.createElement("div");
-      card.className = "resultCard";
-      card.innerHTML = `
-        <div class="resultTop">
-          <div>
-            <h3 class="resultName">${idx+1}. ${escapeHtml(cat.name)}</h3>
-            <div class="tags">
-              ${cat.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
-            </div>
+      return out.slice(0,6);
+    }
+
+    // ---------- Dropdown ----------
+    function openDropdown(){
+      comboPanel.style.display = "block";
+      renderDropdown();
+    }
+    function closeDropdown(){
+      comboPanel.style.display = "none";
+    }
+
+    function filterJobs(q){
+      q = (q || "").trim().toLowerCase();
+      if(!q) return JOBS.slice(0, 80); // show top chunk
+      return JOBS.filter(j => j.title.toLowerCase().includes(q)).slice(0, 120);
+    }
+
+    function renderDropdown(){
+      const list = filterJobs(professionInput.value);
+      comboList.innerHTML = "";
+
+      $("shownCount").textContent = list.length;
+      $("eligibleCount").textContent = JOBS.filter(eligible).length;
+
+      for(const j of list){
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <div class="rowIcon">${j.emoji}</div>
+          <div class="rowMain">
+            <div class="rowName">${escapeHtml(j.title)}</div>
+            <div class="rowMeta">${escapeHtml(j.category)} • ${escapeHtml(j.tags.join(" • "))}</div>
           </div>
-          <div class="match">${pct}% match</div>
-        </div>
+        `;
+        row.addEventListener("click", () => selectJob(j));
+        comboList.appendChild(row);
+      }
 
-        <div class="whyLabel">Why it fits:</div>
-        <ul>
-          ${whyBullets.map(x => `<li>${escapeHtml(x)}</li>`).join("")}
-        </ul>
+      if(list.length === 0){
+        const empty = document.createElement("div");
+        empty.style.padding = "18px";
+        empty.style.color = "var(--muted)";
+        empty.style.fontWeight = "900";
+        empty.textContent = "No matches. It must exist in the list.";
+        comboList.appendChild(empty);
+      }
+    }
 
-        <div class="moreRow">
-          <span class="hint">Click to expand details</span>
-          <button class="pillBtn" data-toggle-details>More details</button>
-        </div>
+    function selectJob(j){
+      selectedJob = j;
+      professionInput.value = j.title;
+      closeDropdown();
+      errorLine.style.display = "none";
+      searchBtn.disabled = false;
+      updateMeta();
+      renderResults();
+    }
 
-        <div class="details">
-          <div class="detailsGrid">
-            <div class="detailItem">
-              <div class="detailTitle">Typical environment</div>
-              <div class="detailText">${escapeHtml(d.env)}</div>
-            </div>
-            <div class="detailItem">
-              <div class="detailTitle">Typical tools</div>
-              <div class="detailText">${escapeHtml(d.tools)}</div>
-            </div>
-            <div class="detailItem">
-              <div class="detailTitle">Typical tasks</div>
-              <div class="detailText">${d.tasks.map(t => "• " + escapeHtml(t)).join("<br/>")}</div>
-            </div>
-            <div class="detailItem">
-              <div class="detailTitle">Entry & pathway</div>
-              <div class="detailText">${escapeHtml(d.entry)}<br/><br/><b>Growth:</b> ${escapeHtml(d.growth)}</div>
-            </div>
+    function updateMeta(){
+      $("modePill").textContent = mode;
+      $("inputPill").textContent = Number(currentScore()).toFixed(mode==="ATAR" ? 2 : 2);
+      const eligibleCount = JOBS.filter(eligible).length;
+      $("eligPill").textContent = `${eligibleCount} / ${JOBS.length}`;
+    }
 
-            <div class="detailItem" style="grid-column:1/-1;">
-              <div class="detailTitle">Evidence note (prototype honesty)</div>
-              <div class="detailText">${escapeHtml(d.evidence)}</div>
-            </div>
+    // ---------- Results ----------
+    function renderResults(){
+      const root = $("results");
+      root.innerHTML = "";
 
-            <div class="detailItem" style="grid-column:1/-1;">
-              <div class="detailTitle">Eligible professions you can select right now</div>
-              <div class="detailText">
-                ${suggested.length ? suggested.map(x => `• ${escapeHtml(x)}`).join("<br/>") : "No eligible suggestions at your current score."}
+      if(!selectedJob){
+        return;
+      }
+
+      const picks = shortlistForSelected();
+
+      for(let i=0;i<picks.length;i++){
+        const j = picks[i];
+        const pct = matchPercent(j);
+
+        const isStretch = !eligible(j);
+        const chips = j.tags.slice(0,4).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
+
+        const c = document.createElement("div");
+        c.className = "card";
+        c.innerHTML = `
+          <div class="cardTop">
+            <div style="min-width:0">
+              <div class="cardTitle">${i+1}. ${escapeHtml(j.title)} ${isStretch ? " • Stretch" : ""}</div>
+              <div class="tags">${chips}</div>
+            </div>
+            <div class="match">${pct}% match</div>
+          </div>
+
+          <div class="cardBody">
+            <div class="bodyGrid">
+              <div class="box">
+                <h4>What you’d do day-to-day</h4>
+                <p>${escapeHtml(j.details.day)}</p>
+              </div>
+
+              <div class="box">
+                <h4>How to start</h4>
+                <p>${escapeHtml(j.details.start)}</p>
+              </div>
+
+              <div class="box">
+                <h4>Why it fits (based on your inputs)</h4>
+                <ul>
+                  ${whyItFitsBullets(j).map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+                </ul>
+              </div>
+
+              <div class="box">
+                <h4>Evidence note</h4>
+                <p>${escapeHtml(j.details.evidence)}</p>
               </div>
             </div>
           </div>
-        </div>
-      `;
-      results.appendChild(card);
+        `;
+        c.addEventListener("click", (e) => {
+          // don’t toggle if selecting text
+          const body = c.querySelector(".cardBody");
+          const open = body.style.display === "block";
+          body.style.display = open ? "none" : "block";
+        });
+        root.appendChild(c);
+      }
+    }
+
+    function whyItFitsBullets(j){
+      const s = currentScore();
+      const req = (mode==="ATAR") ? j.atarMin : j.gpaMin;
+      const sal = $("salarySelect").value;
+
+      const bullets = [];
+      if(eligible(j)){
+        bullets.push(`You meet the ${mode} guideline for this role (≥ ${req}).`);
+      }else{
+        bullets.push(`You’re close to the guideline (${mode} ${s} vs suggested ≥ ${req}). This is a stretch option.`);
+      }
+
+      if(j.category === selectedJob.category){
+        bullets.push(`It’s in the same cluster as your chosen profession (${selectedJob.category}).`);
+      }else{
+        bullets.push(`It’s a related cluster that often overlaps skills with ${selectedJob.category}.`);
+      }
+
+      if(sal === j.salaryBand){
+        bullets.push(`Matches your salary circumstance preference (${sal}).`);
+      }else{
+        bullets.push(`Salary preference mismatch is okay — you can still pursue it if you value the work.`);
+      }
+
+      // add one unique bullet per category so they don’t feel copy-paste
+      const unique = {
+        "Healthcare":"People skills + responsibility are strongly rewarded here.",
+        "Law":"Strong reading/writing and structured argument make you stand out.",
+        "Justice":"Communication under pressure is a major differentiator.",
+        "Technology":"Projects/portfolio can accelerate entry regardless of score.",
+        "Trades":"Apprenticeships give a practical route even with lower scores.",
+        "Business":"Stakeholder communication often matters as much as grades.",
+        "Creative":"Portfolio quality is usually the main gate (not scores).",
+        "Hospitality":"Experience and consistency can beat academic filters fast.",
+        "Logistics":"Reliability + safety record can drive rapid progression."
+      };
+      bullets.push(unique[j.category] || "Multiple pathways exist — skills + evidence matter.");
+
+      return bullets.slice(0,4);
+    }
+
+    // ---------- Events ----------
+    $("professionField").addEventListener("click", () => openDropdown());
+    professionInput.addEventListener("focus", openDropdown);
+
+    professionInput.addEventListener("input", () => {
+      openDropdown();
+      renderDropdown();
+      // If typed value isn't exact, don't allow search
+      if(!JOBS.some(j => j.title.toLowerCase() === professionInput.value.trim().toLowerCase())){
+        selectedJob = null;
+        searchBtn.disabled = true;
+        errorLine.style.display = professionInput.value.trim() ? "block" : "none";
+        $("results").innerHTML = "";
+      }
     });
 
-    results.scrollIntoView({ behavior:"smooth", block:"start" });
-  }
-
-  function runSearch(){
-    const exact = validateExactJobEligible();
-    if (!exact){
-      $("searchBtn").disabled = true;
-      setError(true);
-      $("results").style.display = "none";
-      return;
-    }
-
-    selectedJob = exact;
-    $("searchBtn").disabled = false;
-    setError(false);
-
-    const salaryKey = $("salary").value;
-    const eligScore = updateScoreUI();
-    const primaryCat = selectedJob.category;
-
-    const catIds = [primaryCat, ...(RELATED[primaryCat] || [])].slice(0, 4);
-    const uniqueCatIds = Array.from(new Set(catIds));
-
-    const scored = uniqueCatIds.map(id => ({
-      catId: id,
-      score: scoreCategory(id, eligScore, salaryKey, primaryCat)
-    })).sort((a,b)=>b.score-a.score);
-
-    renderResults(scored, selectedJob, eligScore, salaryKey);
-  }
-
-  // -----------------------
-  // Events
-  // -----------------------
-  $("jobInput").addEventListener("focus", () => { refreshPanel(); showPanel(); });
-
-  $("jobInput").addEventListener("input", () => {
-    const exact = validateExactJobEligible();
-    if (exact){
-      selectedJob = exact;
-      $("searchBtn").disabled = false;
-      setError(false);
-    } else {
-      selectedJob = null;
-      $("searchBtn").disabled = true;
-    }
-    refreshPanel();
-    showPanel();
-  });
-
-  $("jobInput").addEventListener("keydown", (e) => {
-    if ($("comboPanel").style.display !== "block") return;
-    if (e.key === "ArrowDown"){
-      e.preventDefault();
-      if (!filteredJobs.length) return;
-      activeIndex = Math.min(filteredJobs.length - 1, activeIndex + 1);
-      renderPanelList(); ensureActiveVisible();
-    } else if (e.key === "ArrowUp"){
-      e.preventDefault();
-      if (!filteredJobs.length) return;
-      activeIndex = Math.max(0, activeIndex - 1);
-      renderPanelList(); ensureActiveVisible();
-    } else if (e.key === "Enter"){
-      const pick = filteredJobs[activeIndex];
-      if (pick){
-        e.preventDefault();
-        setSelected(pick);
-      } else {
-        const exact = validateExactJobEligible();
-        if (exact){ e.preventDefault(); setSelected(exact); }
+    professionInput.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeDropdown();
+      if(e.key === "Enter"){
+        const exact = JOBS.find(j => j.title.toLowerCase() === professionInput.value.trim().toLowerCase());
+        if(exact) selectJob(exact);
+        else{
+          errorLine.style.display = "block";
+        }
       }
-    } else if (e.key === "Escape"){
-      hidePanel();
+    });
+
+    document.addEventListener("click", (e) => {
+      const within = $("professionField").contains(e.target) || comboPanel.contains(e.target);
+      if(!within) closeDropdown();
+    });
+
+    scoreInput.addEventListener("input", () => {
+      updateMeta();
+      renderDropdown();
+      if(selectedJob) renderResults();
+    });
+
+    $("salarySelect").addEventListener("change", () => {
+      if(selectedJob) renderResults();
+    });
+
+    searchBtn.addEventListener("click", () => {
+      if(!selectedJob){
+        errorLine.style.display = "block";
+        return;
+      }
+      renderResults();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    });
+
+    $("resetBtn").addEventListener("click", () => {
+      selectedJob = null;
+      professionInput.value = "";
+      searchBtn.disabled = true;
+      $("results").innerHTML = "";
+      errorLine.style.display = "none";
+      updateMeta();
+    });
+
+    modeBtn.addEventListener("click", () => {
+      mode = (mode === "ATAR") ? "GPA" : "ATAR";
+      if(mode === "ATAR"){
+        scoreLabel.textContent = "ATAR (0.00–99.95)";
+        scoreInput.min = "0";
+        scoreInput.max = "99.95";
+        scoreInput.step = "0.05";
+        scoreInput.value = "70.00";
+        modeBtn.textContent = "Switch to GPA";
+      }else{
+        scoreLabel.textContent = "GPA (0.00–7.00)";
+        scoreInput.min = "0";
+        scoreInput.max = "7";
+        scoreInput.step = "0.01";
+        scoreInput.value = "5.50";
+        modeBtn.textContent = "Switch to ATAR";
+      }
+      updateMeta();
+      renderDropdown();
+      if(selectedJob) renderResults();
+    });
+
+    $("aboutBtn").addEventListener("click", () => {
+      alert("CareerPicker prototype: pick a real profession from the list, then see related paths. Requirements vary by institution/employer — treat as guidance.");
+    });
+
+    $("saveBtn").addEventListener("click", () => {
+      alert("Save later: We can add localStorage or accounts later. For now, take screenshots or copy notes.");
+    });
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
     }
-  });
 
-  document.addEventListener("mousedown", (e) => {
-    const field = $("jobField");
-    if (!field.contains(e.target)) hidePanel();
-  });
-
-  $("scoreInput").addEventListener("input", () => {
-    updateScoreUI();
-    refreshPanel();
-    const exact = validateExactJobEligible();
-    $("searchBtn").disabled = !exact;
-  });
-
-  $("salary").addEventListener("change", () => {
-    // no auto-run; just changes scoring when you press shortlist
-  });
-
-  $("searchBtn").addEventListener("click", runSearch);
-
-  $("resetBtn").addEventListener("click", () => {
-    $("jobInput").value = "";
-    selectedJob = null;
-    $("searchBtn").disabled = true;
-    setError(false);
-    $("results").style.display = "none";
-    $("results").innerHTML = "";
-    if (mode === "ATAR") $("scoreInput").value = "70.00";
-    if (mode === "GPA7") $("scoreInput").value = "5.00";
-    updateScoreUI();
-    refreshPanel();
-    window.scrollTo({ top: 0, behavior:"smooth" });
-  });
-
-  document.addEventListener("click", (e) => {
-    const toggleBtn = e.target.closest("[data-toggle-details]");
-    if (toggleBtn){
-      e.preventDefault();
-      const card = toggleBtn.closest(".resultCard");
-      if (card) card.classList.toggle("expanded");
-      return;
-    }
-    const card = e.target.closest(".resultCard");
-    if (!card) return;
-    if (e.target.closest("a, button, input, select, textarea")) return;
-    card.classList.toggle("expanded");
-  });
-
-  // Init (modal shows first)
-  updateScoreUI();
-  filteredJobs = [];
-  renderPanelList();
-</script>
+    // init
+    updateMeta();
+    renderDropdown();
+  </script>
 </body>
 </html>
-
