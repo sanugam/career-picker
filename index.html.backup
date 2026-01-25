@@ -6,25 +6,24 @@
   <title>CareerPicker</title>
   <style>
     :root{
-      --bg:#f5f7fa;
-      --nav:#003580;
-      --nav2:#0071c2;
+      --bg:#f3f6fb;
+      --nav:#0a2b6a;
+      --nav2:#0b3b95;
       --card:#ffffff;
       --muted:#6b7280;
-      --text:#262626;
+      --text:#0b1220;
 
-      --brand:#0071c2;
-      --brand2:#003580;
+      --brand:#0b5cff;
+      --brand2:#00a3ff;
 
-      --accent:#feba02;        /* booking.com yellow */
-      --accent2:#ffcc00;
+      --accent:#ffb400;        /* booking-ish gold */
+      --accent2:#ffcc4d;
 
-      --shadow: 0 2px 8px rgba(0,0,0,.1);
-      --shadow2: 0 1px 3px rgba(0,0,0,.12);
-      --shadow-hover: 0 4px 16px rgba(0,0,0,.15);
+      --shadow: 0 18px 60px rgba(9, 30, 66, .16);
+      --shadow2: 0 10px 25px rgba(15, 23, 42, .10);
 
-      --radius: 8px;
-      --radius2: 4px;
+      --radius: 18px;
+      --radius2: 14px;
     }
 
     *{box-sizing:border-box}
@@ -37,88 +36,76 @@
 
     /* Top bar */
     .topbar{
-      height:60px;
-      background: var(--nav);
+      height:64px;
+      background: linear-gradient(90deg, rgba(7,33,80,.95), rgba(9,45,120,.95));
       color:#fff;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:0 24px;
+      padding:0 20px;
       position:sticky;
       top:0;
-      z-index:100;
-      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+      z-index:20;
+      box-shadow: 0 6px 18px rgba(0,0,0,.14);
     }
     .brand{
       display:flex;
       align-items:center;
-      gap:8px;
-      font-weight:700;
-      font-size:20px;
-      letter-spacing:-.3px;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
     }
     .dot{
-      width:8px;height:8px;border-radius:50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 2px rgba(254,186,2,.3);
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
+      box-shadow: 0 0 0 3px rgba(255,204,77,.25);
     }
     .top-actions{
-      display:flex; align-items:center; gap:12px;
+      display:flex; align-items:center; gap:10px;
+      opacity:.95;
     }
     .pill{
-      border:1px solid rgba(255,255,255,.3);
+      border:1px solid rgba(255,255,255,.25);
       color:#fff;
-      background: transparent;
-      padding:8px 16px;
-      border-radius:4px;
-      font-weight:600;
-      font-size:14px;
+      background: rgba(255,255,255,.08);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:650;
       cursor:pointer;
       user-select:none;
-      transition: background .2s;
-    }
-    .pill:hover{
-      background: rgba(255,255,255,.1);
     }
     .pill.primary{
-      background: #fff;
-      color:var(--nav);
+      background: rgba(255,255,255,.95);
+      color:#0b2b6a;
       border-color: transparent;
-      font-weight:700;
-    }
-    .pill.primary:hover{
-      background: #f5f5f5;
     }
 
     /* Hero */
     .hero{
       background:
-        radial-gradient(900px 350px at 20% 10%, rgba(254,186,2,.12), transparent 60%),
-        radial-gradient(800px 320px at 80% 15%, rgba(255,255,255,.08), transparent 65%),
-        linear-gradient(180deg, var(--brand) 0%, var(--nav) 85%, rgba(0,53,128,0) 100%);
-      padding:40px 0 200px;
+        radial-gradient(1100px 420px at 25% 15%, rgba(0,163,255,.35), transparent 65%),
+        radial-gradient(900px 380px at 75% 25%, rgba(255,180,0,.22), transparent 70%),
+        linear-gradient(180deg, #06204f 0%, #0a3b95 70%, rgba(10,59,149,0) 100%);
+      padding:44px 0 26px;
       position:relative;
-      overflow:visible;
+      overflow:hidden;
     }
     .wrap{
-      width:min(1140px, 94vw);
+      width:min(1120px, 92vw);
       margin:0 auto;
     }
     .hero h1{
-      margin:0 0 12px;
+      margin:0 0 10px;
       color:#fff;
-      font-size: 48px;
-      line-height:1.1;
-      letter-spacing:-.5px;
-      font-weight:700;
+      font-size: 52px;
+      line-height:1.02;
+      letter-spacing:-.8px;
     }
     .hero p{
-      margin:0 0 20px;
-      color:rgba(255,255,255,.95);
+      margin:0 0 16px;
+      color:rgba(255,255,255,.82);
       font-size:18px;
-      font-weight:400;
       max-width: 900px;
-      line-height:1.5;
     }
 
     /* Intent fork CTAs */
@@ -130,130 +117,121 @@
     }
     .intentCard{
       background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: var(--radius);
+      border: 2px solid #e5e7eb;
+      border-radius: 18px;
       padding: 24px;
       cursor: pointer;
-      box-shadow: var(--shadow2);
-      transition: all .2s ease;
+      box-shadow: 0 12px 35px rgba(0,0,0,.12);
+      transition: all .15s ease;
       position: relative;
     }
     .intentCard:hover{
       transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      border-color: #bdbdbd;
+      box-shadow: 0 18px 45px rgba(0,0,0,.18);
+      border-color: #cbd5e1;
     }
     .intentCard.primary{
-      background: linear-gradient(135deg, #fffbf5 0%, #fff 100%);
+      background: linear-gradient(135deg, #fffbf0 0%, #fff9e6 100%);
       border-color: var(--accent);
-      border-width: 2px;
-      box-shadow: 0 2px 8px rgba(254,186,2,.15);
+      border-width: 3px;
     }
     .intentCard.primary:hover{
-      border-color: #e6a800;
-      box-shadow: 0 6px 20px rgba(254,186,2,.25);
-      background: linear-gradient(135deg, #fffaed 0%, #fff 100%);
+      border-color: #e6a200;
+      box-shadow: 0 18px 45px rgba(255,180,0,.25);
     }
     .intentCard.selected{
       border-color: var(--brand);
-      background: #f0f8ff;
+      background: linear-gradient(135deg, #eef6ff 0%, #e0efff 100%);
     }
     .intentCard .emoji{
-      font-size: 28px;
+      font-size: 32px;
       margin-bottom: 12px;
       display: block;
     }
     .intentCard .intentTitle{
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -.2px;
+      font-size: 20px;
+      font-weight: 950;
+      letter-spacing: -.3px;
       margin: 0 0 8px;
-      color: var(--text);
-      line-height: 1.3;
+      color: #0b1220;
+      line-height: 1.2;
     }
     .intentCard .intentDesc{
       font-size: 14px;
-      color: #717171;
-      font-weight: 400;
+      color: #64748b;
+      font-weight: 750;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
     }
     .intentCard .badge-primary{
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 16px;
+      right: 16px;
       background: var(--accent);
-      color: #000;
+      color: #0b1220;
       font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
+      font-weight: 950;
+      padding: 5px 10px;
+      border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: .3px;
     }
 
     /* Search row */
     .searchRow{
-      margin-top:20px;
+      margin-top:18px;
       background: var(--accent);
-      border-radius: var(--radius);
-      padding:3px;
-      box-shadow: 0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(254,186,2,.3);
-      overflow: visible;
-      position: relative;
-      z-index: 10;
+      border-radius: 18px;
+      padding:5px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.25);
     }
     .searchGrid{
       display:grid;
       grid-template-columns: 1.5fr .7fr .9fr .42fr;
-      gap:3px;
-      overflow: visible;
+      gap:5px;
     }
     .field{
       background:#fff;
-      border-radius: 6px;
-      padding:14px 16px;
+      border-radius: 14px;
+      padding:12px 14px;
       display:flex;
-      gap:12px;
+      gap:10px;
       align-items:flex-start;
-      min-height:76px;
-      overflow: visible;
-      position: relative;
+      min-height:78px;
     }
     .icon{
-      width:36px;height:36px;border-radius:4px;
-      background: #f0f8ff;
+      width:38px;height:38px;border-radius:12px;
+      background: #f0f6ff;
       display:flex;align-items:center;justify-content:center;
-      border:1px solid #e0e0e0;
+      border:1px solid #e2e8f0;
       flex:0 0 auto;
       margin-top:2px;
     }
-    .icon svg{opacity:.7}
+    .icon svg{opacity:.75}
     .field .label{
-      font-size:12px;
-      color: #595959;
-      font-weight:700;
-      letter-spacing:0;
-      margin-bottom:4px;
-      text-transform: uppercase;
+      font-size:13px;
+      color: #334155;
+      font-weight:800;
+      letter-spacing:.15px;
+      margin-bottom:2px;
     }
     .field .sub{
-      font-size:12px;
-      color: #717171;
-      font-weight:400;
-      margin-top:4px;
+      font-size:13px;
+      color: var(--muted);
+      font-weight:600;
+      margin-top:3px;
     }
     .field .value{
-      font-size:18px;
-      font-weight:700;
+      font-size:20px;
+      font-weight:900;
       letter-spacing:-.2px;
       margin-top:2px;
-      color:var(--text);
+      color:#0b1220;
     }
     .field .value.muted{
-      color:var(--text);
-      opacity:.7;
-      font-weight:600;
+      color:#0b1220;
+      opacity:.65;
+      font-weight:850;
     }
     .fieldcol{flex:1 1 auto; min-width:0;}
     .inputlike{
@@ -261,13 +239,13 @@
       border:none;
       outline:none;
       background:transparent;
-      font-size:18px;
-      font-weight:700;
-      color:var(--text);
+      font-size:20px;
+      font-weight:900;
+      color:#0b1220;
       padding:0;
       margin:0;
     }
-    .inputlike::placeholder{color:rgba(38,38,38,.4); font-weight:400;}
+    .inputlike::placeholder{color:rgba(11,18,32,.45); font-weight:850;}
     .smallrow{
       display:flex; align-items:center; justify-content:space-between;
       gap:10px;
@@ -275,157 +253,111 @@
 
     .cta{
       border:none;
-      border-radius: 6px;
-      background: linear-gradient(180deg, #0071c2 0%, #003580 100%) !important;
-      color:#fff !important;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #083a93, #062b6f);
+      color:#fff;
       cursor:pointer;
-      font-weight:700;
-      letter-spacing:0;
-      font-size:16px;
-      box-shadow: 0 2px 8px rgba(0,53,128,.25);
+      font-weight:950;
+      letter-spacing:.2px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.22);
       position:relative;
       overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:76px;
-      transition: all .2s;
+      min-height:78px;
     }
-    .cta:hover{
-      background: linear-gradient(180deg, #0080e0 0%, #0071c2 100%);
-      box-shadow: 0 4px 16px rgba(0,53,128,.35);
-      transform: translateY(-1px);
-    }
-    .cta:active{transform: translateY(1px);}
     .cta:active{transform: translateY(1px);}
     .cta .btn-inner{
       display:flex;
       flex-direction:column;
       align-items:center;
       gap:4px;
-      padding:0 12px;
+      padding:0 10px;
       text-align:center;
     }
     .cta .main{
-      font-size:16px;
-      line-height:1.2;
-      font-weight:700;
-      background: transparent !important;
-      padding: 0 !important;
+      font-size:18px;
+      line-height:1.1;
     }
     .cta .sub{
       font-size:12px;
-      opacity:.9;
-      font-weight:400;
-      background: transparent !important;
-      padding: 0 !important;
+      opacity:.85;
+      font-weight:800;
     }
 
     /* Info chips row */
     .chipRow{
-      margin-top:16px;
-      background: rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.2);
-      padding:12px;
-      border-radius: var(--radius);
+      margin-top:14px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      padding:10px;
+      border-radius: 16px;
       display:flex;
-      gap:12px;
+      gap:10px;
       flex-wrap:wrap;
       align-items:center;
-      backdrop-filter: blur(10px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
     }
     .chip{
-      background: rgba(255,255,255,.2);
-      border:1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.20);
       color:#fff;
-      padding:8px 12px;
-      border-radius:4px;
-      font-weight:600;
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:850;
       font-size:13px;
       display:flex;
       gap:8px;
       align-items:center;
       user-select:none;
     }
-    .chip strong{color:#fff; font-weight:700;}
+    .chip strong{color:#fff}
     .chip .dot2{
-      width:6px;height:6px;border-radius:50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 2px rgba(254,186,2,.3);
+      width:8px;height:8px;border-radius:99px;
+      background: rgba(255,204,77,.95);
+      box-shadow: 0 0 0 3px rgba(255,204,77,.20);
     }
 
     /* Filter pills */
     .filters{
-      margin-top:20px;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap:16px;
-    }
-    .filterGroup{
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 8px;
-      padding: 16px;
-    }
-    .filterGroup .groupLabel{
-      color: rgba(255,255,255,.9);
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .filterOptions{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
     }
     .filterPill{
       background:#fff;
-      border:1px solid #e0e0e0;
-      border-radius:6px;
-      padding:9px 14px;
-      font-weight:600;
-      font-size:13px;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:900;
       cursor:pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,.10);
       user-select:none;
-      color:var(--text);
-      transition: all .2s;
-      white-space: nowrap;
-    }
-    .filterPill:hover{
-      border-color: #0071c2;
-      box-shadow: 0 2px 6px rgba(0,113,194,.2);
-      transform: translateY(-1px);
+      color:#0b1220;
     }
     .filterPill.on{
-      background: var(--brand);
-      border-color: var(--brand);
-      color:#fff;
-      box-shadow: 0 2px 6px rgba(0,113,194,.3);
+      background: #eaf3ff;
+      border-color: rgba(11,92,255,.35);
+      color:#062b6f;
     }
-    .filters .sep{display:none;}
+    .filters .sep{width:1px;height:28px;background:rgba(255,255,255,.25); margin:0 2px;}
 
     /* Main content */
     .main{
-      padding: 32px 0 60px;
-      background: linear-gradient(180deg, transparent 0%, var(--bg) 50px);
+      padding: 26px 0 60px;
     }
     h2{
-      font-size:32px;
-      letter-spacing:-.5px;
-      margin:24px 0 8px;
-      font-weight:700;
-      color:var(--text);
+      font-size:44px;
+      letter-spacing:-.8px;
+      margin:20px 0 6px;
     }
     .hint{
-      color:#717171;
-      font-weight:400;
-      font-size:15px;
-      margin:0 0 20px;
+      color:#64748b;
+      font-weight:700;
+      margin:0 0 18px;
     }
     .resultsFraming{
       background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -573,67 +505,61 @@
 
     /* Cards */
     .card{
-      background: linear-gradient(135deg, #fff 0%, #fafbfc 100%);
-      border:1px solid #e0e0e0;
-      border-radius: var(--radius);
-      padding:20px;
+      background: var(--card);
+      border:1px solid #e5e7eb;
+      border-radius: 18px;
+      padding:18px;
       box-shadow: var(--shadow2);
-      margin: 12px 0;
+      margin: 14px 0;
       cursor:pointer;
-      transition: all .2s ease;
-    }
-    .card:hover{
-      box-shadow: var(--shadow-hover);
-      border-color: #bdbdbd;
-      transform: translateY(-2px);
+      transition: transform .08s ease;
     }
     .card:active{transform: translateY(1px);}
     .cardTop{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
+      gap:10px;
     }
     .cardTitle{
-      font-size:20px;
-      font-weight:700;
-      margin:0 0 10px;
+      font-size:22px;
+      font-weight:950;
+      margin:0 0 8px;
       letter-spacing:-.2px;
-      color:var(--text);
     }
     .match{
-      font-size:18px;
-      font-weight:700;
-      color:var(--brand);
+      font-size:20px;
+      font-weight:950;
+      color:#0b5cff;
       white-space:nowrap;
     }
     .tags{
-      display:flex; flex-wrap:wrap; gap:6px;
-      margin-bottom:12px;
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-bottom:10px;
     }
     .tag{
-      font-size:12px;
-      font-weight:600;
-      color:#595959;
-      background:#f5f5f5;
-      border:1px solid #e0e0e0;
-      padding:4px 10px;
-      border-radius:4px;
+      font-size:13px;
+      font-weight:900;
+      color:#334155;
+      background:#f1f5f9;
+      border:1px solid #e2e8f0;
+      padding:6px 10px;
+      border-radius:999px;
     }
     .facts{
       display:grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
-      gap:8px;
-      margin-top:10px;
+      gap:10px;
+      margin-top:8px;
     }
     .fact{
-      background:#fafafa;
-      border:1px solid #e0e0e0;
-      border-radius: 6px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius: 14px;
       padding:10px 12px;
     }
-    .fact .k{font-size:11px;color:#717171;font-weight:700;margin-bottom:4px;text-transform:uppercase;}
-    .fact .v{font-size:14px;color:var(--text);font-weight:600;}
+    .fact .k{font-size:12px;color:#64748b;font-weight:900;margin-bottom:4px;}
+    .fact .v{font-size:14px;color:#0b1220;font-weight:900;}
 
     .cardBody{
       margin-top:12px;
@@ -644,68 +570,60 @@
     .card.open .cardBody{display:block;}
 
     .sectionTitle{
-      font-weight:700;
-      margin:16px 0 8px;
-      color:var(--text);
-      font-size:16px;
+      font-weight:950;
+      margin:12px 0 6px;
+      color:#0b1220;
     }
     .bullets{
       margin:0;
-      padding-left:20px;
-      color:var(--text);
-      font-weight:400;
-      line-height:1.6;
+      padding-left:18px;
+      color:#0f172a;
+      font-weight:750;
     }
-    .bullets li{margin:8px 0;}
+    .bullets li{margin:6px 0;}
     .noteRow{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-top:12px;
+      margin-top:10px;
     }
     .badge{
-      font-size:11px;
-      font-weight:600;
-      padding:6px 10px;
-      border-radius:4px;
-      border:1px solid #e0e0e0;
-      background:#fff;
-      color:var(--text);
-    }
-    .badge.rule{background:#fff9e6;border-color:#ffd966;}
-    .badge.formal{background:#e8f5e9;border-color:#81c784;}
-    .badge.varies{background:#e3f2fd;border-color:#64b5f6;}
-    .sources{
-      margin-top:10px;
       font-size:12px;
-      color:#717171;
-      font-weight:400;
+      font-weight:950;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      color:#0b1220;
+    }
+    .badge.rule{background:#fff7e0;border-color:#ffe08a;}
+    .badge.formal{background:#e8fff4;border-color:#86efac;}
+    .badge.varies{background:#eef2ff;border-color:#c7d2fe;}
+    .sources{
+      margin-top:8px;
+      font-size:13px;
+      color:#64748b;
+      font-weight:750;
     }
 
     .btnRow{
       display:flex;
-      gap:12px;
-      margin-top:20px;
+      gap:10px;
+      margin-top:16px;
     }
     .ghost{
       background:#fff;
-      border:1px solid #e0e0e0;
-      border-radius: 6px;
-      padding:12px 20px;
-      font-weight:600;
+      border:1px solid #e5e7eb;
+      border-radius: 14px;
+      padding:10px 14px;
+      font-weight:950;
       cursor:pointer;
-      transition: all .2s;
-    }
-    .ghost:hover{
-      border-color: #bdbdbd;
-      background: #fafafa;
     }
 
     /* Profession dropdown (booking-ish) */
     .dropdown{
       position:relative;
       width:100%;
-      z-index:40;
     }
     .dropPanel{
       position:absolute;
@@ -717,8 +635,7 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       display:none;
-      z-index:50;
-      max-height: 400px;
+      z-index:30;
     }
     .dropPanel.open{display:block;}
     .dropHeader{
@@ -789,18 +706,16 @@
       display:none;
       align-items:center;
       justify-content:center;
-      z-index:100;
+      z-index:50;
       padding:18px;
     }
-    .modalWrap.show{display:flex !important;}
+    .modalWrap.show{display:flex;}
     .modal{
       width:min(760px, 95vw);
       border-radius: 18px;
       overflow:hidden;
       box-shadow: var(--shadow);
       background:#fff;
-      position: relative;
-      z-index: 101;
     }
     .modalTop{
       background: linear-gradient(180deg, #0a4bb8, #062b6f);
@@ -820,13 +735,11 @@
     }
     .modalBody{
       padding:16px 16px 14px;
-      pointer-events: auto;
     }
     .modeGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:12px;
-      pointer-events: auto;
     }
     .modeCard{
       border:1px solid #e5e7eb;
@@ -835,11 +748,8 @@
       cursor:pointer;
       box-shadow: 0 8px 20px rgba(0,0,0,.08);
       background:#fff;
-      pointer-events: auto;
-      user-select: none;
     }
     .modeCard:hover{background:#f7fbff;}
-    .modeCard:active{transform: scale(0.98);}
     .modeCard .m1{font-weight:950; font-size:18px; margin-bottom:2px;}
     .modeCard .m2{color:#64748b; font-weight:800; font-size:13px;}
     .modalFoot{
@@ -874,7 +784,8 @@
     <div class="wrap">
       <h1>Find your next career</h1>
       <p id="heroLine">
-        <strong>First question:</strong> Do you already have a dream job in mind, or do you want to explore what's possible with your score?
+        Two ways to start: explore options based on your score, or evaluate a dream job.
+        Pick your starting point below.
       </p>
 
       <!-- Intent fork CTAs -->
@@ -893,7 +804,7 @@
       </div>
 
       <div class="searchRow" id="searchRow" style="display:none;">
-        <div class="searchGrid" id="searchGrid">
+        <div class="searchGrid">
           <!-- Profession -->
           <div class="field">
             <div class="icon" aria-hidden="true">
@@ -906,7 +817,7 @@
               <div class="label">Already have a job in mind? (optional)</div>
               <div class="dropdown">
                 <input id="professionInput" class="inputlike" placeholder="Start typing… (real list only)" autocomplete="off" />
-                <div class="sub" id="professionSub">Real list: leave blank to see options for your score.</div>
+                <div class="sub" id="professionSub">Explore mode: leave blank to see options for your score.</div>
 
                 <div class="dropPanel" id="dropPanel">
                   <div class="dropHeader">
@@ -930,7 +841,7 @@
             <div class="fieldcol">
               <div class="label" id="scoreLabel">ATAR (0.00–99.95)</div>
               <div class="smallrow">
-                <input id="scoreInput" class="inputlike" type="number" step="0.05" min="0" max="99.95" placeholder="Enter your ATAR" />
+                <input id="scoreInput" class="inputlike" inputmode="decimal" value="70.00" />
               </div>
               <div class="sub" id="modeText">Mode: ATAR</div>
             </div>
@@ -962,7 +873,7 @@
           <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist">
             <div class="btn-inner">
               <div class="main" id="ctaText">Show careers for my ATAR</div>
-              <div class="sub" id="ctaSub">Two paths (explore mode)</div>
+              <div class="sub" id="ctaSub">Score-first (explore mode)</div>
             </div>
           </button>
         </div>
@@ -976,42 +887,22 @@
       </div>
 
       <div class="filters" id="filters">
-        <div class="filterGroup">
-          <span class="groupLabel">📚 Study Duration</span>
-          <div class="filterOptions">
-            <div class="filterPill on" data-group="study" data-value="any">Any</div>
-            <div class="filterPill" data-group="study" data-value="0-1">0–1 year</div>
-            <div class="filterPill" data-group="study" data-value="2-3">2–3 years</div>
-            <div class="filterPill" data-group="study" data-value="4+">4+ years</div>
-          </div>
-        </div>
-        
-        <div class="filterGroup">
-          <span class="groupLabel">👥 Work Focus</span>
-          <div class="filterOptions">
-            <div class="filterPill on" data-group="ps" data-value="any">Any</div>
-            <div class="filterPill" data-group="ps" data-value="people">More people</div>
-            <div class="filterPill" data-group="ps" data-value="systems">More systems</div>
-          </div>
-        </div>
-        
-        <div class="filterGroup">
-          <span class="groupLabel">💼 Activity Level</span>
-          <div class="filterOptions">
-            <div class="filterPill on" data-group="da" data-value="any">Any</div>
-            <div class="filterPill" data-group="da" data-value="desk">Desk-based</div>
-            <div class="filterPill" data-group="da" data-value="active">On your feet</div>
-          </div>
-        </div>
-        
-        <div class="filterGroup">
-          <span class="groupLabel">🏢 Work Environment</span>
-          <div class="filterOptions">
-            <div class="filterPill on" data-group="io" data-value="any">Any</div>
-            <div class="filterPill" data-group="io" data-value="indoor">Indoor</div>
-            <div class="filterPill" data-group="io" data-value="outdoor">Outdoor</div>
-          </div>
-        </div>
+        <div class="filterPill on" data-group="study" data-value="any">Study: Any</div>
+        <div class="filterPill" data-group="study" data-value="0-1">0–1y</div>
+        <div class="filterPill" data-group="study" data-value="2-3">2–3y</div>
+        <div class="filterPill" data-group="study" data-value="4+">4y+</div>
+        <div class="sep"></div>
+        <div class="filterPill on" data-group="ps" data-value="any">People/Systems: Any</div>
+        <div class="filterPill" data-group="ps" data-value="people">More people</div>
+        <div class="filterPill" data-group="ps" data-value="systems">More systems</div>
+        <div class="sep"></div>
+        <div class="filterPill on" data-group="da" data-value="any">Desk/Active: Any</div>
+        <div class="filterPill" data-group="da" data-value="desk">Desk</div>
+        <div class="filterPill" data-group="da" data-value="active">On-feet</div>
+        <div class="sep"></div>
+        <div class="filterPill on" data-group="io" data-value="any">Indoor/Outdoor: Any</div>
+        <div class="filterPill" data-group="io" data-value="indoor">Indoor</div>
+        <div class="filterPill" data-group="io" data-value="outdoor">Outdoor</div>
       </div>
     </div>
   </section>
@@ -1067,7 +958,7 @@
     const state = {
       mode: null,                 // "ATAR" | "GPA"
       intent: null,               // "score-first" | "job-first" - tracks user's primary entry flow
-      score: 0,
+      score: 70.00,
       salary: "couple",            // self | couple | family | growth
       selectedProfession: null,    // profession object
       filters: {
@@ -1105,41 +996,6 @@
     }
 
     // ---------- Intent flow helpers ----------
-    function renderIntentFork(){
-      const hasMode = state.mode !== null;
-      const hasJob = state.selectedProfession !== null;
-      
-      // If both exist, skip straight to results
-      if (hasMode && hasJob){
-        $('intentFork').style.display = 'none';
-        $('searchRow').style.display = 'block';
-        renderSearchRow();
-        $('heroLine').innerHTML = 'Viewing results for <strong>' + state.selectedProfession.name + '</strong> with your ' + state.mode + ' score.';
-        return;
-      }
-      
-      // If has mode but no job, show only job-first option
-      if (hasMode && !hasJob){
-        $('intentScoreFirst').style.display = 'none';
-        $('intentJobFirst').style.display = 'block';
-        $('heroLine').innerHTML = 'You have a ' + state.mode + ' score. Want to <strong>search for a specific career</strong> to evaluate?';
-        return;
-      }
-      
-      // If has job but no mode, show only score-first option
-      if (!hasMode && hasJob){
-        $('intentScoreFirst').style.display = 'block';
-        $('intentJobFirst').style.display = 'none';
-        $('heroLine').innerHTML = 'You picked <strong>' + state.selectedProfession.name + '</strong>. Now choose your scoring system to see if it\'s achievable.';
-        return;
-      }
-      
-      // Show both options (initial state)
-      $('intentScoreFirst').style.display = 'block';
-      $('intentJobFirst').style.display = 'block';
-      $('heroLine').innerHTML = '<strong>First question:</strong> Do you already have a dream job in mind, or do you want to explore what\'s possible with your score?';
-    }
-    
     function selectIntent(intent){
       state.intent = intent;
       
@@ -1149,29 +1005,31 @@
       });
       $(`intent${intent === 'score-first' ? 'ScoreFirst' : 'JobFirst'}`).classList.add('selected');
       
-      // Update hero text based on intent
+      // Show search row and render appropriate fields
+      $('searchRow').style.display = 'block';
+      renderSearchRow();
+      
+      // Update hero text
       if (intent === 'score-first'){
-        $('heroLine').innerHTML = 'Great! You want to <strong>explore options based on your score</strong>. First, choose your scoring system (ATAR or GPA).';
+        $('heroLine').innerHTML = 'Enter your <strong>ATAR/GPA</strong> to see realistic career pathways. Profession filter is optional.';
       } else {
-        $('heroLine').innerHTML = 'Perfect! You have a <strong>dream job in mind</strong>. Choose your scoring system to see what score you need.';
+        $('heroLine').innerHTML = 'Search for your <strong>dream job</strong> and we\'ll show you what it takes, plus smart alternative pathways.';
       }
       
-      // Show mode selection modal
-      showModeModal();
+      // Scroll to search row smoothly
+      setTimeout(() => {
+        $('searchRow').scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      }, 100);
     }
     
     function renderSearchRow(){
       const grid = $('searchGrid');
-      const searchRow = $('searchRow');
       
       if (state.intent === 'score-first'){
-        // Flow A: Score-first - Just score + salary, NO job search
-        searchRow.style.display = 'block';
-        grid.style.gridTemplateColumns = '1fr 1fr 1fr'; // 3 columns: score, salary, button
-        
+        // Flow A: Score-first layout
         grid.innerHTML = `
-          <!-- Score (main focus) -->
-          <div class="field">
+          <!-- Score (dominant) -->
+          <div class="field" style="grid-column: span 1;">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M7 3h10v18H7V3z" stroke="#0f172a" stroke-width="1.8"/>
@@ -1179,107 +1037,32 @@
               </svg>
             </div>
             <div class="fieldcol">
-              <div class="label" id="scoreLabel">${labelForMode().label}</div>
+              <div class="label" id="scoreLabel">ATAR (0.00–99.95)</div>
               <div class="smallrow">
-                <input id="scoreInput" class="inputlike" inputmode="decimal" value="${state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0)}" />
+                <input id="scoreInput" class="inputlike" inputmode="decimal" value="70.00" />
               </div>
-              <div class="sub" id="modeText">Mode: ${state.mode}</div>
-            </div>
-          </div>
-
-          <!-- Salary circumstance -->
-          <div class="field">
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2v20" stroke="#0f172a" stroke-width="1.8"/>
-                <path d="M17 6.5c0-1.7-1.6-3-5-3s-5 1.3-5 3 1.2 2.6 5 3 5 1.3 5 3-1.6 3-5 3-5-1.3-5-3" stroke="#0f172a" stroke-width="1.8"/>
-              </svg>
-            </div>
-            <div class="fieldcol">
-              <div class="label">Salary circumstance (AUD)</div>
-              <div class="value" style="margin-top:2px;">
-                <select id="salarySelect" class="inputlike" style="font-size:18px;font-weight:950;">
-                  <option value="self">Low — self only ($45k–$70k)</option>
-                  <option value="couple" selected>Medium — couple/shared ($70k–$110k)</option>
-                  <option value="family">High — family costs ($110k–$160k)</option>
-                  <option value="growth">High growth — ambitious ($160k+)</option>
-                </select>
-              </div>
-              <div class="sub">Used to bias results (not a promise).</div>
+              <div class="sub" id="modeText">Mode: ATAR</div>
             </div>
           </div>
           
           <!-- CTA -->
-          <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist">
+          <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist" style="grid-column: span 1;">
             <div class="btn-inner">
-              <div class="main" id="ctaText">Show careers for my ${state.mode} →</div>
-              <div class="sub" id="ctaSub">Score-based exploration</div>
+              <div class="main" id="ctaText">Show my options →</div>
+              <div class="sub" id="ctaSub">Exploring by score</div>
             </div>
           </button>
         `;
         
-        // Re-attach listeners - wait for DOM to be ready
-        setTimeout(() => {
-          const scoreInput = $('scoreInput');
-          const searchBtn = $('searchBtn');
-          const salarySelect = $('salarySelect');
-          
-          if (scoreInput) {
-            // Allow free typing - update state on input
-            scoreInput.addEventListener('input', (e) => {
-              const rawValue = e.target.value;
-              console.log('Score input changed:', rawValue);
-              
-              // Parse and update state
-              const v = parseScore(rawValue);
-              if (v !== null) {
-                state.score = v;
-                console.log('State updated to:', state.score);
-                autoRun();
-              }
-            });
-            
-            // Format the value when user finishes typing (blur)
-            scoreInput.addEventListener('blur', (e) => {
-              if (state.score !== null) {
-                if (state.mode === 'ATAR') {
-                  e.target.value = state.score.toFixed(2);
-                } else {
-                  e.target.value = state.score.toFixed(0);
-                }
-              }
-            });
-            
-            // Make sure input is focused and ready
-            scoreInput.focus();
-          }
-          
-          if (searchBtn) {
-            searchBtn.addEventListener('click', () => {
-              console.log('Score-first button clicked');
-              runSearch(true);
-            });
-          }
-          
-          if (salarySelect) {
-            salarySelect.addEventListener('change', (e) => {
-              state.salary = e.target.value;
-              autoRun();
-            });
-          }
-          
-          // Auto-run search immediately to show results
-          runSearch(false);
-        }, 50);
+        // Re-attach listeners
+        $('scoreInput').addEventListener('input', autoRun);
+        $('searchBtn').addEventListener('click', () => runSearch(true));
         
       } else {
-        // Flow B: Job-first - Just job search + button (NO score input yet)
-        searchRow.style.display = 'block';
-        grid.style.gridTemplateColumns = '2fr 1fr'; // 2 columns: profession search, CTA
-        
+        // Flow B: Job-first layout
         grid.innerHTML = `
-          <!-- Profession (required - main focus) -->
-          <div class="field">
+          <!-- Profession (required) -->
+          <div class="field" style="grid-column: span 1;">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M7 7h10v14H7V7z" stroke="#0f172a" stroke-width="1.8" />
@@ -1287,7 +1070,7 @@
               </svg>
             </div>
             <div class="fieldcol">
-              <div class="label">Search for your dream job</div>
+              <div class="label">Search for a career…</div>
               <div class="dropdown">
                 <input id="professionInput" class="inputlike" placeholder="Type to search (e.g., Doctor, Nurse, Lawyer)" autocomplete="off" />
                 <div class="sub" id="professionSub">Select from real list of ~220 professions</div>
@@ -1304,15 +1087,15 @@
           </div>
           
           <!-- CTA -->
-          <button class="cta" id="searchBtn" type="button" aria-label="Show requirements">
+          <button class="cta" id="searchBtn" type="button" aria-label="Evaluate job" style="grid-column: span 1;">
             <div class="btn-inner">
-              <div class="main" id="ctaText">What ${state.mode} do I need? →</div>
-              <div class="sub" id="ctaSub">See required score</div>
+              <div class="main" id="ctaText">Evaluate this career →</div>
+              <div class="sub" id="ctaSub">Get reality check + alternatives</div>
             </div>
           </button>
         `;
         
-        // Re-attach profession dropdown listeners (required)
+        // Re-attach profession dropdown listeners
         $('professionInput').addEventListener('focus', () => {
           openDrop();
           renderDropList();
@@ -1326,50 +1109,7 @@
           renderDropList();
         });
         $('professionInput').addEventListener('keydown', handleDropdownKeyboard);
-        
-        // Button shows requirements when job is selected
-        $('searchBtn').addEventListener('click', () => {
-          if (!state.selectedProfession) {
-            alert('Please select a job from the list first.');
-            return;
-          }
-          showJobRequirements();
-        });
-        
-        // Clear results initially - only show after button click
-        $('resultsFramingContainer').innerHTML = '';
-        $('evaluationContainer').innerHTML = '';
-        $('mergePromptContainer').innerHTML = '';
-        $('results').innerHTML = '';
-        $('mainHeading').textContent = 'Your evaluation';
-        $('mainHint').textContent = 'Select a job above and click the button to see requirements.';
-      }
-    }
-    
-    function handleDropdownKeyboard(e){
-      if (!$("dropPanel").classList.contains("open")) return;
-
-      if (e.key === "ArrowDown"){
-        e.preventDefault();
-        dropIndex = Math.min(dropIndex + 1, filteredList.length - 1);
-        highlightRow();
-      }
-      if (e.key === "ArrowUp"){
-        e.preventDefault();
-        dropIndex = Math.max(dropIndex - 1, 0);
-        highlightRow();
-      }
-      if (e.key === "Enter"){
-        e.preventDefault();
-        const pick = filteredList[dropIndex];
-        if (pick){
-          selectProfession(pick);
-          closeDrop();
-          runSearch(true);
-        }
-      }
-      if (e.key === "Escape"){
-        closeDrop();
+        $('searchBtn').addEventListener('click', () => runSearch(true));
       }
     }
 
@@ -1875,7 +1615,7 @@
       if (state.selectedProfession){
         base.push(`It shares similarities with your chosen profession (category/tags/work style).`);
       } else {
-        base.push(`Real list: this is a realistic option at your ${modeWord} score.`);
+        base.push(`Explore mode: this is a realistic option at your ${modeWord} score.`);
       }
 
       if (margin < 8) base.push(`It’s close to your current score — competitive but plausible if you keep improving.`);
@@ -2029,12 +1769,7 @@
           e.preventDefault();
           selectProfession(p);
           closeDrop();
-          // In job-first mode, immediately show evaluation; in score-first, just update filter
-          if (state.intent === 'job-first') {
-            runSearch(true);
-          } else {
-            updateCTA(); // Update button text to reflect filter
-          }
+          runSearch(true);
         });
         list.appendChild(row);
       });
@@ -2050,44 +1785,27 @@
     function selectProfession(p){
       state.selectedProfession = p;
       $("professionInput").value = p.name;
-      
-      // Update subtitle based on intent
-      if (state.intent === 'job-first') {
-        $("professionSub").textContent = `Selected: ${p.cat} • Ready to evaluate`;
-      } else {
-        $("professionSub").textContent = `Selected: ${p.cat} • ${p.tags.slice(0,3).join(" • ")}`;
-      }
-      
+      $("professionSub").textContent = `Selected: ${p.cat} • ${p.tags.slice(0,3).join(" • ")}`;
       updateCTA();
     }
 
     function clearProfession(){
       state.selectedProfession = null;
       $("professionInput").value = "";
-      $("professionSub").textContent = "Real list: leave blank to see options for your score.";
+      $("professionSub").textContent = "Explore mode: leave blank to see options for your score.";
       updateCTA();
     }
 
-    // ---------- CTA: intent-aware ----------
+    // ---------- CTA: score-first ----------
     function updateCTA(){
-      if (!$("ctaText") || !$("ctaSub")) return; // Elements might not exist yet
-      
       const modeWord = (state.mode === "GPA") ? "GPA" : "ATAR";
       const p = state.selectedProfession?.name;
 
-      if (state.intent === 'job-first') {
-        // Job-first flow: focus on evaluation
-        const main = p ? `Evaluate ${p} →` : `Evaluate career →`;
-        const sub = p ? `Reality check + alternatives` : `Select a career first`;
-        $("ctaText").textContent = main;
-        $("ctaSub").textContent = sub;
-      } else {
-        // Score-first flow: focus on exploration
-        const main = p ? `Show paths from ${p}` : `Show careers for my ${modeWord}`;
-        const sub = p ? `Related options filtered by your ${modeWord}` : `Exploring by score`;
-        $("ctaText").textContent = main;
-        $("ctaSub").textContent = sub;
-      }
+      const main = p ? `Show paths from ${p}` : `Show careers for my ${modeWord}`;
+      const sub  = p ? `Related options filtered by your ${modeWord}` : `Explore first, then refine`;
+
+      $("ctaText").textContent = main;
+      $("ctaSub").textContent = sub;
     }
 
     // ---------- Filters ----------
@@ -2101,416 +1819,25 @@
 
     // ---------- Search / Auto-run ----------
     function runSearch(scrollToResults){
-      if (!state.mode) return;
-      if (!state.intent) return;
-      
-      if (state.intent === 'score-first'){
-        // Flow A: Score-first exploration
-        const scoreInput = $("scoreInput");
-        if (!scoreInput) {
-          console.log('Score input not found');
-          return;
-        }
-        
-        const v = parseScore(scoreInput.value);
-        if (v === null){
-          console.log('Invalid score value');
-          return;
-        }
-        state.score = v;
-
-        // DON'T normalize display during typing - let user type freely
-        // Only format on blur or explicit request
-
-        renderResultsFlowA();
-        updateEligibleCount();
-
-        if (scrollToResults){
-          setTimeout(() => {
-            window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
-          }, 200);
-        }
-      } else {
-        // Flow B: Job-first
-        if (!state.selectedProfession){
-          alert("Please select a profession from the dropdown first.");
-          return;
-        }
-        
-        renderResultsFlowB();
-        
-        if (scrollToResults){
-          window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
-        }
-      }
-    }
-    
-    function updateEligibleCount(){
-      const eligible = PROFESSIONS.filter(p => isEligibleByScore(p));
-      $('eligibleChip').innerHTML = `<span class="dot2"></span><strong>Eligible in list:</strong> ${eligible.length} / ${PROFESSIONS.length}`;
-    }
-    
-    function renderResultsFlowA(){
-      // Flow A: Two paths exploration
-      const framingContainer = $('resultsFramingContainer');
-      const evalContainer = $('evaluationContainer');
-      const mergeContainer = $('mergePromptContainer');
-      const refineContainer = $('refineContainer');
-      
-      // Clear evaluation (only for Flow B)
-      evalContainer.innerHTML = '';
-      
-      // Show framing
-      const modeLabel = state.mode === 'ATAR' ? 'ATAR' : 'GPA';
-      const scoreDisplay = state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0);
-      framingContainer.innerHTML = `
-        <div class="resultsFraming">
-          <div class="framingTitle">Based on your ${modeLabel} of ${scoreDisplay}</div>
-          <div class="framingText">These are your strongest realistic pathways. Click any card to see details.</div>
-        </div>
-      `;
-      
-      // Update main heading
-      $('mainHeading').textContent = 'Your options';
-      $('mainHint').textContent = 'Ranked by match strength. Click cards to expand.';
-      
-      // Show results
-      renderResults();
-      
-      // Show merge prompt if not already merged
-      if (!state.contextMerged && !state.selectedProfession){
-        mergeContainer.innerHTML = `
-          <div class="mergePrompt">
-            <div class="mergeTitle">💡 Also have a dream job in mind?</div>
-            <button class="mergeBtn" id="addDreamJobBtn">Add dream job to refine results</button>
-          </div>
-        `;
-        setTimeout(() => {
-          const btn = $('addDreamJobBtn');
-          if (btn) btn.addEventListener('click', () => {
-            state.contextMerged = true;
-            alert('You can now use the profession filter below results to refine your shortlist.');
-            mergeContainer.innerHTML = '';
-          });
-        }, 100);
-      } else {
-        mergeContainer.innerHTML = '';
-      }
-    }
-    
-    function showJobRequirements(){
-      // Flow B: Show what ATAR/GPA is required for selected job
-      const framingContainer = $('resultsFramingContainer');
-      const evalContainer = $('evaluationContainer');
-      const mergeContainer = $('mergePromptContainer');
-      const resultsDiv = $('results');
-      
-      // Clear other containers
-      framingContainer.innerHTML = '';
-      mergeContainer.innerHTML = '';
-      
-      const p = state.selectedProfession;
-      
-      if (!p) {
-        alert('Please select a job first.');
+      // Validate score input
+      const v = parseScore($("scoreInput").value);
+      if (v === null){
+        // do nothing if invalid
         return;
       }
-      
-      const modeLabel = state.mode;
-      const minReq = state.mode === 'ATAR' ? p.minATAR : p.minGPA;
-      const minReqDisplay = state.mode === 'ATAR' ? minReq.toFixed(2) : minReq.toFixed(0);
-      
-      $('mainHeading').textContent = p.name;
-      $('mainHint').textContent = 'Here\'s what you need to know about this career path.';
-      
-      // Show requirement card
-      evalContainer.innerHTML = `
-        <div class="evalCard">
-          <div class="evalTitle">📋 ${p.name} Requirements</div>
-          
-          <div class="evalSection">
-            <h4>Minimum ${modeLabel} Required</h4>
-            <div class="statusLabel likely" style="font-size: 24px; padding: 16px 24px;">
-              ${minReqDisplay}
-            </div>
-            <p style="color: #64748b; font-weight: 750; margin: 12px 0 0;">
-              This is the typical minimum ${modeLabel} needed for ${p.name}. Some universities or pathways may vary.
-            </p>
-          </div>
-          
-          <div class="evalSection">
-            <h4>Study Duration</h4>
-            <p style="margin: 8px 0; font-weight: 750;">${fmtStudy(p.study)}</p>
-          </div>
-          
-          <div class="evalSection">
-            <h4>Work Style</h4>
-            <p style="margin: 8px 0; font-weight: 750;">${fmtWork(p)}</p>
-          </div>
-          
-          <div class="evalSection">
-            <h4>Expected Salary Range</h4>
-            <p style="margin: 8px 0; font-weight: 750;">${fmtSalaryBand(p)}</p>
-          </div>
-          
-          ${p.why && p.why.length > 0 ? `
-            <div class="evalSection">
-              <h4>Why this path?</h4>
-              <ul class="bullets">
-                ${p.why.slice(0, 3).map(w => `<li>${w}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-          
-          ${p.start && p.start.length > 0 ? `
-            <div class="evalSection">
-              <h4>How to start</h4>
-              <ul class="bullets">
-                ${p.start.slice(0, 3).map(s => `<li>${s}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-          
-          ${p.evidence && (p.evidence.formal?.length || p.evidence.rule?.length || p.evidence.varies?.length) ? `
-            <div class="evalSection">
-              <h4>Important notes</h4>
-              <div class="noteRow">
-                ${(p.evidence.formal || []).map(e => `<span class="badge formal">${e}</span>`).join('')}
-                ${(p.evidence.rule || []).map(e => `<span class="badge rule">${e}</span>`).join('')}
-                ${(p.evidence.varies || []).map(e => `<span class="badge varies">${e}</span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-      
-      // Show similar careers
-      const adjacent = buildAdjacentCareers(p);
-      
-      if (adjacent.length > 0){
-        resultsDiv.innerHTML = `
-          <h3 style="margin: 32px 0 16px; font-size: 28px;">Similar Career Options</h3>
-          <p class="hint" style="margin-bottom: 18px;">Based on similar work style, study time, and salary expectations.</p>
-        `;
-        adjacent.forEach(alt => {
-          const card = renderCard(alt, 85, false);
-          resultsDiv.insertAdjacentHTML('beforeend', card);
-        });
-      } else {
-        resultsDiv.innerHTML = '';
+      state.score = v;
+
+      // normalize display
+      if (state.mode === "ATAR") $("scoreInput").value = state.score.toFixed(2);
+      else $("scoreInput").value = state.score.toFixed(0);
+
+      renderDropList(); // keep dropdown eligibility accurate
+      renderResults();
+      updateCTA();
+
+      if (scrollToResults){
+        window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
       }
-      
-      // Scroll to results
-      setTimeout(() => {
-        evalContainer.scrollIntoView({behavior: 'smooth', block: 'start'});
-      }, 100);
-    }
-    
-    function renderResultsFlowB(){
-      // Flow B: Dream job evaluation
-      const framingContainer = $('resultsFramingContainer');
-      const evalContainer = $('evaluationContainer');
-      const mergeContainer = $('mergePromptContainer');
-      const refineContainer = $('refineContainer');
-      const resultsDiv = $('results');
-      
-      framingContainer.innerHTML = '';
-      refineContainer.innerHTML = '';
-      
-      $('mainHeading').textContent = 'Dream Job Evaluation';
-      $('mainHint').textContent = 'Reality check + smart alternatives based on what matters to you.';
-      
-      const p = state.selectedProfession;
-      
-      // Determine status based on user's score (if they've provided one)
-      let statusHTML = '';
-      let alternativesHTML = '';
-      let adjacentHTML = '';
-      
-      if (state.score !== null && state.mode){
-        // User has both job + score (merged context)
-        const minReq = state.mode === 'ATAR' ? p.minATAR : p.minGPA;
-        const userScore = state.score;
-        const modeLabel = state.mode === 'ATAR' ? 'ATAR' : 'GPA';
-        
-        let statusLabel = '';
-        let statusClass = '';
-        let statusText = '';
-        
-        if (userScore >= minReq + 5){
-          statusLabel = 'Likely pathway';
-          statusClass = 'likely';
-          statusText = `Your ${modeLabel} of ${state.mode === 'ATAR' ? userScore.toFixed(2) : userScore.toFixed(0)} is above the typical cutoff of ${state.mode === 'ATAR' ? minReq.toFixed(2) : minReq.toFixed(0)}. This is a realistic option for you.`;
-        } else if (userScore >= minReq - 3){
-          statusLabel = 'Stretch goal';
-          statusClass = 'stretch';
-          statusText = `Your ${modeLabel} of ${state.mode === 'ATAR' ? userScore.toFixed(2) : userScore.toFixed(0)} is close to the typical cutoff of ${state.mode === 'ATAR' ? minReq.toFixed(2) : minReq.toFixed(0)}. Consider applying, but also explore backup pathways.`;
-        } else {
-          statusLabel = 'Alternative route needed';
-          statusClass = 'unlikely';
-          statusText = `The typical ${modeLabel} cutoff is ${state.mode === 'ATAR' ? minReq.toFixed(2) : minReq.toFixed(0)}, and your current score is ${state.mode === 'ATAR' ? userScore.toFixed(2) : userScore.toFixed(0)}. Consider the alternative pathways and adjacent careers below.`;
-        }
-        
-        statusHTML = `
-          <div class="evalSection">
-            <h4>Reality Check</h4>
-            <div><strong>Typical ${modeLabel} range:</strong> ${state.mode === 'ATAR' ? minReq.toFixed(2) : minReq.toFixed(0)}+</div>
-            <div><strong>Your ${modeLabel}:</strong> ${state.mode === 'ATAR' ? userScore.toFixed(2) : userScore.toFixed(0)}</div>
-            <div class="statusLabel ${statusClass}">${statusLabel}</div>
-            <p style="margin:12px 0 0; font-weight:750; color:#334155;">${statusText}</p>
-          </div>
-        `;
-        
-        // Show alternative pathways if applicable
-        if (userScore < minReq - 3 && (p.name === 'Doctor' || p.name === 'Lawyer' || p.cat === 'Health')){
-          alternativesHTML = `
-            <div class="evalSection">
-              <h4>Alternative Pathways</h4>
-              <ul class="bullets">
-                ${p.name === 'Doctor' ? '<li><strong>Graduate-entry medicine:</strong> Complete another degree first, then apply to postgrad medicine (very competitive, limited places).</li>' : ''}
-                ${p.cat === 'Health' ? '<li><strong>Pathway programs:</strong> Some universities offer foundation/bridging programs. Check specific institutions.</li>' : ''}
-                ${p.name === 'Lawyer' ? '<li><strong>Graduate JD:</strong> Complete an undergraduate degree, then apply for Juris Doctor (3 years, competitive entry).</li>' : ''}
-                <li><strong>Reality note:</strong> These routes exist but are competitive and take longer. Consider adjacent careers below.</li>
-              </ul>
-            </div>
-          `;
-        }
-        
-        // Show adjacent careers (similarity-based, but filtered by user's score)
-        const adjacentCareers = buildAdjacentCareers(p);
-        if (adjacentCareers.length > 0){
-          adjacentHTML = `
-            <div class="evalSection">
-              <h4>Adjacent Careers That Match Your Interests</h4>
-              <p style="margin:0 0 12px; font-weight:750; color:#334155;">
-                You chose <strong>${escapeHtml(p.name)}</strong> because it involves <strong>${p.tags.slice(0,2).join(', ')}</strong>. 
-                These careers share similar qualities and fit your ${modeLabel}:
-              </p>
-            </div>
-          `;
-          
-          // Render adjacent career cards
-          resultsDiv.innerHTML = '';
-          adjacentCareers.forEach(item => {
-            resultsDiv.appendChild(renderCard(item.p, item.score, false));
-          });
-        } else {
-          adjacentHTML = `
-            <div class="evalSection">
-              <h4>Adjacent Careers</h4>
-              <p style="margin:0; font-weight:750; color:#64748b;">No close matches found at your current score. Consider raising your score or exploring broader career categories.</p>
-            </div>
-          `;
-          resultsDiv.innerHTML = '';
-        }
-        
-      } else {
-        // User hasn't provided score yet - just show job info
-        statusHTML = `
-          <div class="evalSection">
-            <h4>About ${escapeHtml(p.name)}</h4>
-            <ul class="bullets">
-              ${p.why.map(w => `<li>${escapeHtml(w)}</li>`).join('')}
-            </ul>
-          </div>
-        `;
-        
-        mergeContainer.innerHTML = `
-          <div class="mergePrompt">
-            <div class="mergeTitle">📊 Want to see if this is realistic for you?</div>
-            <button class="mergeBtn" id="addScoreBtn">Enter your ATAR/GPA</button>
-          </div>
-        `;
-        setTimeout(() => {
-          const btn = $('addScoreBtn');
-          if (btn) btn.addEventListener('click', showScoreInputSection);
-        }, 100);
-        
-        resultsDiv.innerHTML = '';
-      }
-      
-      evalContainer.innerHTML = `
-        <div class="evalCard">
-          <div class="evalTitle">${escapeHtml(p.name)}</div>
-          ${statusHTML}
-          ${alternativesHTML}
-          ${adjacentHTML}
-        </div>
-      `;
-    }
-    
-    function buildAdjacentCareers(targetProfession){
-      // For Flow B: Find careers similar to the dream job, filtered by user's actual score
-      const pool = PROFESSIONS.filter(p => 
-        p.id !== targetProfession.id && 
-        isEligibleByScore(p) && 
-        passesFilters(p)
-      );
-      
-      // Score by similarity (using existing similarity logic)
-      const ranked = pool.map(p => {
-        let score = 35;
-        
-        // Category match
-        if (p.cat === targetProfession.cat) score += 18;
-        
-        // Tag overlap
-        const sharedTags = p.tags.filter(t => targetProfession.tags.includes(t));
-        score += sharedTags.length * 6;
-        
-        // Work style match
-        if (p.ps === targetProfession.ps) score += 5;
-        if (p.da === targetProfession.da) score += 5;
-        if (p.io === targetProfession.io) score += 4;
-        
-        return {p, score: Math.min(99, score)};
-      })
-      .filter(item => item.score > 45) // Only show meaningful matches
-      .sort((a,b) => b.score - a.score)
-      .slice(0, 6); // Top 6 adjacent careers
-      
-      return ranked;
-    }
-    
-    function showScoreInputSection(){
-      const mergeContainer = $('mergePromptContainer');
-      mergeContainer.innerHTML = `
-        <div class="refineSection">
-          <h3>Enter your ATAR/GPA for personalized evaluation</h3>
-          <div style="display:flex; gap:12px; align-items:flex-end;">
-            <div class="field" style="flex:1; margin:0;">
-              <div class="icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M7 3h10v18H7V3z" stroke="#0f172a" stroke-width="1.8"/>
-                  <path d="M9 7h6M9 11h6M9 15h4" stroke="#0f172a" stroke-width="1.8"/>
-                </svg>
-              </div>
-              <div class="fieldcol">
-                <div class="label" id="scoreLabelMerge">ATAR (0.00–99.95)</div>
-                <input id="scoreInputMerge" class="inputlike" inputmode="decimal" value="70.00" />
-                <div class="sub" id="modeTextMerge">Mode: ${state.mode}</div>
-              </div>
-            </div>
-            <button class="mergeBtn" id="evaluateWithScoreBtn" style="height:78px;">Evaluate →</button>
-          </div>
-        </div>
-      `;
-      
-      $('scoreInputMerge').addEventListener('input', () => {
-        const v = parseScore($('scoreInputMerge').value);
-        if (v !== null) state.score = v;
-      });
-      
-      $('evaluateWithScoreBtn').addEventListener('click', () => {
-        const v = parseScore($('scoreInputMerge').value);
-        if (v === null){
-          alert('Please enter a valid score.');
-          return;
-        }
-        state.score = v;
-        state.contextMerged = true;
-        renderResultsFlowB();
-      });
     }
 
     let autoTimer = null;
@@ -2521,98 +1848,48 @@
 
     // ---------- Mode modal ----------
     function showModeModal(){
-      console.log('Showing mode modal');
-      const modal = $("modeModal");
-      modal.style.display = "";
-      modal.classList.add("show");
+      $("modeModal").classList.add("show");
     }
     function hideModeModal(){
-      console.log('Hiding mode modal');
-      const modal = $("modeModal");
-      modal.classList.remove("show");
-      modal.style.display = "none";
-      // Double-check it's hidden
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 50);
+      $("modeModal").classList.remove("show");
     }
     function setMode(mode){
-      console.log('setMode called with:', mode);
       state.mode = mode;
 
       const info = labelForMode();
-      
-      // adjust score format
-      const v = parseScore($("scoreInput")?.value) ?? (mode === "ATAR" ? 70.00 : 70);
-      state.score = v;
+      $("scoreLabel").textContent = info.label;
+      $("modeText").textContent = "Mode: " + mode;
 
-      // Show search row and render appropriate fields based on intent
-      if (state.intent) {
-        console.log('Showing search row for intent:', state.intent);
-        
-        // HIDE the intent fork cards
-        const intentFork = $("intentFork");
-        if (intentFork) {
-          intentFork.style.display = 'none';
-        }
-        
-        // Show the search row with intent-specific layout
-        renderSearchRow();
-        
-        // Update final hero text based on intent
-        if (state.intent === 'score-first'){
-          $("heroLine").innerHTML = 'Enter your <strong>' + mode + '</strong> score below to see what careers are <strong>realistically achievable</strong> with your results.';
-        } else {
-          $("heroLine").innerHTML = 'Search for your <strong>dream job</strong> below to see what <strong>' + mode + ' score you need</strong> to pursue it.';
-        }
-        
-        // Scroll to search row smoothly
-        setTimeout(() => {
-          $("searchRow").scrollIntoView({behavior: 'smooth', block: 'nearest'});
-        }, 100);
-      } else {
-        // No intent selected yet, re-render fork to show appropriate options
-        renderIntentFork();
-      }
+      // adjust score format
+      const v = parseScore($("scoreInput").value) ?? (mode === "ATAR" ? 70.00 : 70);
+      state.score = v;
+      if (mode === "ATAR") $("scoreInput").value = state.score.toFixed(2);
+      else $("scoreInput").value = state.score.toFixed(0);
+
+      updateCTA();
+      renderDropList();
+      renderResults();
     }
 
     // ---------- Wire up ----------
-    // Don't show mode modal automatically - wait for intent selection
-    // showModeModal(); // Removed - now triggered by selectIntent()
+    // Start modal if no mode set
+    showModeModal();
 
     document.querySelectorAll(".modeCard").forEach(el => {
-      el.addEventListener("click", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        const mode = this.dataset.mode;
-        console.log('Mode card clicked:', mode);
-        
-        // Immediately hide modal
-        const modal = $("modeModal");
-        modal.classList.remove("show");
-        modal.style.display = "none";
-        
-        // Then set mode and show search
-        setMode(mode);
-      }, true);
-    });
-    
-    // Also add click handler to modal backdrop to close it
-    $("modeModal").addEventListener("click", function(e) {
-      if (e.target === this) {
+      el.addEventListener("click", () => {
+        setMode(el.dataset.mode);
         hideModeModal();
-      }
+      });
     });
 
-    // Only attach if element exists (for initial page load)
-    if ($("salarySelect")) {
-      $("salarySelect").addEventListener("change", () => {
-        state.salary = $("salarySelect").value;
-        autoRun();
-      });
-    }
+    $("salarySelect").addEventListener("change", () => {
+      state.salary = $("salarySelect").value;
+      autoRun();
+    });
 
-    // These elements are created dynamically, so listeners are attached in renderSearchRow()
+    $("scoreInput").addEventListener("input", autoRun);
+
+    $("searchBtn").addEventListener("click", () => runSearch(true));
 
     $("resetBtn").addEventListener("click", () => {
       state.salary = "couple";
@@ -2653,7 +1930,7 @@
       // If user types something that isn't the selected profession, clear selection
       if (state.selectedProfession && $("professionInput").value.trim() !== state.selectedProfession.name){
         state.selectedProfession = null;
-        $("professionSub").textContent = "Real list: leave blank to see options for your score.";
+        $("professionSub").textContent = "Explore mode: leave blank to see options for your score.";
       }
       openDrop();
       renderDropList();
@@ -2696,14 +1973,14 @@
 
     // Initial render after mode selection (but keep empty until user picks mode)
     function safeInit(){
-      // updateCTA(); // removed for dual-intent flow
-      $("eligibleChip").innerHTML = `<span class="dot2"></span><strong>Total careers:</strong>  ${PROFESSIONS.length}`;
+      updateCTA();
+      $("eligibleChip").innerHTML = `<span class="dot2"></span><strong>Eligible in list:</strong> 0 / ${PROFESSIONS.length}`;
       $("results").innerHTML = `
         <div class="card" style="cursor:default;">
-          <div class="cardTitle">Pick your starting point above</div>
+          <div class="cardTitle">Choose ATAR or GPA to start</div>
           <div class="tags">
-            <span class="tag">Two paths</span>
-            <span class="tag">Real list</span>
+            <span class="tag">Score-first</span>
+            <span class="tag">Explore mode</span>
             <span class="tag">Real list</span>
           </div>
           <ul class="bullets">
@@ -2712,17 +1989,8 @@
           </ul>
         </div>
       `;
-      renderIntentFork();
     }
     safeInit();
-    
-    // Wire up intent fork CTAs
-    document.querySelectorAll('.intentCard').forEach(card => {
-      card.addEventListener('click', () => {
-        const intent = card.dataset.intent;
-        selectIntent(intent);
-      });
-    });
   </script>
 </body>
 </html>
