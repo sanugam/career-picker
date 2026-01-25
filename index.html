@@ -6,1632 +6,1915 @@
   <title>CareerPicker</title>
   <style>
     :root{
-      /* more original than Booking: ocean + electric teal + warm gold */
-      --bg0:#061a3a;
-      --bg1:#06224f;
-      --bg2:#071a2f;
-      --ink:#0c1220;
-      --muted:#5c6b85;
+      --bg:#f3f6fb;
+      --ink:#0b1220;
+      --muted:#5b6475;
       --card:#ffffff;
-      --panel:#f6f8ff;
-      --line:#e6ebf6;
-      --shadow: 0 18px 50px rgba(7,16,40,.18);
-      --shadow2: 0 10px 30px rgba(7,16,40,.12);
-      --gold:#f6b400;
-      --teal:#23d5c8;
-      --blue:#0b5cff;
-      --chip:#eef2ff;
-      --chipInk:#334155;
-      --good:#0ea5e9;
-      --warn:#f59e0b;
-      --bad:#ef4444;
+      --line:#e6ebf3;
+      --blue:#003b95; /* booking-ish */
+      --blue2:#002a66;
+      --accent:#febb02; /* booking-ish yellow */
+      --shadow: 0 12px 30px rgba(13, 28, 66, .12);
+      --shadow2: 0 8px 20px rgba(13, 28, 66, .10);
       --radius:18px;
-      --radius2:22px;
-      --max:1100px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family:var(--sans);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--ink);
-      background:
-        radial-gradient(900px 480px at 70% 10%, rgba(35,213,200,.22), transparent 60%),
-        radial-gradient(680px 420px at 15% 0%, rgba(11,92,255,.22), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2) 56%, #f5f7ff 56%, #f5f7ff);
+      background:var(--bg);
     }
 
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px;}
+    /* Topbar */
     .topbar{
-      height:68px; display:flex; align-items:center; justify-content:space-between;
-      color:#fff; opacity:.95;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(243,246,251,.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(230,235,243,.7);
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;}
-    .brandDot{
-      width:10px; height:10px; border-radius:99px;
-      background: radial-gradient(circle at 30% 30%, #fff, var(--teal));
-      box-shadow: 0 0 0 4px rgba(35,213,200,.18);
+    .topbar-inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
     }
-    .topRight{display:flex; align-items:center; gap:10px;}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+    }
+    .brand-dot{
+      width:10px;height:10px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #febb02, #d19b00);
+      box-shadow: 0 0 0 4px rgba(254,187,2,.15);
+    }
+    .top-actions{display:flex;gap:10px;align-items:center}
     .pill{
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.08);
-      color:#fff; padding:8px 12px; border-radius:999px; font-weight:700;
-      display:flex; align-items:center; gap:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight: 700;
+      color:#1a2440;
+      cursor:pointer;
     }
-    .pillGhost{
-      border:1px solid rgba(255,255,255,.18);
-      background:transparent;
-    }
-    .pillStrong{
-      background:rgba(255,255,255,.92);
-      color:#0b1430;
-      border-color:transparent;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    .pill.primary{
+      background: linear-gradient(180deg, #0a3a86, #05306f);
+      border-color: rgba(255,255,255,.2);
+      color:#fff;
+      box-shadow: 0 10px 24px rgba(0,59,149,.22);
     }
 
-    .hero{padding:38px 0 18px; color:#fff;}
+    /* Hero */
+    .hero{
+      background: radial-gradient(1200px 420px at 20% 20%, rgba(254,187,2,.20), transparent 55%),
+                  radial-gradient(900px 380px at 70% 30%, rgba(95,163,255,.18), transparent 60%),
+                  linear-gradient(180deg, var(--blue), var(--blue2));
+      color:#fff;
+      padding: 36px 0 26px;
+    }
+    .wrap{
+      max-width:1120px;
+      margin:0 auto;
+      padding: 0 18px;
+    }
     .hero h1{
-      margin:0;
-      font-size: clamp(38px, 5vw, 64px);
-      line-height:1.02;
-      letter-spacing:-.8px;
-      opacity:.96;
+      margin: 0;
+      font-size: 54px;
+      line-height: 1.02;
+      letter-spacing: -1.2px;
+      color: rgba(255,255,255,.95);
     }
     .hero p{
-      margin:12px 0 0;
-      font-size:18px;
-      opacity:.85;
-      max-width:760px;
+      margin: 12px 0 0;
+      font-size: 16px;
+      color: rgba(255,255,255,.86);
+      max-width: 820px;
     }
 
-    /* Search bar */
+    /* Search Bar (booking-like) */
     .searchbar{
-      margin-top:22px;
-      background:rgba(255,255,255,.10);
-      border-radius: var(--radius2);
-      padding: 10px;
-      box-shadow: 0 20px 70px rgba(0,0,0,.25);
-      border: 2px solid rgba(246,180,0,.42);
-      backdrop-filter: blur(8px);
+      margin-top: 18px;
+      background: var(--accent);
+      border-radius: 18px;
+      padding: 4px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.25);
     }
-    .grid{
+    .searchgrid{
       display:grid;
-      grid-template-columns: 2.4fr 1.2fr 1.5fr .6fr;
-      gap:10px;
+      grid-template-columns: 2.15fr .75fr 1.25fr .7fr;
+      gap:4px;
+      align-items:stretch;
     }
+    @media (max-width: 980px){
+      .hero h1{font-size:40px}
+      .searchgrid{grid-template-columns: 1fr; }
+    }
+
     .field{
       background:#fff;
-      border-radius: 16px;
-      padding: 12px 14px;
-      border:1px solid rgba(15,23,42,.08);
-      min-height:78px;
-      display:flex; flex-direction:column; justify-content:center;
-      box-shadow: 0 8px 18px rgba(7,16,40,.08);
-      position:relative;
+      border-radius: 14px;
+      padding: 10px 12px;
+      min-height: 74px;
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
-    .labelRow{display:flex; align-items:center; gap:10px;}
-    .icon{
-      width:34px; height:34px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(11,92,255,.10), rgba(35,213,200,.10));
-      display:grid; place-items:center;
-      border:1px solid rgba(11,92,255,.14);
+    .field .icon{
+      width: 34px; height:34px; border-radius: 10px;
+      background: #f4f7ff;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid #e7efff;
+      color:#1a3b84;
       flex:0 0 auto;
     }
-    .label{
-      font-size:13px; color:#5b6b86; font-weight:800;
-      display:flex; align-items:center; gap:6px;
-    }
-    .hint{
-      margin-top:6px;
-      font-weight:800;
-      color:#0b1430;
-      opacity:.92;
-      display:flex; align-items:center; gap:10px;
-    }
-    .subhint{
-      margin-top:3px;
+    .field label{
       font-size:12px;
-      color:#6b7c98;
-      font-family: var(--mono);
+      font-weight:800;
+      color:#1b2642;
+      display:block;
+      margin-bottom: 2px;
     }
-    input[type="text"], input[type="number"], select{
+    .field small{
+      display:block;
+      color: var(--muted);
+      font-weight:600;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .field input, .field select, .field button{
+      font: inherit;
+    }
+    .field .stack{width:100%}
+    .field input, .field select{
       width:100%;
-      border:none; outline:none;
-      font-size:16px;
-      font-weight:800;
-      background:transparent;
-      color:#0b1430;
+      border:0;
+      outline:0;
+      font-weight: 800;
+      font-size: 16px;
+      color:#0b1220;
+      background: transparent;
+      padding: 2px 0;
     }
-    input::placeholder{color:#94a3b8; font-weight:800}
-    .btn{
-      border:none; cursor:pointer;
-      border-radius:16px;
-      font-size:18px;
-      font-weight:900;
-      letter-spacing:.2px;
-      background: linear-gradient(180deg, rgba(11,92,255,1), rgba(6,56,180,1));
+
+    .cta{
+      border-radius: 14px;
+      background: #0a3a86;
       color:#fff;
-      box-shadow: 0 18px 40px rgba(11,92,255,.26);
-      display:flex; align-items:center; justify-content:center;
-      gap:10px;
+      font-weight: 900;
+      border:0;
+      cursor:pointer;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
     }
-    .btn:active{transform: translateY(1px)}
-    .underbar{
-      margin-top:10px;
-      background: rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.16);
-      border-radius: 999px;
-      padding: 9px 12px;
-      color:#eaf0ff;
+    .cta:hover{filter: brightness(1.04)}
+    .cta:active{transform: translateY(1px)}
+    .cta .btn-inner{
       display:flex;
-      flex-wrap:wrap;
-      gap:8px;
       align-items:center;
-      font-weight:800;
-      backdrop-filter: blur(8px);
+      justify-content:center;
+      gap:10px;
+      padding: 14px 14px;
+      height: 74px;
+      font-size: 16px;
+    }
+
+    /* Info strip */
+    .strip{
+      margin-top: 12px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: rgba(255,255,255,.86);
+      font-weight: 700;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
     .badge{
-      border-radius:999px;
-      padding:6px 10px;
-      background: rgba(35,213,200,.16);
-      border:1px solid rgba(35,213,200,.28);
-      color:#eafffd;
-      font-family: var(--mono);
-      font-size:12px;
-      font-weight:900;
-    }
-    .badge2{
-      background: rgba(246,180,0,.15);
-      border-color: rgba(246,180,0,.28);
-      color:#fff4d2;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.16);
+      border:1px solid rgba(255,255,255,.18);
+      font-size: 12px;
+      font-weight: 900;
     }
 
-    /* Content area */
-    .content{
-      background:#f5f7ff;
-      padding: 26px 0 70px;
+    /* Main */
+    .main{
+      padding: 22px 0 60px;
     }
-    .whyRow{
+    .grid4{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
-      gap:14px;
-      margin-top: 16px;
+      gap: 14px;
+      margin-top: 18px;
     }
-    .whyCard{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
+    @media (max-width: 980px){ .grid4{grid-template-columns:1fr; } }
+
+    .info-card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px;
       box-shadow: var(--shadow2);
     }
-    .whyCard h4{margin:0 0 6px; font-size:14px; letter-spacing:.1px;}
-    .whyCard p{margin:0; color:#5c6b85; font-weight:700; font-size:13px; line-height:1.35;}
+    .info-card h4{margin:0;font-size:15px}
+    .info-card p{margin:6px 0 0;color:var(--muted);font-weight:650;font-size:13px;line-height:1.35}
 
-    .sectionTitle{
-      margin: 18px 0 8px;
-      font-size:34px;
-      letter-spacing:-.6px;
+    /* Filters row */
+    .filters{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
-    .sectionSub{
-      margin:0 0 18px;
-      color:#5c6b85;
-      font-weight:800;
+    .chip{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 850;
+      color:#1a2440;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip.on{
+      border-color:#b8ccff;
+      background:#eef4ff;
+      color:#0a3a86;
+    }
+    .chip small{
+      margin-left:6px;
+      font-weight:900;
+      color:#6b7390;
+    }
+    .divider{
+      width:1px;height:28px;background:var(--line);
+      margin: 0 4px;
     }
 
-    /* Shortlist cards */
-    .list{
-      display:flex; flex-direction:column; gap:14px;
-      margin-top: 10px;
+    /* Results */
+    .section-title{
+      margin: 22px 0 10px;
+      font-size: 34px;
+      letter-spacing: -.8px;
+    }
+    .section-sub{
+      margin: -6px 0 16px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 6px;
+    }
+    @media (max-width: 980px){ .cats{grid-template-columns:1fr;} }
+
+    .cat{
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 14px;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    .cat::after{
+      content:"";
+      position:absolute; inset:-40px -40px auto auto;
+      width:140px;height:140px;
+      background: radial-gradient(circle at 30% 30%, rgba(254,187,2,.30), transparent 60%);
+      transform: rotate(12deg);
+    }
+    .cat h3{margin:0;font-size:18px}
+    .cat p{margin:6px 0 0;color:var(--muted);font-weight:700;font-size:13px;line-height:1.35}
+    .cat .row{
+      margin-top:10px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    .mini{
+      display:inline-flex;
+      gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background:#f6f8ff;
+      border:1px solid #e6ebff;
+      font-weight:900;
+      font-size:12px;
+      color:#1a3b84;
+    }
+    .mini strong{font-size:12px}
+    .cat.active{
+      outline: 3px solid rgba(254,187,2,.65);
+      outline-offset: 2px;
+    }
+
+    .cards{
+      margin-top: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
     }
     .card{
       background:#fff;
-      border:1px solid var(--line);
-      border-radius: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
       box-shadow: var(--shadow2);
       overflow:hidden;
-    }
-    .cardTop{
-      padding: 16px 16px 12px;
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:14px;
       cursor:pointer;
     }
-    .titleRow{
-      display:flex; align-items:flex-start; gap:12px;
-      min-width: 0;
+    .card-top{
+      padding: 14px 16px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
     }
-    .num{
-      width:32px; height:32px; border-radius:12px;
-      display:grid; place-items:center;
-      font-weight:900;
-      background: linear-gradient(135deg, rgba(11,92,255,.12), rgba(35,213,200,.14));
-      border:1px solid rgba(11,92,255,.14);
-      color:#0b1430;
-      flex:0 0 auto;
+    .card h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-.4px;
     }
-    .titleCol{min-width:0}
-    .card h3{margin:0; font-size:20px; letter-spacing:-.2px;}
-    .chips{
+    .tags{
       margin-top:8px;
-      display:flex; flex-wrap:wrap; gap:8px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
     }
-    .chip{
-      background: var(--chip);
-      border:1px solid rgba(99,102,241,.14);
-      color: var(--chipInk);
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:900;
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      background:#f5f7fb;
+      border:1px solid #e9eef7;
+      font-weight:850;
+      color:#33405e;
+      font-size: 12px;
     }
     .match{
-      font-weight:1000;
-      color:#0b3a98;
-      font-size:18px;
+      font-weight: 950;
+      font-size: 20px;
+      color:#0a3a86;
       white-space:nowrap;
     }
-    .cardMeta{
-      padding: 0 16px 14px;
-      color:#5c6b85;
-      font-weight:800;
+
+    .quickfacts{
+      margin-top:10px;
       display:flex;
-      flex-wrap:wrap;
       gap:10px;
-      align-items:center;
+      flex-wrap:wrap;
     }
-    .metaPill{
-      background:#f7f9ff;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:12px;
-      font-family: var(--mono);
-      font-weight:900;
-      color:#3b4a66;
+    .qf{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      background:#fbfcff;
+      border:1px solid #edf2fb;
+      font-weight: 900;
+      color:#26314f;
+      font-size: 12px;
     }
+    .qf span{color:#6b7390;font-weight:900}
+
     .expand{
-      border-top:1px solid var(--line);
-      background: linear-gradient(180deg, #fbfcff, #ffffff);
-      padding: 14px 16px 16px;
       display:none;
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--line);
     }
     .card.open .expand{display:block}
     .cols{
       display:grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
     }
+    @media (max-width: 980px){ .cols{grid-template-columns:1fr;} }
+
     .box{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 12px;
       background:#fff;
     }
-    .box h4{margin:0 0 8px; font-size:13px; color:#23304a; letter-spacing:.1px;}
-    .box ul{margin:0; padding-left:18px; color:#485a78; font-weight:800; line-height:1.5;}
-    .box p{margin:0; color:#485a78; font-weight:800; line-height:1.45;}
-    .note{
-      margin-top:10px;
-      border-radius:14px;
-      padding:10px 12px;
-      background: rgba(246,180,0,.12);
-      border:1px solid rgba(246,180,0,.22);
-      color:#5a4a15;
-      font-weight:900;
-      font-size:12px;
+    .box h4{margin:0;font-size:14px}
+    .box ul{margin:8px 0 0; padding-left: 18px; color:#2a3554; font-weight: 750; line-height:1.45}
+    .box li{margin:6px 0}
+    .notes{
+      margin-top: 12px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
+    .note-badge{
+      font-size: 12px;
+      font-weight: 950;
+      border-radius: 999px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background:#fff;
+      color:#223055;
+    }
+    .note-badge.rule{border-color:#ffe7a3;background:#fff8dd}
+    .note-badge.formal{border-color:#cbe6ff;background:#eef7ff}
+    .note-badge.licensed{border-color:#ffd0d0;background:#fff0f0}
 
-    .actions{
+    /* Footer controls */
+    .bottom-row{
       margin-top: 16px;
-      display:flex; gap:10px; flex-wrap:wrap;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
     }
-    .smallBtn{
+    .btn{
       border:1px solid var(--line);
       background:#fff;
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 10px 12px;
-      font-weight:900;
+      font-weight: 900;
       cursor:pointer;
-      box-shadow: var(--shadow2);
+      color:#1a2440;
     }
-    .smallBtn.primary{
-      border-color: rgba(11,92,255,.18);
-      background: linear-gradient(180deg, rgba(11,92,255,.12), rgba(35,213,200,.10));
-    }
-
-    /* Dropdown overlay */
-    .dd{
-      position:absolute;
-      left:0; right:0;
-      top: calc(100% + 8px);
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      z-index:30;
-      display:none;
-    }
-    .dd.open{display:block}
-    .ddHeader{
-      padding:12px 14px;
-      display:flex; align-items:center; justify-content:space-between;
-      background: #fbfcff;
-      border-bottom:1px solid var(--line);
-    }
-    .ddHeader b{font-size:14px}
-    .ddHeader span{
-      font-size:12px;
-      color:#607192;
-      font-weight:900;
-      font-family: var(--mono);
-    }
-    .ddList{
-      max-height: 340px;
-      overflow:auto;
-    }
-    .ddItem{
-      padding:12px 14px;
-      display:flex; gap:12px;
-      border-bottom:1px solid #f0f3ff;
-      cursor:pointer;
-      align-items:flex-start;
-    }
-    .ddItem:last-child{border-bottom:none}
-    .ddItem:hover{background:#f7f9ff}
-    .ddItem.active{background: rgba(11,92,255,.10)}
-    .ddIcon{
-      width:42px; height:42px; border-radius:999px;
-      border:1px solid #eef2ff;
-      background:#f7f9ff;
-      display:grid; place-items:center;
-      flex:0 0 auto;
-      font-size:18px;
-    }
-    .ddTxt{min-width:0}
-    .ddTxt .t{font-weight:1000; color:#0b1430}
-    .ddTxt .d{font-weight:900; color:#64748b; margin-top:2px}
-    .ddEmpty{
-      padding:14px;
-      color:#64748b;
-      font-weight:900;
-    }
-
-    /* Start modal */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(8, 12, 24, .62);
-      display:none;
-      z-index:50;
-      backdrop-filter: blur(6px);
-    }
-    .modalBack.open{display:grid; place-items:center;}
-    .modal{
-      width:min(760px, calc(100vw - 24px));
-      background:#fff;
-      border-radius: 22px;
-      overflow:hidden;
-      box-shadow: 0 30px 90px rgba(0,0,0,.40);
-      border:1px solid rgba(255,255,255,.35);
-    }
-    .modalHead{
-      padding: 18px 18px 14px;
-      background: linear-gradient(135deg, rgba(11,92,255,1), rgba(35,213,200,.40));
+    .btn.primary{
+      background: linear-gradient(180deg, #0a3a86, #05306f);
       color:#fff;
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 10px 24px rgba(0,59,149,.20);
     }
-    .modalHead h2{margin:0; font-size:28px; letter-spacing:-.4px;}
-    .modalHead p{margin:8px 0 0; opacity:.92; font-weight:800; line-height:1.35;}
-    .modalBody{padding: 14px 18px 18px;}
-    .modeRow{
+    .btn:active{transform: translateY(1px)}
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(6, 12, 26, .55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .overlay.show{display:flex}
+    .modal{
+      width:min(760px, 100%);
+      background:#fff;
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 22px 70px rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .modal-head{
+      background: linear-gradient(180deg, #0a3a86, #05306f);
+      color:#fff;
+      padding: 16px 18px;
+    }
+    .modal-head h3{margin:0;font-size:26px;letter-spacing:-.5px}
+    .modal-head p{margin:8px 0 0;color:rgba(255,255,255,.86);font-weight:700;line-height:1.35}
+    .modal-body{padding: 14px 18px 16px}
+    .mode-cards{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top: 6px;
+      gap: 12px;
+      margin-top: 12px;
     }
-    .modeCard{
+    @media (max-width: 740px){ .mode-cards{grid-template-columns:1fr;} }
+
+    .mode{
       border:1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
+      border-radius: 16px;
+      padding: 14px 14px;
       cursor:pointer;
-      background:#fff;
       box-shadow: var(--shadow2);
+      background:#fff;
     }
-    .modeCard:hover{border-color: rgba(11,92,255,.25)}
-    .modeCard b{display:block; font-size:16px;}
-    .modeCard span{display:block; margin-top:6px; color:#64748b; font-weight:800;}
-    .modalFoot{
+    .mode h4{margin:0;font-size:16px}
+    .mode p{margin:6px 0 0;color:var(--muted);font-weight:700;font-size:13px;line-height:1.35}
+    .mode.on{
+      outline: 3px solid rgba(254,187,2,.65);
+      outline-offset: 2px;
+    }
+    .modal-foot{
       margin-top: 10px;
-      color:#6b7c98;
-      font-weight:900;
-      font-size:12px;
+      color:#6b7390;
+      font-weight: 800;
+      font-size: 12px;
     }
 
-    /* responsive */
-    @media (max-width: 920px){
-      .grid{grid-template-columns:1fr; }
-      .whyRow{grid-template-columns:1fr 1fr;}
-      .cols{grid-template-columns:1fr}
-      .btn{min-height:62px}
+    /* Profession dropdown */
+    .combo{
+      position:relative;
     }
-    @media (max-width: 520px){
-      .whyRow{grid-template-columns:1fr}
-      .topRight{gap:6px}
-      .pill{padding:7px 10px}
+    .dropdown{
+      position:absolute;
+      left:0; right:0;
+      top: 72px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.20);
+      overflow:hidden;
+      z-index: 30;
+      display:none;
     }
+    .dropdown.show{display:block}
+    .dropdown-head{
+      padding: 10px 12px;
+      background: #f7f9ff;
+      border-bottom:1px solid #e9efff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-weight: 950;
+      color:#1a2440;
+    }
+    .dropdown-head span{
+      font-size: 12px;
+      color:#6b7390;
+      font-weight: 900;
+    }
+    .list{
+      max-height: 320px;
+      overflow:auto;
+    }
+    .item{
+      padding: 12px 12px;
+      border-bottom:1px solid #eef2fb;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      cursor:pointer;
+    }
+    .item:hover{background:#f7faff}
+    .item .bubble{
+      width:38px;height:38px;border-radius:999px;
+      display:flex;align-items:center;justify-content:center;
+      background:#f2f6ff;border:1px solid #e6eeff;
+      color:#1a3b84;
+      font-weight: 950;
+      flex:0 0 auto;
+    }
+    .item .meta{min-width:0}
+    .item .title{
+      font-weight: 950;
+      color:#0b1220;
+      line-height:1.2;
+    }
+    .item .sub{
+      margin-top: 2px;
+      color:#6b7390;
+      font-weight: 800;
+      font-size: 12px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 520px;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background:#0b1220;
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      box-shadow: 0 12px 34px rgba(0,0,0,.30);
+      display:none;
+      z-index: 80;
+    }
+    .toast.show{display:block}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="brandDot"></span> CareerPicker</div>
-      <div class="topRight">
-        <div class="pill pillGhost">AUD</div>
-        <div class="pill pillGhost">Register</div>
-        <div class="pill pillStrong">Sign in</div>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>CareerPicker</span>
+      </div>
+      <div class="top-actions">
+        <button class="pill" id="aboutBtn">About</button>
+        <button class="pill primary" id="saveBtnTop">Save (later)</button>
       </div>
     </div>
+  </div>
 
-    <div class="hero">
+  <section class="hero">
+    <div class="wrap">
       <h1>Find your next career</h1>
       <p>
-        Pick a <b>real profession</b> from the dropdown (type to search, scroll to browse).
-        Professions are filtered by your <b>ATAR (0.00–99.95)</b> or a <b>GPA-like score (0–100)</b>.
+        Start with your <strong>ATAR/GPA</strong> and get realistic options first. If you already have a job in mind,
+        you can also search it from a real list (type to filter, scroll to browse).
       </p>
 
       <div class="searchbar" aria-label="Career search bar">
-        <div class="grid">
+        <div class="searchgrid">
+
           <!-- Profession -->
-          <div class="field" id="professionField">
-            <div class="labelRow">
-              <div class="icon" aria-hidden="true">💼</div>
-              <div>
-                <div class="label">Choose a profession <span style="opacity:.65">(must pick from list)</span></div>
-                <div class="hint">
-                  <input id="professionInput" type="text" placeholder="Start typing… (e.g. Nurse, Electrician, Lawyer)" autocomplete="off" />
-                </div>
-                <div class="subhint" id="professionMeta">0 shown • 0 eligible in total</div>
-              </div>
+          <div class="field combo" id="combo">
+            <div class="icon" aria-hidden="true">💼</div>
+            <div class="stack">
+              <label for="professionInput">Profession (optional)</label>
+              <input id="professionInput" placeholder="Start typing… (must pick from list)" autocomplete="off" />
+              <small id="professionHint">Explore mode: leave blank to see options for your score.</small>
             </div>
 
-            <div class="dd" id="professionDD">
-              <div class="ddHeader">
-                <b>Professions</b>
+            <div class="dropdown" id="dropdown" role="listbox" aria-label="Profession list">
+              <div class="dropdown-head">
+                <div>Professions</div>
                 <span>Type to filter • Scroll • Enter to select</span>
               </div>
-              <div class="ddList" id="ddList"></div>
-              <div class="ddEmpty" id="ddEmpty" style="display:none;">No matches. Pick from the list only.</div>
+              <div class="list" id="dropdownList"></div>
             </div>
           </div>
 
           <!-- Score -->
           <div class="field">
-            <div class="labelRow">
-              <div class="icon" aria-hidden="true">📄</div>
-              <div style="width:100%">
-                <div class="label" id="scoreLabel">ATAR (0.00–99.95)</div>
-                <div class="hint">
-                  <input id="scoreInput" type="number" step="0.01" min="0" max="99.95" value="70.00"/>
-                </div>
-                <div class="subhint" id="scoreHint">Mode: ATAR</div>
-              </div>
+            <div class="icon" aria-hidden="true">📄</div>
+            <div class="stack">
+              <label for="scoreInput"><span id="scoreLabel">ATAR</span> (<span id="scoreRangeLabel">0.00–99.95</span>)</label>
+              <input id="scoreInput" type="number" inputmode="decimal" step="0.01" min="0" max="99.95" value="70.00" />
+              <small id="modeLine">Mode: <strong id="modeName">ATAR</strong></small>
             </div>
           </div>
 
           <!-- Salary circumstance -->
           <div class="field">
-            <div class="labelRow">
-              <div class="icon" aria-hidden="true">💰</div>
-              <div style="width:100%">
-                <div class="label">Salary circumstance (AUD)</div>
-                <div class="hint">
-                  <select id="salarySelect">
-                    <option value="self">Self only — $45k–$75k</option>
-                    <option value="couple">Couple — $70k–$110k</option>
-                    <option value="family">Family — $100k–$160k</option>
-                    <option value="premium">High growth — $140k+</option>
-                  </select>
-                </div>
-                <div class="subhint">Used to bias the shortlist (not a guarantee).</div>
-              </div>
+            <div class="icon" aria-hidden="true">💰</div>
+            <div class="stack">
+              <label for="salarySelect">Salary circumstance (AUD)</label>
+              <select id="salarySelect">
+                <option value="low">Low — self only (≈ $45k–$70k)</option>
+                <option value="mid" selected>Medium — couple / shared costs (≈ $70k–$110k)</option>
+                <option value="high">High — family / mortgage (≈ $110k–$170k)</option>
+                <option value="growth">High growth — aiming top end (≈ $170k+)</option>
+              </select>
+              <small>Used to bias results (not a promise).</small>
             </div>
           </div>
 
-          <!-- Search -->
-          <button class="btn" id="searchBtn" type="button">
-            Search <span style="opacity:.9">→</span>
+          <!-- CTA -->
+          <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist">
+            <div class="btn-inner">Search</div>
           </button>
-        </div>
 
-        <div class="underbar" id="underbar">
-          <span class="badge" id="modeBadge">Mode: ATAR</span>
-          <span class="badge badge2" id="eligBadge">Eligibility: 0 / 0</span>
-          <span style="opacity:.9">Tip: low scores still have options (trades, retail, logistics, hospitality).</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="content">
+      <div class="strip" id="eligStrip">
+        <span class="badge">Real-list matching</span>
+        <span class="badge">Explainable output</span>
+        <span class="badge">Prototype-safe evidence notes</span>
+        <span class="badge" id="eligibleCountBadge">Eligible in list: —</span>
+      </div>
+
+      <div class="filters" aria-label="Filters">
+        <div class="chip on" data-filter="study" data-value="any" id="studyAny">Study: Any</div>
+        <div class="chip" data-filter="study" data-value="short">0–1y</div>
+        <div class="chip" data-filter="study" data-value="mid">2–3y</div>
+        <div class="chip" data-filter="study" data-value="long">4y+</div>
+
+        <div class="divider"></div>
+
+        <div class="chip on" data-filter="people" data-value="any">People/Systems: Any</div>
+        <div class="chip" data-filter="people" data-value="people">More people</div>
+        <div class="chip" data-filter="people" data-value="systems">More systems</div>
+
+        <div class="divider"></div>
+
+        <div class="chip on" data-filter="activity" data-value="any">Desk/Active: Any</div>
+        <div class="chip" data-filter="activity" data-value="desk">Desk</div>
+        <div class="chip" data-filter="activity" data-value="active">On-feet</div>
+
+        <div class="divider"></div>
+
+        <div class="chip on" data-filter="setting" data-value="any">Indoor/Outdoor: Any</div>
+        <div class="chip" data-filter="setting" data-value="indoor">Indoor</div>
+        <div class="chip" data-filter="setting" data-value="outdoor">Outdoor</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
     <div class="wrap">
-      <div class="whyRow">
-        <div class="whyCard">
-          <h4>Real-list matching</h4>
-          <p>You can’t type a random job and force it — it must exist in the list.</p>
+
+      <div class="grid4">
+        <div class="info-card">
+          <h4>Fast options</h4>
+          <p>Enter your score → see realistic paths immediately. No sign-up needed.</p>
         </div>
-        <div class="whyCard">
-          <h4>Explainable output</h4>
-          <p>Shortlist explains why it fits, what you do day-to-day, and how to start.</p>
+        <div class="info-card">
+          <h4>Explainable matches</h4>
+          <p>We show why it fits: score eligibility + work style + salary bias.</p>
         </div>
-        <div class="whyCard">
-          <h4>Score-aware filtering</h4>
-          <p>Some roles won’t appear until your ATAR/GPA is high enough (rule-of-thumb cutoffs).</p>
+        <div class="info-card">
+          <h4>Designed for students</h4>
+          <p>Works for Year 9–12 planning (AU-first). Add state/uni detail later.</p>
         </div>
-        <div class="whyCard">
-          <h4>Prototype-safe notes</h4>
-          <p>We label what’s “rule of thumb” vs “formal requirement”. No pretending certainty.</p>
+        <div class="info-card">
+          <h4>Save + share (prototype)</h4>
+          <p>Save shortlists locally now. Share via URL parameters.</p>
         </div>
       </div>
 
-      <h2 class="sectionTitle">Your shortlist</h2>
-      <p class="sectionSub">Click a card to expand details. (Each card is different.)</p>
-
-      <div class="list" id="resultsList"></div>
-
-      <div class="actions">
-        <button class="smallBtn" id="resetBtn" type="button">Reset</button>
-        <button class="smallBtn primary" id="changeModeBtn" type="button">Change ATAR/GPA mode</button>
+      <h2 class="section-title">Your shortlist</h2>
+      <div class="section-sub" id="subline">
+        Start with score first. (Profession is optional.) Click a card to expand details.
       </div>
+
+      <div class="cats" id="cats"></div>
+
+      <div class="cards" id="results"></div>
+
+      <div class="bottom-row">
+        <button class="btn" id="resetBtn">Reset</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="shareBtn">Share link</button>
+          <button class="btn primary" id="saveBtn">Save shortlist</button>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; color:#6b7390; font-weight:800; font-size:12px;">
+        Evidence notes: some items are <strong>rule-of-thumb</strong> (typical), others are <strong>formal/licensed</strong>.
+        This prototype does not guarantee entry; requirements vary by university, state, and year.
+        <span id="lastUpdated"></span>
+      </div>
+
     </div>
-  </div>
+  </main>
 
-  <!-- Start modal -->
-  <div class="modalBack" id="modeModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Select ATAR or GPA mode">
-      <div class="modalHead">
-        <h2>Start: Are you using ATAR or GPA?</h2>
+  <!-- Mode modal -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Choose ATAR or GPA">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Start: Are you using ATAR or GPA?</h3>
         <p>
-          We’ll filter professions based on your score. Low scores still have options
-          (traineeships, retail, hospitality, trades). Example: “Doctor” won’t appear unless your score is high enough.
+          We’ll filter professions based on your score. Low scores still have options (traineeships, retail,
+          hospitality, trades). Example: “Doctor” won’t appear unless your score is high enough.
         </p>
       </div>
-      <div class="modalBody">
-        <div class="modeRow">
-          <div class="modeCard" data-mode="ATAR" tabindex="0">
-            <b>ATAR (0.00–99.95)</b>
-            <span>Australian high school planning (score is out of 99.95).</span>
+      <div class="modal-body">
+        <div class="mode-cards">
+          <div class="mode" id="modeATAR">
+            <h4>ATAR (0.00–99.95)</h4>
+            <p>Australian high school planning. (ATAR does not reach 100.)</p>
           </div>
-          <div class="modeCard" data-mode="GPA" tabindex="0">
-            <b>GPA (0–100)</b>
-            <span>Using a 0–100 “GPA-like score” for this prototype (we can map later).</span>
+          <div class="mode" id="modeGPA">
+            <h4>GPA (0–100, prototype scale)</h4>
+            <p>If you’re treating GPA like a 0–100 score. We’ll apply similar filtering.</p>
           </div>
         </div>
-        <div class="modalFoot">
-          Note: These are simple cutoffs (not official requirements). We can refine later by university/state.
+        <div class="modal-foot">
+          Note: these cutoffs are simplified and “prototype-safe” — not official requirements. We can refine later by state/uni.
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    /*****************************************************************
-     * 1) DATA: 200+ real professions (generated from category sets)
-     *****************************************************************/
-    const ICONS = {
-      Healthcare:"🩺", Law:"⚖️", Justice:"🛡️", Government:"🏛️", Business:"📊", Finance:"💹",
-      Tech:"💻", Engineering:"🧩", Trades:"🧰", Construction:"🏗️", Hospitality:"🍽️",
-      Education:"🎓", Creative:"🎨", Science:"🔬", Logistics:"🚚", Agriculture:"🌾",
-      Community:"🤝", Sport:"🏅", Aviation:"✈️", Maritime:"⚓", Media:"🎥"
-    };
+  <div class="toast" id="toast">Saved</div>
 
-    // Each role: { title, category, tags[], blurb, minATAR, minGPA, salaryBand }
-    // minATAR is 0..99.95 rule-of-thumb; minGPA is 0..100 prototype.
-    const SEEDS = [
-      // Healthcare
-      ["Doctor (GP)", "Healthcare", ["Medicine","Primary care","Diagnosis"], "Diagnose and treat patients in the community.", 92.00, 88, "premium"],
-      ["Doctor (Hospital)", "Healthcare", ["Medicine","Wards","Clinical"], "Work in hospitals across rotations and specialties.", 94.00, 90, "premium"],
-      ["Nurse (Registered)", "Healthcare", ["Care","Clinical","Hospitals"], "Deliver patient care in clinics and hospitals.", 70.00, 65, "family"],
-      ["Nurse (Enrolled)", "Healthcare", ["Care","Support","Aged care"], "Support nursing teams with hands-on patient care.", 45.00, 45, "self"],
-      ["Paramedic", "Healthcare", ["Emergency","Ambulance","Acute care"], "Provide urgent pre-hospital emergency care.", 78.00, 72, "family"],
-      ["Physiotherapist", "Healthcare", ["Rehab","Movement","Injury"], "Help people recover mobility and manage pain.", 75.00, 70, "family"],
-      ["Psychologist", "Healthcare", ["Mental health","Therapy","Assessment"], "Assess and support mental health and wellbeing.", 80.00, 75, "family"],
-      ["Dentist", "Healthcare", ["Oral health","Procedures","Patient care"], "Diagnose and treat dental and oral conditions.", 90.00, 86, "premium"],
-      ["Pharmacist", "Healthcare", ["Medicines","Advice","Dispensing"], "Manage medicines and provide patient advice.", 78.00, 72, "family"],
-      ["Radiographer", "Healthcare", ["Imaging","X-ray","CT"], "Use medical imaging to support diagnosis.", 72.00, 68, "family"],
+<script>
+/* -----------------------------
+   Data model (200+ professions)
+   ----------------------------- */
 
-      // Law / Justice / Government
-      ["Lawyer", "Law", ["Legal","Contracts","Advice"], "Advise clients and represent them on legal matters.", 80.00, 75, "family"],
-      ["Paralegal", "Law", ["Legal support","Documents","Research"], "Support lawyers with documents and case prep.", 55.00, 55, "self"],
-      ["Police Officer", "Justice", ["Public safety","Patrol","Community"], "Maintain public safety and respond to incidents.", 55.00, 55, "family"],
-      ["Detective", "Justice", ["Investigation","Evidence","Cases"], "Investigate serious and complex crimes.", 60.00, 60, "family"],
-      ["Corrections Officer", "Justice", ["Custodial","Rehab","Safety"], "Manage safety and rehabilitation in corrections.", 40.00, 45, "self"],
-      ["Public Servant (Policy)", "Government", ["Policy","Programs","Impact"], "Design and improve public programs and policy.", 65.00, 62, "family"],
+const DATA_UPDATED = "Last updated: " + new Date().toISOString().slice(0,10);
 
-      // Business / Finance
-      ["Accountant", "Finance", ["Tax","Reporting","Compliance"], "Manage financial reporting and compliance.", 60.00, 58, "family"],
-      ["Financial Planner", "Finance", ["Investing","Advice","Clients"], "Help clients plan saving and investing goals.", 58.00, 58, "family"],
-      ["Business Analyst", "Business", ["Requirements","Process","Stakeholders"], "Translate problems into clear requirements and improvements.", 65.00, 62, "family"],
-      ["Project Manager", "Business", ["Delivery","Planning","Coordination"], "Plan and deliver projects with teams.", 55.00, 55, "family"],
-      ["Marketing Specialist", "Business", ["Growth","Brand","Campaigns"], "Run campaigns to grow awareness and sales.", 50.00, 50, "self"],
+function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+function $(id){ return document.getElementById(id); }
 
-      // Tech / Engineering
-      ["Software Developer", "Tech", ["Coding","Systems","Apps"], "Build software products and services.", 70.00, 65, "premium"],
-      ["Cybersecurity Analyst", "Tech", ["Security","Monitoring","Risk"], "Protect systems from threats and attacks.", 75.00, 70, "premium"],
-      ["Data Analyst", "Tech", ["Data","Insights","BI"], "Turn data into useful insights and dashboards.", 65.00, 60, "family"],
-      ["Cloud Engineer", "Tech", ["AWS/Azure","Infrastructure","DevOps"], "Build and run reliable cloud infrastructure.", 78.00, 72, "premium"],
-      ["Civil Engineer", "Engineering", ["Infrastructure","Design","Sites"], "Design and deliver roads, bridges, and water projects.", 70.00, 66, "premium"],
-      ["Mechanical Engineer", "Engineering", ["Machines","Design","Manufacturing"], "Design and improve mechanical systems.", 72.00, 68, "premium"],
+const SALARY_BIAS = {
+  low:   { targetMin: 45000, targetMax: 70000,  weightHigh: 0.25 },
+  mid:   { targetMin: 70000, targetMax: 110000, weightHigh: 0.55 },
+  high:  { targetMin: 110000, targetMax: 170000, weightHigh: 0.80 },
+  growth:{ targetMin: 170000, targetMax: 260000, weightHigh: 1.00 }
+};
 
-      // Trades / Construction / Logistics / Hospitality / Education / Creative / Science
-      ["Electrician", "Trades", ["Wiring","Safety","Apprenticeship"], "Install and maintain electrical systems.", 35.00, 40, "family"],
-      ["Plumber", "Trades", ["Pipes","Water","Apprenticeship"], "Install and repair plumbing systems.", 35.00, 40, "family"],
-      ["Carpenter", "Construction", ["Framing","Build","Apprenticeship"], "Build and repair structures and frames.", 30.00, 35, "self"],
-      ["Chef", "Hospitality", ["Kitchen","Cooking","Service"], "Prepare food and manage kitchen operations.", 20.00, 25, "self"],
-      ["Teacher (Secondary)", "Education", ["Teaching","Curriculum","Students"], "Teach high-school students and support learning.", 70.00, 65, "family"],
-      ["Graphic Designer", "Creative", ["Design","Brand","Visuals"], "Create visual designs for brands and products.", 45.00, 45, "self"],
-      ["Laboratory Technician", "Science", ["Lab","Testing","Procedures"], "Run lab tests and document results.", 45.00, 45, "self"],
-      ["Truck Driver", "Logistics", ["Transport","Routes","Safety"], "Deliver goods safely across routes.", 0.00, 0, "self"],
-      ["Retail Manager", "Business", ["Operations","Team","Sales"], "Run a store and manage staff and targets.", 10.00, 10, "self"],
-      ["Aged Care Worker", "Community", ["Support","Care","Aged care"], "Support older people with daily needs.", 0.00, 0, "self"],
-    ].map(([title,category,tags,blurb,minATAR,minGPA,salaryBand]) => ({
-      title, category, tags, blurb, minATAR, minGPA, salaryBand
-    }));
+const CATEGORY_INFO = {
+  "Healthcare": {
+    summary: "Patient care, allied health, hospitals, community services.",
+    icon: "🩺"
+  },
+  "Tech & Data": {
+    summary: "Software, cybersecurity, data, cloud, product building.",
+    icon: "💻"
+  },
+  "Trades & Construction": {
+    summary: "Hands-on building, electrical, plumbing, construction, maintenance.",
+    icon: "🛠️"
+  },
+  "Business & Finance": {
+    summary: "Accounting, banking, analysis, operations, management.",
+    icon: "📈"
+  },
+  "Law & Government": {
+    summary: "Law, policy, policing, public service, compliance.",
+    icon: "⚖️"
+  },
+  "Creative & Media": {
+    summary: "Design, content, film, marketing, creative production.",
+    icon: "🎨"
+  },
+  "Education & Social": {
+    summary: "Teaching, youth work, community support, mentoring.",
+    icon: "📚"
+  },
+  "Engineering": {
+    summary: "Civil, mechanical, electrical, systems, infrastructure.",
+    icon: "🧠"
+  },
+  "Hospitality & Retail": {
+    summary: "Customer service, events, food, retail operations, tourism.",
+    icon: "🍽️"
+  },
+  "Logistics & Services": {
+    summary: "Transport, supply chain, admin, customer operations.",
+    icon: "🚚"
+  }
+};
 
-    // Bulk expand to 220+ with category lists (real professions).
-    const CATEGORY_LISTS = {
-      Healthcare: [
-        ["Midwife", ["Pregnancy","Birth","Care"], 72, 68, "family"],
-        ["Occupational Therapist", ["Rehab","Daily living","Support"], 72, 68, "family"],
-        ["Speech Pathologist",  ["Communication","Therapy","Support"], 73, 69, "family"],
-        ["Dietitian", ["Nutrition","Health","Plans"], 68, 64, "family"],
-        ["Sonographer", ["Ultrasound","Imaging","Patients"], 78, 74, "premium"],
-        ["Medical Receptionist", ["Admin","Bookings","Clinics"], 10, 10, "self"],
-        ["Pathology Collector", ["Samples","Procedure","Care"], 20, 25, "self"],
-        ["Dental Assistant", ["Chairside","Sterilisation","Support"], 20, 25, "self"],
-        ["Pharmacy Assistant", ["Retail","Medicines","Support"], 10, 10, "self"],
-        ["Biomedical Scientist", ["Lab","Research","Diagnostics"], 78, 74, "premium"],
-      ],
-      Law: [
-        ["Barrister", ["Court","Advocacy","Litigation"], 88, 82, "premium"],
-        ["Legal Secretary", ["Admin","Documents","Scheduling"], 25, 30, "self"],
-        ["Compliance Officer", ["Rules","Risk","Audit"], 60, 60, "family"],
-        ["Contracts Manager", ["Contracts","Negotiation","Projects"], 65, 62, "premium"],
-        ["Mediator", ["Negotiation","Conflict","Resolution"], 60, 60, "family"],
-        ["Conveyancer", ["Property","Settlement","Documents"], 45, 45, "self"],
-      ],
-      Justice: [
-        ["Forensic Officer", ["Evidence","Lab","Crime scene"], 65, 65, "family"],
-        ["Security Officer", ["Safety","Access","Patrol"], 0, 0, "self"],
-        ["Emergency Dispatcher", ["Calls","Coordination","Calm"], 25, 30, "self"],
-        ["Border Force Officer", ["Border","Compliance","Security"], 55, 55, "family"],
-        ["Firefighter", ["Emergency","Rescue","Fitness"], 55, 55, "family"],
-      ],
-      Government: [
-        ["Policy Analyst", ["Policy","Research","Writing"], 65, 62, "family"],
-        ["Program Officer", ["Programs","Delivery","Stakeholders"], 55, 55, "family"],
-        ["Town Planner", ["Planning","Development","Community"], 70, 66, "family"],
-        ["Librarian", ["Information","Community","Catalog"], 55, 55, "self"],
-        ["Diplomat", ["International","Negotiation","Policy"], 88, 82, "premium"],
-      ],
-      Business: [
-        ["HR Adviser", ["People","Hiring","Culture"], 55, 55, "family"],
-        ["Sales Representative", ["Sales","Targets","Clients"], 20, 20, "family"],
-        ["Operations Manager", ["Ops","Process","Teams"], 45, 45, "family"],
-        ["Product Manager", ["Strategy","Roadmap","Users"], 80, 75, "premium"],
-        ["UX Designer", ["UX","Research","Prototyping"], 65, 60, "premium"],
-        ["Customer Success Manager", ["Support","Accounts","Retention"], 45, 45, "family"],
-      ],
-      Finance: [
-        ["Actuary", ["Risk","Math","Insurance"], 92, 90, "premium"],
-        ["Bank Teller", ["Customer","Transactions","Service"], 10, 10, "self"],
-        ["Credit Analyst", ["Loans","Risk","Decisions"], 65, 62, "family"],
-        ["Investment Analyst", ["Markets","Research","Valuation"], 85, 82, "premium"],
-        ["Payroll Officer", ["Payroll","Compliance","Systems"], 35, 35, "self"],
-      ],
-      Tech: [
-        ["Frontend Developer", ["Web","UI","JavaScript"], 68, 62, "premium"],
-        ["Backend Developer", ["APIs","Databases","Services"], 72, 66, "premium"],
-        ["QA Tester", ["Testing","Quality","Bugs"], 40, 40, "self"],
-        ["IT Support", ["Helpdesk","Troubleshooting","Devices"], 20, 20, "self"],
-        ["Network Engineer", ["Networks","Routing","Security"], 70, 66, "premium"],
-        ["AI Engineer", ["ML","Models","Deployment"], 90, 86, "premium"],
-        ["Game Developer", ["Games","Engines","C#"], 65, 60, "premium"],
-      ],
-      Engineering: [
-        ["Electrical Engineer", ["Systems","Power","Design"], 78, 72, "premium"],
-        ["Chemical Engineer", ["Process","Plants","Safety"], 78, 72, "premium"],
-        ["Environmental Engineer", ["Environment","Compliance","Design"], 72, 68, "premium"],
-        ["Aerospace Engineer", ["Aircraft","Systems","Design"], 90, 86, "premium"],
-        ["Software Engineer", ["Systems","Coding","Design"], 75, 70, "premium"],
-      ],
-      Trades: [
-        ["HVAC Technician", ["Heating","Cooling","Service"], 25, 30, "family"],
-        ["Automotive Mechanic", ["Cars","Diagnostics","Repair"], 20, 25, "family"],
-        ["Welder", ["Metal","Fabrication","Safety"], 10, 10, "self"],
-        ["Cabinet Maker", ["Woodwork","Fitout","Tools"], 15, 15, "self"],
-        ["Hairdresser", ["Hair","Clients","Style"], 0, 0, "self"],
-        ["Barber", ["Hair","Grooming","Clients"], 0, 0, "self"],
-      ],
-      Construction: [
-        ["Site Supervisor", ["Sites","Safety","Schedule"], 30, 35, "family"],
-        ["Bricklayer", ["Masonry","Build","Apprenticeship"], 10, 10, "self"],
-        ["Painter", ["Finishes","Prep","Detail"], 0, 0, "self"],
-        ["Tiler", ["Bathrooms","Floors","Detail"], 0, 0, "self"],
-        ["Surveyor", ["Land","Measurement","Sites"], 70, 66, "premium"],
-      ],
-      Hospitality: [
-        ["Barista", ["Coffee","Service","Speed"], 0, 0, "self"],
-        ["Waiter", ["Service","People","Team"], 0, 0, "self"],
-        ["Hotel Manager", ["Hospitality","Ops","Leadership"], 35, 35, "family"],
-        ["Event Coordinator", ["Events","Planning","Vendors"], 30, 30, "family"],
-        ["Flight Attendant", ["Aviation","Safety","Service"], 35, 35, "family"],
-      ],
-      Education: [
-        ["Primary Teacher", ["Teaching","Kids","Learning"], 65, 62, "family"],
-        ["Early Childhood Educator", ["ECE","Care","Play"], 20, 25, "self"],
-        ["Tutor", ["Teaching","Study","Support"], 0, 0, "self"],
-        ["School Counsellor", ["Wellbeing","Support","Students"], 80, 75, "family"],
-        ["University Lecturer", ["Teaching","Research","Uni"], 85, 80, "premium"],
-      ],
-      Creative: [
-        ["UI Designer", ["UI","Visual","Systems"], 55, 55, "premium"],
-        ["Animator", ["Animation","Motion","Tools"], 55, 55, "self"],
-        ["Photographer", ["Photos","Editing","Clients"], 0, 0, "self"],
-        ["Video Editor", ["Editing","Story","Post"], 35, 35, "self"],
-        ["Copywriter", ["Writing","Brand","Ads"], 35, 35, "self"],
-        ["Journalist", ["News","Writing","Research"], 55, 55, "family"],
-      ],
-      Science: [
-        ["Research Scientist", ["Research","Experiments","Publishing"], 85, 82, "premium"],
-        ["Geologist", ["Earth","Field","Analysis"], 75, 70, "premium"],
-        ["Meteorologist", ["Weather","Data","Forecast"], 78, 72, "premium"],
-        ["Food Technologist", ["Food","Quality","Science"], 60, 60, "family"],
-        ["Marine Biologist", ["Ocean","Research","Field"], 80, 75, "premium"],
-      ],
-      Logistics: [
-        ["Warehouse Associate", ["Warehouse","Picking","Safety"], 0, 0, "self"],
-        ["Forklift Operator", ["Forklift","Warehouse","Safety"], 0, 0, "self"],
-        ["Supply Chain Planner", ["Supply chain","Planning","Ops"], 55, 55, "family"],
-        ["Logistics Coordinator", ["Coordination","Routes","Ops"], 25, 25, "self"],
-        ["Train Driver", ["Rail","Safety","Routes"], 35, 35, "family"],
-      ],
-      Agriculture: [
-        ["Farm Manager", ["Farming","Ops","Weather"], 0, 0, "self"],
-        ["Agronomist", ["Crops","Soil","Advice"], 65, 62, "family"],
-        ["Veterinarian", ["Animals","Care","Medicine"], 90, 86, "premium"],
-        ["Animal Trainer", ["Animals","Training","Behaviour"], 0, 0, "self"],
-      ],
-      Community: [
-        ["Social Worker", ["Support","Services","Care"], 65, 62, "family"],
-        ["Youth Worker", ["Youth","Programs","Support"], 30, 30, "self"],
-        ["Disability Support Worker", ["Support","Care","Daily living"], 0, 0, "self"],
-        ["Community Development Officer", ["Community","Programs","Impact"], 40, 40, "family"],
-      ],
-      Sport: [
-        ["Phys Ed Teacher", ["Sport","Teaching","Fitness"], 55, 55, "family"],
-        ["Sports Coach", ["Coaching","Training","Teams"], 0, 0, "self"],
-        ["Exercise Physiologist", ["Exercise","Health","Rehab"], 70, 66, "family"],
-        ["Personal Trainer", ["Fitness","Clients","Programs"], 0, 0, "self"],
-      ],
-      Aviation: [
-        ["Pilot", ["Aviation","Flying","Training"], 90, 86, "premium"],
-        ["Aircraft Mechanic", ["Aircraft","Maintenance","Safety"], 45, 45, "family"],
-        ["Air Traffic Controller", ["ATC","Focus","Safety"], 88, 82, "premium"],
-      ],
-      Maritime: [
-        ["Marine Engineer", ["Ships","Systems","Maintenance"], 70, 66, "premium"],
-        ["Deck Officer", ["Navigation","Ships","Safety"], 60, 60, "family"],
-        ["Port Operations", ["Ports","Logistics","Safety"], 25, 25, "family"],
-      ],
-      Media: [
-        ["Sound Engineer", ["Audio","Recording","Mixing"], 35, 35, "self"],
-        ["Producer", ["Production","Planning","Budget"], 55, 55, "family"],
-        ["Content Creator", ["Content","Social","Video"], 0, 0, "self"],
-        ["Social Media Manager", ["Social","Strategy","Content"], 30, 30, "self"],
-      ]
-    };
+// Base roles: each item is “real-ish” and we expand variants to reach 200+.
+const BASE = [
+  // Healthcare
+  mk("Doctor", "Healthcare", 98.00, "long", "people", "active", "indoor", ["Medicine","Hospitals"], {licensed:true}, [120000, 280000], "Diagnose and treat patients."),
+  mk("Nurse", "Healthcare", 70.00, "long", "people", "active", "indoor", ["Nursing","Patient care"], {licensed:true}, [70000, 120000], "Clinical care, wards, triage."),
+  mk("Paramedic", "Healthcare", 78.00, "long", "people", "active", "outdoor", ["Emergency","Ambulance"], {licensed:true}, [80000, 130000], "Emergency response and transport."),
+  mk("Physiotherapist", "Healthcare", 85.00, "long", "people", "active", "indoor", ["Rehab","Sports"], {licensed:true}, [75000, 130000], "Movement and rehab therapy."),
+  mk("Psychologist", "Healthcare", 90.00, "long", "people", "desk", "indoor", ["Mental health","Therapy"], {licensed:true}, [80000, 170000], "Assessment and therapy."),
+  mk("Pharmacist", "Healthcare", 87.00, "long", "people", "active", "indoor", ["Medicines","Community"], {licensed:true}, [70000, 130000], "Dispense and counsel medications."),
+  mk("Dental Practitioner", "Healthcare", 95.00, "long", "people", "active", "indoor", ["Dentistry","Clinics"], {licensed:true}, [110000, 260000], "Oral health diagnosis/treatment."),
+  mk("Radiographer", "Healthcare", 80.00, "long", "people", "active", "indoor", ["Imaging","Hospitals"], {licensed:true}, [75000, 130000], "Medical imaging and scans."),
+  mk("Occupational Therapist", "Healthcare", 82.00, "long", "people", "active", "indoor", ["Rehab","Support"], {licensed:true}, [70000, 120000], "Daily living support plans."),
 
-    // Build a big list.
-    const ALL = [...SEEDS];
-    for (const [cat, list] of Object.entries(CATEGORY_LISTS)){
-      for (const [title, tags, minATAR, minGPA, salaryBand] of list){
-        ALL.push({
-          title,
-          category: cat,
-          tags,
-          blurb: buildBlurb(title, cat),
-          minATAR: clampATAR(minATAR),
-          minGPA: clampGPA(minGPA),
-          salaryBand
-        });
-      }
-    }
+  // Tech & Data
+  mk("Software Developer", "Tech & Data", 70.00, "mid", "systems", "desk", "indoor", ["Coding","Apps"], {rule:true}, [80000, 180000], "Build software products."),
+  mk("Cybersecurity Analyst", "Tech & Data", 78.00, "mid", "systems", "desk", "indoor", ["Security","Defence"], {rule:true}, [90000, 190000], "Protect systems from threats."),
+  mk("Data Analyst", "Tech & Data", 68.00, "mid", "systems", "desk", "indoor", ["Data","Insights"], {rule:true}, [75000, 140000], "Turn data into decisions."),
+  mk("Data Scientist", "Tech & Data", 85.00, "long", "systems", "desk", "indoor", ["ML","Stats"], {rule:true}, [100000, 220000], "Advanced modelling and prediction."),
+  mk("Cloud Engineer", "Tech & Data", 80.00, "mid", "systems", "desk", "indoor", ["AWS","Infra"], {rule:true}, [110000, 220000], "Deploy and run cloud systems."),
+  mk("Product Manager", "Tech & Data", 75.00, "mid", "people", "desk", "indoor", ["Product","Planning"], {rule:true}, [120000, 230000], "Define what to build and why."),
+  mk("UI/UX Designer", "Creative & Media", 60.00, "mid", "people", "desk", "indoor", ["Design","UX"], {rule:true}, [70000, 160000], "Design user experiences."),
 
-    // Ensure >= 200 (expand by adding common variants for each category)
-    // Variants are still real titles (specialisations).
-    const VARIANTS = [
-      ["Assistant","Support","self", 0, 0],
-      ["Coordinator","Coordination","self", 20, 20],
-      ["Specialist","Specialised","family", 50, 50],
-      ["Senior","Leadership","premium", 65, 65],
-      ["Technician","Hands-on","self", 25, 25],
-      ["Analyst","Analysis","family", 55, 55]
-    ];
+  // Trades & Construction
+  mk("Electrician", "Trades & Construction", 50.00, "mid", "systems", "active", "indoor", ["Electrical","Trade"], {licensed:true}, [75000, 140000], "Install and repair electrical systems."),
+  mk("Plumber", "Trades & Construction", 45.00, "mid", "systems", "active", "indoor", ["Plumbing","Trade"], {licensed:true}, [75000, 140000], "Install and maintain plumbing."),
+  mk("Carpenter", "Trades & Construction", 40.00, "mid", "systems", "active", "outdoor", ["Building","Trade"], {rule:true}, [65000, 120000], "Build structures and frames."),
+  mk("Civil Construction Worker", "Trades & Construction", 25.00, "short", "systems", "active", "outdoor", ["Roads","Sites"], {rule:true}, [55000, 95000], "Site work and construction tasks."),
+  mk("Surveyor", "Engineering", 70.00, "mid", "systems", "active", "outdoor", ["Land","Measurement"], {rule:true}, [80000, 150000], "Measure and map land."),
 
-    const seen = new Set(ALL.map(x => x.title.toLowerCase()));
-    for (const base of [...ALL]) {
-      if (ALL.length >= 220) break;
-      // Add 1–2 variants only for categories where it makes sense
-      const okCats = new Set(["Business","Finance","Tech","Government","Logistics","Science","Media","Community"]);
-      if (!okCats.has(base.category)) continue;
+  // Business & Finance
+  mk("Accountant", "Business & Finance", 65.00, "mid", "systems", "desk", "indoor", ["Accounting","Tax"], {rule:true}, [70000, 160000], "Financial reporting and analysis."),
+  mk("Business Analyst", "Business & Finance", 60.00, "mid", "people", "desk", "indoor", ["Process","Requirements"], {rule:true}, [80000, 170000], "Improve systems and processes."),
+  mk("Financial Analyst", "Business & Finance", 75.00, "mid", "systems", "desk", "indoor", ["Finance","Markets"], {rule:true}, [85000, 190000], "Forecasting and valuation."),
+  mk("Operations Manager", "Business & Finance", 55.00, "mid", "people", "active", "indoor", ["Ops","Management"], {rule:true}, [80000, 170000], "Run day-to-day operations."),
 
-      for (const [suffix, tag, salaryBand, addATAR, addGPA] of VARIANTS){
-        if (ALL.length >= 220) break;
-        const t = `${base.title} ${suffix}`;
-        const key = t.toLowerCase();
-        if (seen.has(key)) continue;
-        // Avoid nonsense duplicates (e.g., "Doctor Assistant")
-        if (base.title.includes("Doctor")) continue;
-        seen.add(key);
-        ALL.push({
-          title: t,
-          category: base.category,
-          tags: unique([...base.tags.slice(0,2), tag]),
-          blurb: `A ${suffix.toLowerCase()}-level role supporting ${base.title.toLowerCase()} style work.`,
-          minATAR: clampATAR(base.minATAR + addATAR),
-          minGPA: clampGPA(base.minGPA + addGPA),
-          salaryBand
-        });
-      }
-    }
+  // Law & Government
+  mk("Lawyer", "Law & Government", 85.00, "long", "people", "desk", "indoor", ["Law","Advice"], {formal:true}, [80000, 200000], "Advise and represent clients."),
+  mk("Paralegal", "Law & Government", 60.00, "mid", "systems", "desk", "indoor", ["Law","Support"], {rule:true}, [55000, 90000], "Legal support and documentation."),
+  mk("Police Officer", "Law & Government", 55.00, "mid", "people", "active", "outdoor", ["Policing","Service"], {formal:true}, [70000, 120000], "Community safety and response."),
+  mk("Policy Officer", "Law & Government", 70.00, "mid", "systems", "desk", "indoor", ["Policy","Public service"], {rule:true}, [75000, 140000], "Design and evaluate policy."),
+  mk("Compliance Officer", "Law & Government", 65.00, "mid", "systems", "desk", "indoor", ["Compliance","Risk"], {rule:true}, [80000, 160000], "Regulation and risk controls."),
 
-    // Sort alphabetically for dropdown.
-    ALL.sort((a,b)=> a.title.localeCompare(b.title));
+  // Creative & Media
+  mk("Graphic Designer", "Creative & Media", 45.00, "short", "people", "desk", "indoor", ["Design","Brand"], {rule:true}, [55000, 110000], "Visual design and branding."),
+  mk("Video Editor", "Creative & Media", 45.00, "short", "systems", "desk", "indoor", ["Editing","Media"], {rule:true}, [55000, 120000], "Edit and produce video."),
+  mk("Digital Marketer", "Creative & Media", 50.00, "short", "people", "desk", "indoor", ["Marketing","Ads"], {rule:true}, [60000, 140000], "Run growth and marketing campaigns."),
+  mk("Journalist", "Creative & Media", 60.00, "mid", "people", "active", "indoor", ["Writing","News"], {rule:true}, [60000, 120000], "Investigate and report stories."),
 
-    /*****************************************************************
-     * 2) STATE
-     *****************************************************************/
-    const $ = (id) => document.getElementById(id);
-    let MODE = "ATAR";  // "ATAR" | "GPA"
-    let selectedProfession = null;
-    let ddOpen = false;
-    let ddActiveIndex = 0;
-    let ddFiltered = [];
+  // Education & Social
+  mk("Teacher", "Education & Social", 65.00, "long", "people", "active", "indoor", ["Education","School"], {formal:true}, [70000, 125000], "Teach and support students."),
+  mk("Social Worker", "Education & Social", 70.00, "long", "people", "active", "indoor", ["Support","Community"], {formal:true}, [75000, 120000], "Support vulnerable people."),
+  mk("Youth Worker", "Education & Social", 45.00, "mid", "people", "active", "indoor", ["Youth","Support"], {rule:true}, [55000, 90000], "Support young people."),
 
-    /*****************************************************************
-     * 3) HELPERS
-     *****************************************************************/
-    function clampATAR(x){ return Math.max(0, Math.min(99.95, Number(x)||0)); }
-    function clampGPA(x){ return Math.max(0, Math.min(100, Number(x)||0)); }
-    function unique(arr){ return [...new Set(arr)]; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m])); }
+  // Hospitality & Retail (low score-friendly)
+  mk("Chef", "Hospitality & Retail", 30.00, "mid", "people", "active", "indoor", ["Food","Kitchen"], {rule:true}, [55000, 100000], "Cook and manage kitchen ops."),
+  mk("Barista", "Hospitality & Retail", 10.00, "short", "people", "active", "indoor", ["Coffee","Service"], {rule:true}, [45000, 65000], "Customer service and coffee."),
+  mk("Retail Manager", "Hospitality & Retail", 25.00, "mid", "people", "active", "indoor", ["Retail","Ops"], {rule:true}, [60000, 110000], "Manage retail store operations."),
+  mk("Event Coordinator", "Hospitality & Retail", 45.00, "short", "people", "active", "indoor", ["Events","Planning"], {rule:true}, [60000, 120000], "Plan and run events."),
 
-    function buildBlurb(title, cat){
-      const t = title.toLowerCase();
-      if (cat==="Tech") return `Build, run, or secure digital systems (${t}).`;
-      if (cat==="Healthcare") return `Support patient health and wellbeing as a ${t}.`;
-      if (cat==="Trades") return `Hands-on skilled work as a ${t} (often via apprenticeship).`;
-      if (cat==="Education") return `Help people learn and grow as a ${t}.`;
-      if (cat==="Finance") return `Work with money, risk, or reporting as a ${t}.`;
-      if (cat==="Creative") return `Create and communicate visually or through media as a ${t}.`;
-      if (cat==="Construction") return `Build and deliver physical projects as a ${t}.`;
-      if (cat==="Logistics") return `Move goods/people efficiently as a ${t}.`;
-      if (cat==="Government") return `Improve public outcomes as a ${t}.`;
-      if (cat==="Justice") return `Keep communities safe and fair as a ${t}.`;
-      return `Explore the ${cat.toLowerCase()} pathway as a ${t}.`;
-    }
+  // Logistics & Services
+  mk("Customer Service Rep", "Logistics & Services", 10.00, "short", "people", "desk", "indoor", ["Support","Calls"], {rule:true}, [45000, 70000], "Help customers solve issues."),
+  mk("Administration Officer", "Logistics & Services", 15.00, "short", "systems", "desk", "indoor", ["Admin","Office"], {rule:true}, [48000, 80000], "Office and admin operations."),
+  mk("Supply Chain Coordinator", "Logistics & Services", 45.00, "mid", "systems", "desk", "indoor", ["Logistics","Planning"], {rule:true}, [65000, 120000], "Plan inventory and logistics."),
+  mk("Truck Driver", "Logistics & Services", 15.00, "short", "systems", "active", "outdoor", ["Transport","Routes"], {formal:true}, [60000, 110000], "Deliver goods and manage routes.")
+];
 
-    function salaryText(key){
-      switch(key){
-        case "self": return {label:"Self only", range:"$45k–$75k", bias:0};
-        case "couple": return {label:"Couple", range:"$70k–$110k", bias:1};
-        case "family": return {label:"Family", range:"$100k–$160k", bias:2};
-        case "premium": return {label:"High growth", range:"$140k+", bias:3};
-        default: return {label:"Self only", range:"$45k–$75k", bias:0};
-      }
-    }
+// Helper to create a profession object
+function mk(name, category, cutoff, studyLen, people, activity, setting, tags, evidenceFlags, salaryRange, oneLine){
+  return {
+    name,
+    category,
+    cutoff: +cutoff,
+    studyLen,        // short | mid | long
+    people,          // people | systems
+    activity,        // desk | active
+    setting,         // indoor | outdoor
+    tags,
+    evidence: evidenceFlags,  // {rule:true} {formal:true} {licensed:true}
+    salaryRange,     // [min,max]
+    oneLine
+  };
+}
 
-    function eligible(job, score){
-      if (MODE==="ATAR") return score >= job.minATAR;
-      return score >= job.minGPA;
-    }
+// Expand to 200+ by generating realistic variants (specialisations) per base profession/category.
+function generateVariants(baseList){
+  const variants = [];
+  const specMap = {
+    "Doctor": ["GP", "Emergency Doctor", "Paediatric Doctor", "Anaesthetist (path)", "Surgical Doctor (path)"],
+    "Nurse": ["Registered Nurse", "ICU Nurse", "Theatre Nurse", "Mental Health Nurse", "Aged Care Nurse"],
+    "Software Developer": ["Frontend Developer", "Backend Developer", "Mobile App Developer", "Game Developer", "QA Engineer"],
+    "Cybersecurity Analyst": ["Security Engineer", "SOC Analyst", "GRC Analyst", "Penetration Tester (path)", "Incident Responder"],
+    "Electrician": ["Residential Electrician", "Commercial Electrician", "Solar Electrician", "Industrial Electrician", "Electrical Apprentice"],
+    "Plumber": ["Gas Fitter", "Drainage Plumber", "Roof Plumber", "Maintenance Plumber", "Plumbing Apprentice"],
+    "Accountant": ["Tax Accountant", "Management Accountant", "Audit Associate", "Bookkeeper", "Payroll Officer"],
+    "Lawyer": ["Family Lawyer", "Criminal Lawyer", "Corporate Lawyer", "Property Lawyer", "Legal Graduate (path)"],
+    "Teacher": ["Primary Teacher", "Secondary Teacher", "Maths Teacher", "Science Teacher", "Education Support Officer"],
+    "Chef": ["Sous Chef", "Pastry Chef", "Cook", "Kitchen Hand", "Catering Assistant"],
+    "Truck Driver": ["Delivery Driver", "Forklift Operator", "Warehouse Picker", "Dispatch Coordinator", "Logistics Assistant"]
+  };
 
-    function scoreNorm(score){
-      if (MODE==="ATAR") return clampATAR(score) / 99.95;
-      return clampGPA(score) / 100;
-    }
+  const genericByCategory = {
+    "Healthcare": ["Clinic Assistant", "Allied Health Assistant", "Support Worker", "Medical Receptionist", "Aged Care Worker"],
+    "Tech & Data": ["IT Support", "Systems Administrator", "DevOps Engineer", "Technical Writer", "Business Intelligence Analyst"],
+    "Trades & Construction": ["Painter", "Tiler", "Welder", "Landscaper", "Construction Supervisor"],
+    "Business & Finance": ["HR Coordinator", "Recruiter", "Procurement Officer", "Project Coordinator", "Sales Associate"],
+    "Law & Government": ["Court Officer", "Regulatory Analyst", "Government Graduate", "Policy Assistant", "Records Officer"],
+    "Creative & Media": ["Content Creator", "Copywriter", "Social Media Manager", "Photographer", "Motion Designer"],
+    "Education & Social": ["Teacher Aide", "Tutor", "Disability Support Worker", "Community Worker", "Counsellor (path)"],
+    "Engineering": ["Mechanical Engineer", "Electrical Engineer", "Civil Engineer", "Environmental Engineer", "Engineering Technician"],
+    "Hospitality & Retail": ["Waiter", "Bartender", "Hotel Receptionist", "Store Team Member", "Shift Supervisor"],
+    "Logistics & Services": ["Call Center Agent", "Office Coordinator", "Field Technician", "Courier", "Service Desk Analyst"]
+  };
 
-    // Deterministic "random" from title
-    function hash01(str){
-      let h = 2166136261;
-      for (let i=0;i<str.length;i++){
-        h ^= str.charCodeAt(i);
-        h = Math.imul(h, 16777619);
-      }
-      return ((h>>>0) % 1000) / 1000;
-    }
+  // Make variants: for each base role, add some specialization roles with slightly adjusted cutoffs.
+  for (const p of baseList){
+    const specials = specMap[p.name] || [];
+    for (let i=0;i<specials.length;i++){
+      const nm = specials[i];
+      let c = p.cutoff;
+      // Some paths are easier/harder
+      if (nm.includes("Apprentice") || nm.includes("Assistant") || nm.includes("Hand")) c = Math.max(0, c - 20);
+      if (nm.includes("ICU") || nm.includes("Anaesthetist") || nm.includes("Surgical")) c = Math.min(99.95, c + 6);
+      if (nm.includes("Penetration Tester")) c = Math.min(99.95, c + 4);
+      if (nm.includes("Graduate") || nm.includes("(path)")) c = Math.max(0, c - 5);
 
-    function choosePhrases(job){
-      const r = hash01(job.title + job.category);
-      const day = [
-        "Typical day-to-day:",
-        "What you’ll do most days:",
-        "Day-to-day work looks like:"
-      ][Math.floor(r*3)];
-
-      const start = [
-        "How to start (practical):",
-        "How people usually enter:",
-        "A realistic start path:"
-      ][Math.floor((r*7)%3)];
-
-      const fit = [
-        "Why it fits:",
-        "Why it can suit you:",
-        "Why this matches:"
-      ][Math.floor((r*11)%3)];
-
-      return {day,start,fit};
-    }
-
-    function evidenceNote(job){
-      const s = MODE==="ATAR" ? `${job.minATAR.toFixed(2)} ATAR+` : `${job.minGPA} GPA+`;
-      const disclaim = "Rule-of-thumb cutoff, not an official requirement.";
-      const extra = (job.title.includes("Doctor") || job.title.includes("Dentist") || job.title.includes("Pilot") || job.title.includes("Actuary"))
-        ? "High-competition pathway — prerequisites vary by university/state."
-        : "Entry varies by pathway (uni/TAFE/apprenticeship/experience).";
-      return `${s} • ${disclaim} • ${extra}`;
-    }
-
-    function buildDetails(job, score, salaryKey){
-      const {day,start,fit} = choosePhrases(job);
-      const salary = salaryText(salaryKey);
-
-      // category-specific details (not repeating)
-      const cat = job.category;
-      const dayItems = dayToDay(cat, job.title);
-      const startItems = startPath(cat, job.title, score);
-      const fitItems = whyFits(cat, job.title, salaryKey);
-
-      const scoreTxt = MODE==="ATAR"
-        ? `Suggested ATAR window: ${Math.max(0, job.minATAR-6).toFixed(2)}–99.95 (prototype)`
-        : `Suggested GPA-like window: ${Math.max(0, job.minGPA-8)}–100 (prototype)`;
-
-      return `
-        <div class="cols">
-          <div class="box">
-            <h4>${day}</h4>
-            <ul>${dayItems.map(li=>`<li>${esc(li)}</li>`).join("")}</ul>
-          </div>
-          <div class="box">
-            <h4>${start}</h4>
-            <ul>${startItems.map(li=>`<li>${esc(li)}</li>`).join("")}</ul>
-            <div class="note">${esc(scoreTxt)}</div>
-          </div>
-        </div>
-        <div style="height:10px"></div>
-        <div class="box">
-          <h4>${fit}</h4>
-          <ul>${fitItems.map(li=>`<li>${esc(li)}</li>`).join("")}</ul>
-          <div class="note">${esc("Salary circumstance: " + salary.label + " (" + salary.range + "). This only biases suggestions.")}</div>
-          <div class="note">${esc(evidenceNote(job))}</div>
-        </div>
-      `;
-    }
-
-    function dayToDay(cat, title){
-      const t = title.toLowerCase();
-      const base = {
-        Tech: [
-          "Build features, fix bugs, and ship updates",
-          "Read logs/metrics and improve reliability",
-          "Collaborate with designers and stakeholders"
-        ],
-        Healthcare: [
-          "Assess needs, follow protocols, and document clearly",
-          "Communicate with patients/families and the care team",
-          "Work shifts depending on setting (clinic/hospital/community)"
-        ],
-        Law: [
-          "Read/write documents and communicate precisely",
-          "Research rules, precedents, and case details",
-          "Meet clients and prepare arguments or advice"
-        ],
-        Justice: [
-          "Work within procedures focused on safety and fairness",
-          "Communicate under pressure and record details accurately",
-          "Train regularly (skills, fitness, compliance)"
-        ],
-        Government: [
-          "Write briefs, analyse options, and support decisions",
-          "Coordinate stakeholders and track program outcomes",
-          "Balance evidence, fairness, and practical constraints"
-        ],
-        Business: [
-          "Coordinate people/process and keep work moving",
-          "Analyse problems and propose improvements",
-          "Communicate clearly across teams"
-        ],
-        Finance: [
-          "Work with numbers, risk, and compliance",
-          "Prepare reports and explain decisions",
-          "Use spreadsheets/tools with accuracy and ethics"
-        ],
-        Engineering: [
-          "Design within constraints (safety, cost, standards)",
-          "Model/plan and validate with tests or reviews",
-          "Work with projects, sites, and stakeholders"
-        ],
-        Trades: [
-          "Hands-on work with tools and safety checks",
-          "Troubleshoot and fix problems on-site",
-          "Follow standards and learn through experience"
-        ],
-        Construction: [
-          "Plan work, keep sites safe, meet timelines",
-          "Coordinate trades/materials and solve issues",
-          "Inspect quality and handle surprises"
-        ],
-        Hospitality: [
-          "Serve customers, manage time, stay calm under rush",
-          "Work with a team and keep standards consistent",
-          "Handle feedback and adapt quickly"
-        ],
-        Education: [
-          "Plan lessons and support different learning needs",
-          "Explain concepts clearly and manage a classroom",
-          "Assess progress and give feedback"
-        ],
-        Creative: [
-          "Create drafts, iterate, and polish final output",
-          "Translate goals into visuals/words/video",
-          "Take feedback and improve consistency"
-        ],
-        Science: [
-          "Follow methods, record results, and stay precise",
-          "Analyse data and communicate findings",
-          "Maintain safety/quality practices"
-        ],
-        Logistics: [
-          "Coordinate movement of goods/people safely",
-          "Track orders, schedules, and exceptions",
-          "Improve efficiency without cutting safety"
-        ],
-        Agriculture: [
-          "Work with seasons, weather, and practical constraints",
-          "Monitor outputs and maintain equipment",
-          "Balance productivity with sustainability"
-        ],
-        Community: [
-          "Support people with empathy and boundaries",
-          "Coordinate services and track plans",
-          "Communicate clearly and document responsibly"
-        ],
-        Sport: [
-          "Coach/training plans and monitor progress",
-          "Motivate others and build consistent habits",
-          "Work with safety and injury prevention"
-        ],
-        Aviation: [
-          "Follow strict procedures and safety standards",
-          "Train regularly and maintain situational awareness",
-          "Communicate clearly under time pressure"
-        ],
-        Maritime: [
-          "Safety-first work with operations and procedures",
-          "Coordinate systems, maintenance, and navigation",
-          "Adapt to changing conditions"
-        ],
-        Media: [
-          "Plan, create, edit, and publish content",
-          "Work to deadlines and iterate quickly",
-          "Balance creativity with audience needs"
-        ],
-      };
-      const list = base[cat] ? [...base[cat]] : ["Learn the core tasks and build consistent skill habits."];
-      // Add 1 role-specific line
-      if (t.includes("teacher")) list.unshift("Work directly with students and families in a structured environment");
-      if (t.includes("developer")) list.unshift("Write code, review code, and ship features");
-      if (t.includes("electrician")) list.unshift("Install wiring, test circuits, and keep everything compliant");
-      if (t.includes("nurse")) list.unshift("Provide patient care, monitor vitals, and support recovery");
-      return unique(list).slice(0,4);
-    }
-
-    function startPath(cat, title, score){
-      const t = title.toLowerCase();
-      const s = scoreNorm(score);
-      const common = [
-        "Use the role description to list 5 core skills; practice one per week",
-        "Talk to someone in the role (or watch day-in-the-life) and validate interest",
-        "Build proof: small projects, volunteering, work experience, or certificates"
-      ];
-
-      const paths = {
-        Tech: [
-          "Start with web basics (HTML/CSS/JS) then a small portfolio app",
-          "Learn Git + debugging + one stack (e.g., Node/Python)",
-          "Consider TAFE/uni or self-taught + internships"
-        ],
-        Healthcare: [
-          "Check required registration and approved study pathways",
-          "Build relevant experience (volunteer/assistant roles where possible)",
-          "Strengthen science prerequisites if aiming for high-competition roles"
-        ],
-        Trades: [
-          "Find an apprenticeship/traineeship and focus on safety + reliability",
-          "Get basic tickets/licences where relevant (white card, etc.)",
-          "Build reputation: punctual, careful, good communication"
-        ],
-        Finance: [
-          "Start with Excel + accounting basics + ethics/compliance",
-          "Do a small case study: budgeting, forecasting, simple valuation",
-          "Consider uni/TAFE certification depending on role"
-        ],
-        Education: [
-          "Practice explaining: tutor or mentor to test fit",
-          "Learn classroom strategies + curriculum basics",
-          "Follow the accredited training pathway"
-        ],
-        Hospitality: [
-          "Start in an entry role and master speed + consistency",
-          "Collect feedback and move into supervision gradually",
-          "Upskill: barista, kitchen, events, or management"
-        ],
-        Law: [
-          "Improve writing + reading stamina; debate helps",
-          "Start with legal admin/support roles if needed",
-          "Uni pathway varies — treat cutoffs as rough guidance"
-        ],
-      };
-
-      let list = [];
-      if (paths[cat]) list.push(...paths[cat]);
-
-      // Role-specific tweaks
-      if (t.includes("pilot")) list = [
-        "Research flight training pathways and medical requirements",
-        "Build hours gradually; training is structured and expensive",
-        "Strong math/physics helps; cutoffs vary"
-      ];
-      if (t.includes("doctor") || t.includes("dentist") || t.includes("actuary")) list = [
-        "High-competition: choose prerequisites early and keep grades strong",
-        "Research each university’s requirements (varies a lot)",
-        "Get exposure: shadowing/volunteering to confirm fit"
-      ];
-
-      // Add a score-adaptive suggestion (does NOT promise)
-      if (s < .35) list.unshift("Start with accessible entry roles in the same industry to build momentum");
-      else if (s > .75) list.unshift("You can aim for more competitive pathways — plan prerequisites early");
-
-      return unique([...list, ...common]).slice(0,5);
-    }
-
-    function whyFits(cat, title, salaryKey){
-      const salary = salaryText(salaryKey);
-      const t = title.toLowerCase();
-
-      const base = [
-        "We picked roles close to your chosen profession (same industry + skills overlap)",
-        "The match score blends: eligibility, skill overlap, and salary preference bias"
-      ];
-
-      const salaryLine = salaryKey==="premium"
-        ? "You prefer higher growth pay — we bias toward advanced/technical roles if eligible"
-        : salaryKey==="family"
-          ? "You want stable family-support income — we bias toward reliable career ladders"
-          : salaryKey==="couple"
-            ? "You want solid mid-range income — we bias toward steady roles with growth"
-            : "You want self-support income — we include quicker-entry options with progression";
-
-      const catFit = {
-        Tech: ["Good if you like problem solving, systems thinking, and building things"],
-        Healthcare: ["Good if you like helping people, staying calm, and following best practice"],
-        Trades: ["Good if you like hands-on work, practical learning, and visible results"],
-        Finance: ["Good if you like numbers, structure, and careful decision-making"],
-        Creative: ["Good if you like creating, iterating, and communicating ideas"],
-        Law: ["Good if you like reading/writing, rules, and structured argument"],
-        Logistics: ["Good if you like coordination, routines, and optimisation"],
-        Hospitality: ["Good if you like people, pace, and teamwork"],
-        Education: ["Good if you like explaining, mentoring, and building others up"],
-      };
-
-      let list = [...base, salaryLine];
-      if (catFit[cat]) list.push(...catFit[cat]);
-
-      // Add role-specific “why”
-      if (t.includes("nurse")) list.push("Your choice suggests you’re okay with responsibility + care work");
-      if (t.includes("electrician")) list.push("You likely prefer skill-based progression and practical work");
-      if (t.includes("developer")) list.push("You likely enjoy learning continuously and shipping improvements");
-
-      return unique(list).slice(0,5);
-    }
-
-    /*****************************************************************
-     * 4) DROPDOWN UI (type to filter + keyboard nav)
-     *****************************************************************/
-    function openDD(){
-      ddOpen = true;
-      $("professionDD").classList.add("open");
-      filterDD($("professionInput").value);
-    }
-    function closeDD(){
-      ddOpen = false;
-      $("professionDD").classList.remove("open");
-      ddActiveIndex = 0;
-    }
-    function filterDD(q){
-      const query = (q||"").trim().toLowerCase();
-      const score = Number($("scoreInput").value)||0;
-      const eligibleAll = ALL.filter(j => eligible(j, score));
-      const pool = eligibleAll;
-
-      ddFiltered = pool.filter(j => {
-        if (!query) return true;
-        return (j.title.toLowerCase().includes(query) || j.tags.join(" ").toLowerCase().includes(query) || j.category.toLowerCase().includes(query));
-      });
-
-      ddActiveIndex = Math.min(ddActiveIndex, Math.max(0, ddFiltered.length-1));
-      renderDD();
-      updateMetaCounts(ddFiltered.length, eligibleAll.length);
-    }
-
-    function renderDD(){
-      const list = $("ddList");
-      const empty = $("ddEmpty");
-      list.innerHTML = "";
-
-      if (ddFiltered.length === 0){
-        empty.style.display = "block";
-        return;
-      } else empty.style.display = "none";
-
-      ddFiltered.slice(0, 120).forEach((j, idx) => {
-        const el = document.createElement("div");
-        el.className = "ddItem" + (idx===ddActiveIndex ? " active" : "");
-        el.setAttribute("role","option");
-        el.innerHTML = `
-          <div class="ddIcon" aria-hidden="true">${ICONS[j.category] || "📌"}</div>
-          <div class="ddTxt">
-            <div class="t">${esc(j.title)}</div>
-            <div class="d">${esc(j.category)} • ${esc(j.tags.slice(0,3).join(" • "))}</div>
-          </div>
-        `;
-        el.addEventListener("click", () => selectProfession(j));
-        list.appendChild(el);
+      variants.push({
+        ...p,
+        name: nm,
+        cutoff: +c.toFixed(2),
+        oneLine: p.oneLine
       });
     }
+  }
 
-    function updateMetaCounts(shown, eligibleTotal){
-      $("professionMeta").textContent = `${shown} shown • ${eligibleTotal} eligible in total`;
-      const total = eligibleTotal;
-      const eligShown = shown;
-      $("eligBadge").textContent = `Eligibility: ${Math.min(eligShown, total)} / ${total}`;
+  // Add generic roles per category to ensure lots of low-score options exist.
+  for (const [cat, names] of Object.entries(genericByCategory)){
+    for (const nm of names){
+      // heuristic cutoffs by category: keep plenty accessible at low scores
+      let cutoff = 20;
+      let studyLen = "short";
+      let people = "people";
+      let activity = "desk";
+      let setting = "indoor";
+      let salaryRange = [48000, 90000];
+      let evidence = {rule:true};
+
+      if (cat === "Healthcare"){ cutoff = 25; activity="active"; salaryRange=[50000, 95000]; }
+      if (cat === "Tech & Data"){ cutoff = 45; people="systems"; salaryRange=[65000, 140000]; }
+      if (cat === "Trades & Construction"){ cutoff = 20; activity="active"; setting="outdoor"; salaryRange=[55000, 120000]; }
+      if (cat === "Business & Finance"){ cutoff = 40; people="people"; salaryRange=[60000, 130000]; }
+      if (cat === "Law & Government"){ cutoff = 45; people="systems"; salaryRange=[65000, 140000]; }
+      if (cat === "Creative & Media"){ cutoff = 30; salaryRange=[52000, 120000]; }
+      if (cat === "Education & Social"){ cutoff = 35; activity="active"; salaryRange=[55000, 110000]; }
+      if (cat === "Engineering"){ cutoff = 70; people="systems"; studyLen="long"; salaryRange=[90000, 200000]; }
+      if (cat === "Hospitality & Retail"){ cutoff = 10; activity="active"; salaryRange=[45000, 90000]; }
+      if (cat === "Logistics & Services"){ cutoff = 15; salaryRange=[48000, 110000]; if (nm.includes("Field") || nm.includes("Courier")) {activity="active"; setting="outdoor";} }
+
+      variants.push(mk(nm, cat, cutoff, studyLen, people, activity, setting, [cat.split(" ")[0]], evidence, salaryRange, `A common role in ${cat.toLowerCase()}.`));
+    }
+  }
+
+  // Combine and de-duplicate by name.
+  const map = new Map();
+  for (const p of [...baseList, ...variants]){
+    const key = p.name.toLowerCase();
+    if (!map.has(key)) map.set(key, p);
+  }
+  return Array.from(map.values());
+}
+
+const PROFESSIONS = generateVariants(BASE);
+// Ensure we have 200+ (usually ~220+)
+const TOTAL = PROFESSIONS.length;
+
+/* -----------------------------
+   State + UI state
+   ----------------------------- */
+
+const state = {
+  mode: null, // "ATAR" | "GPA"
+  filters: {
+    study:"any",
+    people:"any",
+    activity:"any",
+    setting:"any"
+  },
+  selectedCategory: null,
+  selectedProfession: null, // object
+};
+
+function defaultMode(){
+  return localStorage.getItem("cp_mode") || null;
+}
+
+/* -----------------------------
+   Mode modal
+   ----------------------------- */
+
+function showModeModal(){
+  $("overlay").classList.add("show");
+  // highlight stored mode if exists
+  const m = defaultMode();
+  if (m === "ATAR") $("modeATAR").classList.add("on");
+  if (m === "GPA") $("modeGPA").classList.add("on");
+}
+function hideModeModal(){
+  $("overlay").classList.remove("show");
+}
+
+function setMode(mode){
+  state.mode = mode;
+  localStorage.setItem("cp_mode", mode);
+
+  if (mode === "ATAR"){
+    $("modeATAR").classList.add("on");
+    $("modeGPA").classList.remove("on");
+    $("modeName").textContent = "ATAR";
+    $("scoreLabel").textContent = "ATAR";
+    $("scoreRangeLabel").textContent = "0.00–99.95";
+    $("scoreInput").max = "99.95";
+    if (+$("scoreInput").value > 99.95) $("scoreInput").value = "99.95";
+  } else {
+    $("modeGPA").classList.add("on");
+    $("modeATAR").classList.remove("on");
+    $("modeName").textContent = "GPA";
+    $("scoreLabel").textContent = "GPA";
+    $("scoreRangeLabel").textContent = "0–100";
+    $("scoreInput").max = "100";
+  }
+
+  hideModeModal();
+  renderEligibleCount();
+}
+
+$("modeATAR").addEventListener("click", ()=> setMode("ATAR"));
+$("modeGPA").addEventListener("click", ()=> setMode("GPA"));
+
+/* -----------------------------
+   Profession combo dropdown
+   ----------------------------- */
+
+const combo = $("combo");
+const input = $("professionInput");
+const dropdown = $("dropdown");
+const list = $("dropdownList");
+
+function iconLetter(name){
+  // quick bubble: first letter
+  const ch = (name.trim()[0] || "?").toUpperCase();
+  return ch;
+}
+
+function summarize(p){
+  // small subline: category + tags
+  const t = (p.tags || []).slice(0,3).join(" • ");
+  return `${p.category} • ${t || "paths"}`.trim();
+}
+
+function openDropdown(){
+  dropdown.classList.add("show");
+}
+function closeDropdown(){
+  dropdown.classList.remove("show");
+}
+
+function setSelectedProfession(p){
+  state.selectedProfession = p;
+  input.value = p ? p.name : "";
+  closeDropdown();
+  // selecting a profession makes category selection reset so it can find similar paths
+  state.selectedCategory = null;
+  renderEligibleCount();
+}
+
+function filterProfessionsForDropdown(query, eligibleOnly){
+  const q = (query||"").trim().toLowerCase();
+  const score = getScore();
+  const eligible = eligibleOnly ? getEligibleList(score) : PROFESSIONS;
+
+  let arr = eligible;
+  if (q){
+    arr = eligible.filter(p => p.name.toLowerCase().includes(q) || (p.category||"").toLowerCase().includes(q));
+  }
+  // Keep list reasonably sized
+  arr = arr.sort((a,b)=> a.name.localeCompare(b.name)).slice(0, 240);
+  return arr;
+}
+
+function renderDropdown(){
+  const eligibleOnly = true;
+  const q = input.value;
+  const rows = filterProfessionsForDropdown(q, eligibleOnly);
+
+  list.innerHTML = rows.map(p => `
+    <div class="item" role="option" data-name="${escapeHtml(p.name)}">
+      <div class="bubble">${escapeHtml(iconLetter(p.name))}</div>
+      <div class="meta">
+        <div class="title">${escapeHtml(p.name)}</div>
+        <div class="sub">${escapeHtml(summarize(p))}</div>
+      </div>
+    </div>
+  `).join("");
+
+  // click handlers
+  Array.from(list.querySelectorAll(".item")).forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const name = el.getAttribute("data-name");
+      const p = PROFESSIONS.find(x => x.name === name);
+      if (p) setSelectedProfession(p);
+    });
+  });
+}
+
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+}
+
+input.addEventListener("focus", ()=>{
+  openDropdown();
+  renderDropdown();
+});
+input.addEventListener("input", ()=>{
+  openDropdown();
+  renderDropdown();
+});
+input.addEventListener("keydown", (e)=>{
+  if (e.key === "Escape"){
+    closeDropdown();
+    input.blur();
+  }
+  if (e.key === "Enter"){
+    const q = input.value.trim().toLowerCase();
+    const score = getScore();
+    const eligible = getEligibleList(score);
+
+    // exact match required (forced list)
+    const exact = eligible.find(p => p.name.toLowerCase() === q);
+    if (exact){
+      setSelectedProfession(exact);
+      e.preventDefault();
+      return;
     }
 
-    function selectProfession(job){
-      selectedProfession = job;
-      $("professionInput").value = job.title;
-      closeDD();
-      // update underbar
-      updateBadges();
+    // If user typed something not in list, don't accept it.
+    // Keep dropdown open and show hint by re-rendering.
+    openDropdown();
+    renderDropdown();
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("click", (e)=>{
+  if (!combo.contains(e.target)){
+    closeDropdown();
+  }
+});
+
+/* -----------------------------
+   Filters (chips)
+   ----------------------------- */
+
+Array.from(document.querySelectorAll(".chip")).forEach(ch=>{
+  ch.addEventListener("click", ()=>{
+    const group = ch.getAttribute("data-filter");
+    const val = ch.getAttribute("data-value");
+    if (!group) return;
+
+    // turn off all in group, turn on selected
+    Array.from(document.querySelectorAll(`.chip[data-filter="${group}"]`)).forEach(x=>x.classList.remove("on"));
+    ch.classList.add("on");
+    state.filters[group] = val;
+
+    // rerun results if already showing
+    runSearch(false);
+  });
+});
+
+/* -----------------------------
+   Scoring + eligibility
+   ----------------------------- */
+
+function getScore(){
+  const raw = parseFloat($("scoreInput").value);
+  const max = (state.mode === "ATAR") ? 99.95 : 100;
+  const v = clamp(isNaN(raw) ? 0 : raw, 0, max);
+  return +v.toFixed(2);
+}
+
+function getEligibleList(score){
+  // Mode logic: same for now (prototype). Later can map GPA to ATAR distribution.
+  // Important: always have low-score options.
+  return PROFESSIONS.filter(p => score >= p.cutoff);
+}
+
+function renderEligibleCount(){
+  const score = getScore();
+  const eligible = getEligibleList(score);
+  $("eligibleCountBadge").textContent = `Eligible in list: ${eligible.length} / ${TOTAL}`;
+}
+
+/* -----------------------------
+   Ranking logic (interpreting your “real behaviors”)
+   - If no profession selected: explore → show best categories + careers
+   - If profession selected: show related careers (same category + similar attributes)
+   - Always explain why
+   ----------------------------- */
+
+function dist(a, b){
+  let d = 0;
+  if (a.category !== b.category) d += 2;
+  if (a.studyLen !== b.studyLen) d += 1;
+  if (a.people !== b.people) d += 1;
+  if (a.activity !== b.activity) d += 1;
+  if (a.setting !== b.setting) d += 1;
+  return d;
+}
+
+function salaryFitScore(p, biasKey){
+  const bias = SALARY_BIAS[biasKey] || SALARY_BIAS.mid;
+  const [minS, maxS] = p.salaryRange;
+  // reward overlap with target range
+  const overlap = Math.max(0, Math.min(maxS, bias.targetMax) - Math.max(minS, bias.targetMin));
+  const span = (bias.targetMax - bias.targetMin) || 1;
+  const overlapRatio = overlap / span;
+
+  // also slightly reward higher ceiling for growth
+  const ceilingBoost = (maxS / 260000);
+  const w = bias.weightHigh;
+
+  return (overlapRatio * (0.7 + 0.3*w)) + (ceilingBoost * (0.15*w));
+}
+
+function applyFilters(list){
+  const f = state.filters;
+  return list.filter(p=>{
+    if (f.study !== "any" && p.studyLen !== f.study) return false;
+    if (f.people !== "any" && p.people !== f.people) return false;
+    if (f.activity !== "any" && p.activity !== f.activity) return false;
+    if (f.setting !== "any" && p.setting !== f.setting) return false;
+    if (state.selectedCategory && p.category !== state.selectedCategory) return false;
+    return true;
+  });
+}
+
+function computeCategoryScores(list, salaryKey){
+  const byCat = new Map();
+  for (const p of list){
+    const s = salaryFitScore(p, salaryKey);
+    if (!byCat.has(p.category)) byCat.set(p.category, {count:0, score:0});
+    const o = byCat.get(p.category);
+    o.count += 1;
+    o.score += s;
+  }
+  const arr = Array.from(byCat.entries()).map(([cat, o])=>{
+    const avg = o.score / Math.max(1,o.count);
+    return {cat, count:o.count, avg};
+  });
+  arr.sort((a,b)=> b.avg - a.avg || b.count - a.count);
+  return arr;
+}
+
+function pickShortlist(eligible, salaryKey){
+  const base = applyFilters(eligible);
+
+  // If profession selected: prioritize “related paths”
+  if (state.selectedProfession){
+    const target = state.selectedProfession;
+
+    // Always include the target profession first (if eligible)
+    const related = base
+      .filter(p => p.name !== target.name)
+      .map(p => {
+        const similarity = 1 / (1 + dist(target,p));
+        const sal = salaryFitScore(p, salaryKey);
+        // same category gets bonus
+        const sameCat = (p.category === target.category) ? 0.35 : 0.0;
+        return {p, score: (similarity*0.65 + sal*0.35 + sameCat)};
+      })
+      .sort((a,b)=> b.score - a.score)
+      .slice(0, 8)
+      .map(x=>x.p);
+
+    const all = [target, ...related].slice(0, 8);
+    return all;
+  }
+
+  // Explore mode: pick top careers overall (mix across categories)
+  const scored = base.map(p=>{
+    const sal = salaryFitScore(p, salaryKey);
+    // Heuristic: higher salary fit + slightly prefer mid/long pathways for higher scores
+    const score = sal + (p.cutoff/100)*0.12;
+    return {p, score};
+  }).sort((a,b)=> b.score - a.score);
+
+  // Ensure diversity across categories
+  const chosen = [];
+  const seenCat = new Map();
+  for (const x of scored){
+    const catCount = seenCat.get(x.p.category) || 0;
+    if (catCount >= 2) continue;
+    chosen.push(x.p);
+    seenCat.set(x.p.category, catCount + 1);
+    if (chosen.length >= 8) break;
+  }
+
+  // If filters are too strict and nothing found, relax category filter first.
+  if (chosen.length === 0 && state.selectedCategory){
+    state.selectedCategory = null;
+    return pickShortlist(eligible, salaryKey);
+  }
+
+  // Still nothing? return some low-cutoff careers unfiltered
+  if (chosen.length === 0){
+    const fallback = eligible
+      .sort((a,b)=> a.cutoff - b.cutoff)
+      .slice(0, 8);
+    return fallback;
+  }
+
+  return chosen;
+}
+
+/* -----------------------------
+   Card content generator (3 layers)
+   ----------------------------- */
+
+function formatMoney(n){
+  const k = Math.round(n/1000);
+  return `$${k}k`;
+}
+function studyLabel(s){
+  if (s==="short") return "0–1y";
+  if (s==="mid") return "2–3y";
+  return "4y+";
+}
+function workLabel(p){
+  const parts = [];
+  parts.push(p.people === "people" ? "People" : "Systems");
+  parts.push(p.activity === "desk" ? "Desk" : "On-feet");
+  parts.push(p.setting === "indoor" ? "Indoor" : "Outdoor");
+  return parts.join(" • ");
+}
+
+function evidenceBadges(p){
+  const arr = [];
+  if (p.evidence?.licensed) arr.push({cls:"licensed", txt:"Licensed / regulated"});
+  if (p.evidence?.formal) arr.push({cls:"formal", txt:"Formal requirement"});
+  if (p.evidence?.rule) arr.push({cls:"rule", txt:"Rule-of-thumb"});
+  if (arr.length===0) arr.push({cls:"rule", txt:"Rule-of-thumb"});
+  return arr;
+}
+
+function whyBullets(p, score, salaryKey){
+  const lines = [];
+  lines.push(`Eligible in this list because score ≥ cutoff (${score.toFixed(2)} ≥ ${p.cutoff.toFixed(2)}).`);
+
+  if (state.selectedProfession){
+    const t = state.selectedProfession;
+    const sameCat = (p.category === t.category);
+    if (p.name === t.name){
+      lines.push(`This is the profession you selected (used as a reference point).`);
+    } else if (sameCat){
+      lines.push(`Related path: same category as your selection (${t.category}).`);
+    } else {
+      lines.push(`Alternate path: different category, but similar work style signals.`);
     }
+  } else {
+    lines.push(`Shown because it fits your filters and salary circumstance bias.`);
+  }
 
-    /*****************************************************************
-     * 5) SHORTLIST LOGIC (correlates to selected profession + score)
-     *****************************************************************/
-    function computeMatch(job, selected, score, salaryKey){
-      const s = scoreNorm(score);
-      const elig = eligible(job, score) ? 1 : 0;
+  const sfit = salaryFitScore(p, salaryKey);
+  if (sfit > 0.55) lines.push(`Salary fit looks strong for your chosen circumstance.`);
+  else lines.push(`Salary fit is moderate — consider tradeoffs vs lifestyle / training.`);
 
-      // skill overlap
-      const a = new Set((selected?.tags||[]).map(x=>x.toLowerCase()));
-      const b = new Set((job.tags||[]).map(x=>x.toLowerCase()));
-      let overlap = 0;
-      for (const x of a) if (b.has(x)) overlap++;
-      const overlapNorm = a.size ? overlap / a.size : 0;
+  lines.push(`Work style: ${workLabel(p)}.`);
+  return lines;
+}
 
-      // category proximity
-      const sameCat = selected && (selected.category === job.category) ? 1 : 0;
+function startSteps(p){
+  // Simple templates that vary by category so cards aren’t all the same.
+  const c = p.category;
+  if (c === "Healthcare") return [
+    "Check required subjects (often biology/chem) and pathway options.",
+    "Plan training (uni + placements). Consider allied-health alternatives.",
+    "Build experience: volunteering, first aid, shadowing where possible."
+  ];
+  if (c === "Tech & Data") return [
+    "Start a small portfolio (1–3 projects) and learn fundamentals.",
+    "Consider uni/TAFE/bootcamp/self-taught routes; pick one and commit.",
+    "Get experience: internships, GitHub projects, hackathons, freelancing."
+  ];
+  if (c === "Trades & Construction") return [
+    "Explore apprenticeship/TAFE entry points and required tickets/licences.",
+    "Get site exposure: work experience, pre-apprenticeship, helper roles.",
+    "Build practical skills + safety habits (tools, PPE, basic certs)."
+  ];
+  if (c === "Business & Finance") return [
+    "Build core skills: spreadsheets, communication, basic accounting/finance.",
+    "Choose a pathway: uni degree or entry roles + upskilling.",
+    "Get experience: part-time admin, internships, school enterprise programs."
+  ];
+  if (c === "Law & Government") return [
+    "Confirm if it’s licensed/formal and what the entry path is.",
+    "Build evidence: debating/writing, volunteering, structured study plan.",
+    "Look for junior roles (assistant, admin) to learn the system early."
+  ];
+  if (c === "Creative & Media") return [
+    "Create a portfolio (5–10 pieces). Real work beats certificates.",
+    "Pick a niche (design, video, copy, social) and go deep.",
+    "Get feedback and publish: socials, Behance, small clients, school projects."
+  ];
+  if (c === "Education & Social") return [
+    "Try it first: tutoring, coaching, mentoring, volunteering.",
+    "Check formal requirements (teaching registration / degrees).",
+    "Build skills: communication, patience, structured planning."
+  ];
+  if (c === "Engineering") return [
+    "Check subject prerequisites (often maths/physics).",
+    "Choose a branch (civil/mech/elec/software) and plan the pathway.",
+    "Build proof: competitions, projects, internships, cad/programming."
+  ];
+  if (c === "Hospitality & Retail") return [
+    "Start with entry roles; learn speed, service, teamwork.",
+    "Level up with short courses (food safety, RSA) or supervisor training.",
+    "Move into management or specialise (events, venues, operations)."
+  ];
+  // Logistics & Services
+  return [
+    "Start with entry roles and learn systems and customer operations.",
+    "Upskill with short certs (Excel, tickets, service training).",
+    "Move into specialist roles (planning, coordination, team lead)."
+  ];
+}
 
-      // salary bias
-      const pref = salaryText(salaryKey).bias;
-      const band = ({self:0, couple:1, family:2, premium:3})[job.salaryBand] ?? 1;
-      const salaryScore = 1 - Math.min(1, Math.abs(pref - band)/3);
+function sourcesStub(p){
+  // Prototype-safe: we avoid pretending we have official sources here.
+  // You can later attach real links per profession/state.
+  const c = p.category;
+  const out = [];
+  out.push("Prototype note: requirements vary by state/university and year.");
+  if (p.evidence?.licensed) out.push("Licensed/regulated roles often require registration with a professional body.");
+  if (c === "Healthcare") out.push("Typical sources to add later: university course pages + AHPRA/registration bodies.");
+  if (c === "Law & Government") out.push("Typical sources to add later: state government recruitment + university law pages.");
+  if (c === "Trades & Construction") out.push("Typical sources to add later: apprenticeship networks + state training authorities.");
+  if (c === "Tech & Data") out.push("Typical sources to add later: role descriptions + industry certifications.");
+  return out;
+}
 
-      // score headroom bonus (don’t punish low scores too hard)
-      const headroom = MODE==="ATAR"
-        ? Math.max(0, (score - job.minATAR) / 25)
-        : Math.max(0, (score - job.minGPA) / 25);
-      const headroomClamped = Math.min(1, headroom);
+/* -----------------------------
+   Render categories + results
+   ----------------------------- */
 
-      // final
-      const raw = (elig*0.45) + (overlapNorm*0.22) + (sameCat*0.15) + (salaryScore*0.10) + (headroomClamped*0.08);
-      return Math.round(Math.max(0, Math.min(1, raw)) * 100);
-    }
+function renderCategories(eligible, salaryKey){
+  const cats = $("cats");
+  const filtered = applyFilters(eligible); // includes selectedCategory if set
+  // but category cards should represent the overall eligible+filters excluding selectedCategory
+  const tempSel = state.selectedCategory;
+  state.selectedCategory = null;
+  const filteredNoCat = applyFilters(eligible);
+  state.selectedCategory = tempSel;
 
-    function buildShortlist(){
-      const score = Number($("scoreInput").value)||0;
-      const salaryKey = $("salarySelect").value;
+  const scores = computeCategoryScores(filteredNoCat, salaryKey).slice(0,3);
 
-      // Must pick from list
-      if (!selectedProfession){
-        $("resultsList").innerHTML = `<div class="card"><div class="cardTop"><div class="titleRow"><div class="num">!</div><div class="titleCol"><h3>Please select a profession from the dropdown.</h3><div class="chips"><span class="chip">Type to search</span><span class="chip">Scroll to browse</span></div></div></div></div></div>`;
-        return;
-      }
+  cats.innerHTML = scores.map((c, idx)=>{
+    const info = CATEGORY_INFO[c.cat] || {summary:"", icon:"✨"};
+    const active = (state.selectedCategory === c.cat) ? "active" : "";
+    return `
+      <div class="cat ${active}" data-cat="${escapeHtml(c.cat)}">
+        <h3>${escapeHtml(info.icon)} ${escapeHtml(c.cat)}</h3>
+        <p>${escapeHtml(info.summary)} </p>
+        <div class="row">
+          <div class="mini"><strong>${c.count}</strong> options</div>
+          <div class="mini">Tap to filter</div>
+        </div>
+      </div>
+    `;
+  }).join("");
 
-      // Eligible pool
-      const eligiblePool = ALL.filter(j => eligible(j, score));
-      const eligTotal = eligiblePool.length;
+  Array.from(cats.querySelectorAll(".cat")).forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const cat = el.getAttribute("data-cat");
+      if (state.selectedCategory === cat) state.selectedCategory = null;
+      else state.selectedCategory = cat;
+      runSearch(false);
+    });
+  });
+}
 
-      // Always ensure low scores still show something:
-      // If pool is tiny, widen by allowing roles within +5 points
-      let pool = eligiblePool;
-      if (pool.length < 8){
-        pool = ALL.filter(j => {
-          const req = (MODE==="ATAR") ? j.minATAR : j.minGPA;
-          return score + 5 >= req;
-        });
-      }
+function renderResults(shortlist, eligible, score, salaryKey){
+  const results = $("results");
+  const titleLine = state.selectedProfession
+    ? `Showing related paths to: <strong>${escapeHtml(state.selectedProfession.name)}</strong>`
+    : `Explore mode: showing options for your score + filters`;
 
-      // score all (exclude exact selected title)
-      const scored = pool
-        .filter(j => j.title !== selectedProfession.title)
-        .map(j => ({
-          job: j,
-          match: computeMatch(j, selectedProfession, score, salaryKey)
-        }))
-        .sort((a,b)=> b.match - a.match);
+  $("subline").innerHTML = `${titleLine}. Click a card to expand details.`;
 
-      // Prioritise same-category & related + variety
-      const picks = [];
-      const usedCats = new Map();
-      for (const item of scored){
-        if (picks.length >= 7) break;
-        const catCount = usedCats.get(item.job.category) || 0;
+  if (!shortlist || shortlist.length === 0){
+    results.innerHTML = `
+      <div class="info-card">
+        <h4>No matches found</h4>
+        <p>Try relaxing filters or clearing the profession/category selection.</p>
+      </div>
+    `;
+    return;
+  }
 
-        const isSameCat = item.job.category === selectedProfession.category;
-        const allow = isSameCat ? (catCount < 4) : (catCount < 2); // keep variety
-        if (!allow) continue;
+  results.innerHTML = shortlist.map((p, idx)=>{
+    const matchPct = calcMatchPercent(p, shortlist[0], score, salaryKey);
+    const [smin, smax] = p.salaryRange;
+    const ev = evidenceBadges(p);
+    const why = whyBullets(p, score, salaryKey);
+    const steps = startSteps(p);
+    const src = sourcesStub(p);
 
-        // Don’t show super low match unless we have no options
-        if (item.match < 20 && picks.length >= 3) continue;
-
-        picks.push(item);
-        usedCats.set(item.job.category, catCount + 1);
-      }
-
-      // Render
-      const list = $("resultsList");
-      list.innerHTML = "";
-
-      const scoreTxt = MODE==="ATAR" ? clampATAR(score).toFixed(2) : clampGPA(score).toFixed(0);
-      $("eligBadge").textContent = `Eligibility: ${picks.length} / ${eligTotal}`;
-
-      picks.forEach((item, idx) => {
-        const j = item.job;
-        const details = buildDetails(j, score, salaryKey);
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="cardTop" role="button" tabindex="0" aria-expanded="false">
-            <div class="titleRow">
-              <div class="num">${idx+1}</div>
-              <div class="titleCol">
-                <h3>${esc(j.title)}</h3>
-                <div class="chips">
-                  ${j.tags.slice(0,4).map(t=>`<span class="chip">${esc(t)}</span>`).join("")}
-                </div>
-              </div>
+    return `
+      <div class="card" data-name="${escapeHtml(p.name)}">
+        <div class="card-top">
+          <div style="min-width:0">
+            <h2>${escapeHtml((idx+1) + ". " + p.name)}</h2>
+            <div class="tags">
+              <span class="tag">${escapeHtml(p.category)}</span>
+              <span class="tag">${escapeHtml(workLabel(p))}</span>
+              <span class="tag">Study: ${escapeHtml(studyLabel(p.studyLen))}</span>
             </div>
-            <div class="match">${item.match}% match</div>
-          </div>
-          <div class="cardMeta">
-            <span class="metaPill">${esc(j.category)}</span>
-            <span class="metaPill">${esc(MODE)} score: ${esc(scoreTxt)}</span>
-            <span class="metaPill">Entry cutoff: ${esc(MODE==="ATAR" ? j.minATAR.toFixed(2) : j.minGPA)}</span>
-          </div>
-          <div class="expand">${details}</div>
-        `;
 
-        const top = card.querySelector(".cardTop");
-        top.addEventListener("click", ()=> toggleCard(card, top));
-        top.addEventListener("keydown", (e)=>{
-          if (e.key==="Enter" || e.key===" "){
-            e.preventDefault();
-            toggleCard(card, top);
-          }
-        });
-
-        list.appendChild(card);
-      });
-
-      // Helpful empty state
-      if (picks.length === 0){
-        list.innerHTML = `
-          <div class="card">
-            <div class="cardTop">
-              <div class="titleRow">
-                <div class="num">!</div>
-                <div class="titleCol">
-                  <h3>No matches found for this score + profession.</h3>
-                  <div class="chips">
-                    <span class="chip">Try a different profession</span>
-                    <span class="chip">Lower the cutoff filters later</span>
-                    <span class="chip">Or increase your score</span>
-                  </div>
-                </div>
-              </div>
+            <div class="quickfacts">
+              <div class="qf"><span>Salary</span> ${escapeHtml(formatMoney(smin))}–${escapeHtml(formatMoney(smax))}</div>
+              <div class="qf"><span>Cutoff</span> ${escapeHtml(p.cutoff.toFixed(2))}</div>
+              <div class="qf"><span>Evidence</span> ${escapeHtml(ev[0].txt)}</div>
             </div>
           </div>
-        `;
-      }
-    }
+          <div class="match">${matchPct}% match</div>
+        </div>
 
-    function toggleCard(card, top){
-      const isOpen = card.classList.toggle("open");
-      top.setAttribute("aria-expanded", String(isOpen));
-    }
+        <div class="expand">
+          <div class="cols">
+            <div class="box">
+              <h4>Why it fits</h4>
+              <ul>
+                ${why.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+              </ul>
+            </div>
 
-    function updateBadges(){
-      $("modeBadge").textContent = `Mode: ${MODE}`;
-      $("scoreHint").textContent = `Mode: ${MODE}`;
-      const score = Number($("scoreInput").value)||0;
-      const eligibleTotal = ALL.filter(j => eligible(j, score)).length;
-      const shown = ddOpen ? ddFiltered.length : Math.min(eligibleTotal, 0);
-      $("eligBadge").textContent = `Eligibility: 0 / ${eligibleTotal}`;
-      $("professionMeta").textContent = `${ddOpen ? shown : 0} shown • ${eligibleTotal} eligible in total`;
-    }
+            <div class="box">
+              <h4>How to start (first steps)</h4>
+              <ul>
+                ${steps.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
 
-    /*****************************************************************
-     * 6) MODE SWITCHING
-     *****************************************************************/
-    function setMode(next){
-      MODE = next;
+          <div class="box" style="margin-top:14px;">
+            <h4>Day-to-day (quick picture)</h4>
+            <ul>
+              <li>${escapeHtml(p.oneLine || "A common path with clear entry steps.")}</li>
+              <li>${escapeHtml(p.category)} environments often reward consistency and skills growth over time.</li>
+              <li>Choose a pathway you can actually sustain week-to-week.</li>
+            </ul>
+          </div>
 
-      if (MODE==="ATAR"){
-        $("scoreLabel").textContent = "ATAR (0.00–99.95)";
-        $("scoreInput").min = "0";
-        $("scoreInput").max = "99.95";
-        $("scoreInput").step = "0.01";
-        if (Number($("scoreInput").value) > 99.95) $("scoreInput").value = "70.00";
-      } else {
-        $("scoreLabel").textContent = "GPA (0–100)";
-        $("scoreInput").min = "0";
-        $("scoreInput").max = "100";
-        $("scoreInput").step = "1";
-        // keep current value but clamp
-        $("scoreInput").value = String(clampGPA($("scoreInput").value));
-      }
+          <div class="notes">
+            ${ev.map(b=>`<span class="note-badge ${b.cls}">${escapeHtml(b.txt)}</span>`).join("")}
+            <span class="note-badge">Varies by state/uni</span>
+          </div>
 
-      // reset profession selection because eligibility list changes
-      selectedProfession = null;
-      $("professionInput").value = "";
-      closeDD();
-      updateBadges();
-      $("resultsList").innerHTML = "";
-    }
+          <div class="box" style="margin-top:12px;">
+            <h4>Evidence notes (prototype-safe)</h4>
+            <ul>
+              ${src.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
 
-    function showModeModal(){
-      $("modeModal").classList.add("open");
-    }
-    function hideModeModal(){
-      $("modeModal").classList.remove("open");
-    }
+  Array.from(results.querySelectorAll(".card")).forEach(card=>{
+    card.addEventListener("click", ()=>{
+      card.classList.toggle("open");
+    });
+  });
+}
 
-    /*****************************************************************
-     * 7) WIRE EVENTS
-     *****************************************************************/
-    // Start modal at load
+function calcMatchPercent(p, anchor, score, salaryKey){
+  // Simple, honest heuristic: (eligibility + salary fit + filter alignment + similarity)
+  let s = 0.35; // base
+  s += clamp((score - p.cutoff) / 40, 0, 0.25);
+  s += clamp(salaryFitScore(p, salaryKey), 0, 0.25);
+
+  // alignment with current filters
+  const f = state.filters;
+  let align = 0;
+  if (f.study === "any" || p.studyLen === f.study) align += 0.05;
+  if (f.people === "any" || p.people === f.people) align += 0.05;
+  if (f.activity === "any" || p.activity === f.activity) align += 0.05;
+  if (f.setting === "any" || p.setting === f.setting) align += 0.05;
+  s += align;
+
+  // if profession selected, add similarity to target
+  if (state.selectedProfession){
+    const sim = 1 / (1 + dist(state.selectedProfession, p));
+    s += clamp(sim * 0.18, 0, 0.18);
+  }
+
+  // keep within 35–95 range so it looks sane
+  const pct = Math.round(clamp(s, 0.35, 0.95) * 100);
+  return pct;
+}
+
+/* -----------------------------
+   Search runner
+   ----------------------------- */
+
+function runSearch(scroll=true){
+  // ensure mode exists
+  if (!state.mode){
     showModeModal();
+    return;
+  }
 
-    document.querySelectorAll(".modeCard").forEach(card=>{
-      card.addEventListener("click", ()=>{
-        setMode(card.dataset.mode);
-        hideModeModal();
-      });
-      card.addEventListener("keydown", (e)=>{
-        if (e.key==="Enter" || e.key===" "){
-          e.preventDefault();
-          setMode(card.dataset.mode);
-          hideModeModal();
-        }
-      });
-    });
+  const score = getScore();
+  const salaryKey = $("salarySelect").value;
 
-    $("changeModeBtn").addEventListener("click", ()=>{
-      showModeModal();
-    });
-
-    // Profession input
-    $("professionInput").addEventListener("focus", ()=> openDD());
-    $("professionInput").addEventListener("input", (e)=>{
-      openDD();
-      filterDD(e.target.value);
-    });
-
-    // Close dropdown on outside click
-    document.addEventListener("click", (e)=>{
-      const field = $("professionField");
-      if (!field.contains(e.target)) closeDD();
-    });
-
-    // Keyboard navigation in dropdown
-    $("professionInput").addEventListener("keydown", (e)=>{
-      if (!ddOpen && (e.key==="ArrowDown" || e.key==="ArrowUp")) openDD();
-
-      if (!ddOpen) return;
-
-      if (e.key==="ArrowDown"){
-        e.preventDefault();
-        ddActiveIndex = Math.min(ddActiveIndex+1, Math.max(0, ddFiltered.length-1));
-        renderDD();
-        scrollActiveIntoView();
-      } else if (e.key==="ArrowUp"){
-        e.preventDefault();
-        ddActiveIndex = Math.max(0, ddActiveIndex-1);
-        renderDD();
-        scrollActiveIntoView();
-      } else if (e.key==="Enter"){
-        e.preventDefault();
-        const pick = ddFiltered[ddActiveIndex];
-        if (pick) selectProfession(pick);
-      } else if (e.key==="Escape"){
-        closeDD();
-      }
-    });
-
-    function scrollActiveIntoView(){
-      const list = $("ddList");
-      const item = list.querySelector(".ddItem.active");
-      if (!item) return;
-      const r = item.getBoundingClientRect();
-      const lr = list.getBoundingClientRect();
-      if (r.top < lr.top) item.scrollIntoView({block:"nearest"});
-      if (r.bottom > lr.bottom) item.scrollIntoView({block:"nearest"});
+  // If user typed something but didn't select from list, treat as invalid and clear
+  const typed = input.value.trim().toLowerCase();
+  if (typed && (!state.selectedProfession || state.selectedProfession.name.toLowerCase() !== typed)){
+    // try exact match in eligible list (forced list)
+    const exact = getEligibleList(score).find(p=> p.name.toLowerCase() === typed);
+    if (exact) state.selectedProfession = exact;
+    else {
+      // Not found → clear (forced)
+      state.selectedProfession = null;
+      input.value = "";
     }
+  }
 
-    // Score changes affect eligible list
-    $("scoreInput").addEventListener("input", ()=>{
-      // Clamp to max
-      if (MODE==="ATAR") $("scoreInput").value = String(clampATAR($("scoreInput").value));
-      else $("scoreInput").value = String(clampGPA($("scoreInput").value));
-      if (ddOpen) filterDD($("professionInput").value);
-      updateBadges();
-    });
+  // Eligible professions for score
+  const eligible = getEligibleList(score);
 
-    // Search button
-    $("searchBtn").addEventListener("click", ()=>{
-      // Validate that input matches a real job
-      const typed = ($("professionInput").value||"").trim().toLowerCase();
-      if (!selectedProfession || selectedProfession.title.toLowerCase() !== typed){
-        // try exact match from list
-        const exact = ALL.find(j => j.title.toLowerCase() === typed);
-        if (exact) selectProfession(exact);
-      }
-      buildShortlist();
-      window.scrollTo({ top: document.body.scrollHeight, behavior:"smooth" });
-    });
+  renderEligibleCount();
+  renderCategories(eligible, salaryKey);
 
-    // Reset
-    $("resetBtn").addEventListener("click", ()=>{
-      selectedProfession = null;
-      $("professionInput").value = "";
-      $("resultsList").innerHTML = "";
-      $("salarySelect").value = "self";
-      $("scoreInput").value = (MODE==="ATAR") ? "70.00" : "70";
-      closeDD();
-      updateBadges();
-      window.scrollTo({ top: 0, behavior:"smooth" });
-    });
+  const shortlist = pickShortlist(eligible, salaryKey);
+  renderResults(shortlist, eligible, score, salaryKey);
 
-    // Initial meta
-    updateBadges();
-  </script>
+  $("lastUpdated").textContent = " • " + DATA_UPDATED;
+
+  if (scroll){
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+}
+
+$("searchBtn").addEventListener("click", ()=> runSearch(true));
+
+/* -----------------------------
+   Save + share
+   ----------------------------- */
+
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(()=> t.classList.remove("show"), 1600);
+}
+
+function getSelectionPayload(){
+  return {
+    mode: state.mode,
+    score: getScore(),
+    salary: $("salarySelect").value,
+    filters: {...state.filters},
+    category: state.selectedCategory,
+    profession: state.selectedProfession ? state.selectedProfession.name : "",
+    savedAt: new Date().toISOString()
+  };
+}
+
+function saveToLocal(){
+  const payload = getSelectionPayload();
+  localStorage.setItem("cp_saved", JSON.stringify(payload));
+  toast("Saved shortlist");
+}
+
+function shareLink(){
+  const payload = getSelectionPayload();
+  const params = new URLSearchParams();
+  params.set("mode", payload.mode);
+  params.set("score", String(payload.score));
+  params.set("salary", payload.salary);
+  params.set("study", payload.filters.study);
+  params.set("people", payload.filters.people);
+  params.set("activity", payload.filters.activity);
+  params.set("setting", payload.filters.setting);
+  if (payload.category) params.set("cat", payload.category);
+  if (payload.profession) params.set("job", payload.profession);
+
+  const url = location.origin + location.pathname + "?" + params.toString();
+  navigator.clipboard?.writeText(url);
+  toast("Link copied");
+}
+
+$("saveBtn").addEventListener("click", saveToLocal);
+$("saveBtnTop").addEventListener("click", saveToLocal);
+$("shareBtn").addEventListener("click", shareLink);
+
+/* -----------------------------
+   Reset + about
+   ----------------------------- */
+
+$("resetBtn").addEventListener("click", ()=>{
+  state.selectedCategory = null;
+  state.selectedProfession = null;
+  input.value = "";
+  $("salarySelect").value = "mid";
+
+  // reset chips to any
+  const resetGroup = (group)=>{
+    Array.from(document.querySelectorAll(`.chip[data-filter="${group}"]`)).forEach(x=>x.classList.remove("on"));
+    const any = document.querySelector(`.chip[data-filter="${group}"][data-value="any"]`);
+    if (any) any.classList.add("on");
+    state.filters[group] = "any";
+  };
+  resetGroup("study");
+  resetGroup("people");
+  resetGroup("activity");
+  resetGroup("setting");
+
+  runSearch(false);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+$("aboutBtn").addEventListener("click", ()=>{
+  alert(
+`CareerPicker (prototype)
+- Score-first: see options for your ATAR/GPA.
+- Profession picker is real-list only (must exist in list).
+- “Evidence notes” label rule-of-thumb vs formal/licensed.
+Next upgrades: state/uni requirements, saved profiles, shareable reports.`
+  );
+});
+
+/* -----------------------------
+   Load from URL / local storage
+   ----------------------------- */
+
+function applyFromParams(){
+  const params = new URLSearchParams(location.search);
+  const mode = params.get("mode");
+  if (mode === "ATAR" || mode === "GPA"){
+    state.mode = mode;
+    localStorage.setItem("cp_mode", mode);
+  }
+
+  if (state.mode){
+    // set UI labels
+    setMode(state.mode);
+  }
+
+  const score = params.get("score");
+  if (score !== null && score !== ""){
+    $("scoreInput").value = String(score);
+  }
+
+  const salary = params.get("salary");
+  if (salary && SALARY_BIAS[salary]) $("salarySelect").value = salary;
+
+  const fStudy = params.get("study");
+  const fPeople = params.get("people");
+  const fActivity = params.get("activity");
+  const fSetting = params.get("setting");
+
+  if (fStudy) state.filters.study = fStudy;
+  if (fPeople) state.filters.people = fPeople;
+  if (fActivity) state.filters.activity = fActivity;
+  if (fSetting) state.filters.setting = fSetting;
+
+  const cat = params.get("cat");
+  if (cat) state.selectedCategory = cat;
+
+  const job = params.get("job");
+  if (job){
+    input.value = job;
+    // selectedProfession will be validated on search
+  }
+
+  // Sync chips UI to state
+  function syncChips(group, val){
+    const nodes = Array.from(document.querySelectorAll(`.chip[data-filter="${group}"]`));
+    nodes.forEach(x=>x.classList.remove("on"));
+    const match = document.querySelector(`.chip[data-filter="${group}"][data-value="${val}"]`);
+    if (match) match.classList.add("on");
+    else {
+      const any = document.querySelector(`.chip[data-filter="${group}"][data-value="any"]`);
+      if (any) any.classList.add("on");
+      state.filters[group] = "any";
+    }
+  }
+  syncChips("study", state.filters.study);
+  syncChips("people", state.filters.people);
+  syncChips("activity", state.filters.activity);
+  syncChips("setting", state.filters.setting);
+}
+
+function applyFromSaved(){
+  const raw = localStorage.getItem("cp_saved");
+  if (!raw) return;
+  try{
+    const p = JSON.parse(raw);
+    if (p.mode === "ATAR" || p.mode === "GPA"){
+      state.mode = p.mode;
+      setMode(p.mode);
+    }
+    if (typeof p.score === "number") $("scoreInput").value = String(p.score);
+    if (p.salary && SALARY_BIAS[p.salary]) $("salarySelect").value = p.salary;
+
+    if (p.filters){
+      state.filters = {...state.filters, ...p.filters};
+    }
+    state.selectedCategory = p.category || null;
+    if (p.profession){
+      input.value = p.profession;
+    }
+  }catch(e){}
+}
+
+/* -----------------------------
+   Init
+   ----------------------------- */
+
+(function init(){
+  $("lastUpdated").textContent = " • " + DATA_UPDATED;
+
+  // Load mode
+  const m = defaultMode();
+  if (m === "ATAR" || m === "GPA"){
+    state.mode = m;
+    setMode(m);
+  } else {
+    // force modal first time
+    showModeModal();
+  }
+
+  applyFromParams();
+  applyFromSaved();
+
+  renderEligibleCount();
+
+  // Auto-run once mode exists
+  if (state.mode){
+    runSearch(false);
+  }
+})();
+
+</script>
 </body>
 </html>
