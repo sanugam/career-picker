@@ -2239,11 +2239,17 @@
 
     function renderDropList(){
       const q = $("professionInput").value.trim().toLowerCase();
-      const eligible = PROFESSIONS.filter(isEligibleByScore);
-
-      filteredList = eligible
-        .filter(p => !q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.tags.join(" ").toLowerCase().includes(q))
-        .slice(0, 200); // keep fast
+      
+      // First filter by search query (if any), then separate eligible vs ineligible
+      let allMatching = PROFESSIONS
+        .filter(p => !q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.tags.join(" ").toLowerCase().includes(q));
+      
+      // Separate eligible and ineligible, with eligible first
+      const eligible = allMatching.filter(isEligibleByScore);
+      const ineligible = allMatching.filter(p => !isEligibleByScore(p));
+      
+      // Combine: eligible first, then ineligible (limit total to 200)
+      filteredList = [...eligible, ...ineligible].slice(0, 200);
 
       dropIndex = 0;
 
@@ -2257,8 +2263,8 @@
         empty.innerHTML = `
           <div class="rowIcon">${iconForCat("Other")}</div>
           <div class="rowMain">
-            <div class="name">No match in eligible list</div>
-            <div class="meta">Try a different spelling or increase your score</div>
+            <div class="name">No matching professions found</div>
+            <div class="meta">Try a different search term or spelling</div>
           </div>
         `;
         list.appendChild(empty);
@@ -2266,13 +2272,16 @@
       }
 
       filteredList.forEach((p, i) => {
+        const isEligible = isEligibleByScore(p);
+        const req = (state.mode === "GPA") ? p.minGPA : p.minATAR;
+        const eligibilityText = isEligible ? "" : ` • Requires ${req}+ ${state.mode}`;
         const row = document.createElement("div");
-        row.className = "row" + (i === 0 ? " active" : "");
+        row.className = "row" + (i === 0 ? " active" : "") + (isEligible ? "" : " ineligible");
         row.innerHTML = `
           <div class="rowIcon">${iconForCat(p.cat)}</div>
           <div class="rowMain">
             <div class="name">${escapeHtml(p.name)}</div>
-            <div class="meta">${escapeHtml(p.cat)} • ${escapeHtml(p.tags.slice(0,3).join(" • "))}</div>
+            <div class="meta">${escapeHtml(p.cat)} • ${escapeHtml(p.tags.slice(0,3).join(" • "))}${eligibilityText}</div>
           </div>
         `;
         row.addEventListener("mousedown", (e) => {
