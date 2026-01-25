@@ -569,6 +569,40 @@
       font-weight: 950;
       color: #0b1220;
       margin: 0 0 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .refineSection h3:hover{
+      color: #0071c2;
+    }
+    .refineSection .refineToggle{
+      font-size: 14px;
+      color: #64748b;
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+    .refineSection.collapsed .refineToggle{
+      transform: rotate(-90deg);
+    }
+    .refineSection .refineBody{
+      display: block;
+    }
+    .refineSection.collapsed .refineBody{
+      display: none;
+    }
+    .refineSection .refineGrid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px){
+      .refineSection .refineGrid{
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Cards */
@@ -936,7 +970,7 @@
             </div>
           </div>
 
-          <!-- Salary circumstance -->
+          <!-- Lifestyle goal -->
           <div class="field">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -945,7 +979,7 @@
               </svg>
             </div>
             <div class="fieldcol">
-              <div class="label">Salary circumstance (AUD)</div>
+              <div class="label">Lifestyle goal (long-term)</div>
               <div class="value" style="margin-top:2px;">
                 <select id="salarySelect" class="inputlike" style="font-size:18px;font-weight:950;">
                   <option value="self">Low — self only ($45k–$70k)</option>
@@ -954,14 +988,14 @@
                   <option value="growth">High growth — ambitious ($160k+)</option>
                 </select>
               </div>
-              <div class="sub">Used to bias results (not a promise).</div>
+              <div class="sub">Used to prioritise results, not remove options.</div>
             </div>
           </div>
 
           <!-- CTA -->
           <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist">
             <div class="btn-inner">
-              <div class="main" id="ctaText">Show careers for my ATAR</div>
+              <div class="main" id="ctaText">Show my options →</div>
               <div class="sub" id="ctaSub">Two paths (explore mode)</div>
             </div>
           </button>
@@ -1165,9 +1199,9 @@
       const searchRow = $('searchRow');
       
       if (state.intent === 'score-first'){
-        // Flow A: Score-first - Just score + salary, NO job search
+        // Flow A: Score-first - Just score + button, NO lifestyle goal at entry
         searchRow.style.display = 'block';
-        grid.style.gridTemplateColumns = '1fr 1fr 1fr'; // 3 columns: score, salary, button
+        grid.style.gridTemplateColumns = '1fr 1fr'; // 2 columns: score, button
         
         grid.innerHTML = `
           <!-- Score (main focus) -->
@@ -1186,33 +1220,11 @@
               <div class="sub" id="modeText">Mode: ${state.mode}</div>
             </div>
           </div>
-
-          <!-- Salary circumstance -->
-          <div class="field">
-            <div class="icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2v20" stroke="#0f172a" stroke-width="1.8"/>
-                <path d="M17 6.5c0-1.7-1.6-3-5-3s-5 1.3-5 3 1.2 2.6 5 3 5 1.3 5 3-1.6 3-5 3-5-1.3-5-3" stroke="#0f172a" stroke-width="1.8"/>
-              </svg>
-            </div>
-            <div class="fieldcol">
-              <div class="label">Salary circumstance (AUD)</div>
-              <div class="value" style="margin-top:2px;">
-                <select id="salarySelect" class="inputlike" style="font-size:18px;font-weight:950;">
-                  <option value="self">Low — self only ($45k–$70k)</option>
-                  <option value="couple" selected>Medium — couple/shared ($70k–$110k)</option>
-                  <option value="family">High — family costs ($110k–$160k)</option>
-                  <option value="growth">High growth — ambitious ($160k+)</option>
-                </select>
-              </div>
-              <div class="sub">Used to bias results (not a promise).</div>
-            </div>
-          </div>
           
           <!-- CTA -->
           <button class="cta" id="searchBtn" type="button" aria-label="Get shortlist">
             <div class="btn-inner">
-              <div class="main" id="ctaText">Show careers for my ${state.mode} →</div>
+              <div class="main" id="ctaText">Show my options →</div>
               <div class="sub" id="ctaSub">Score-based exploration</div>
             </div>
           </button>
@@ -1222,7 +1234,6 @@
         setTimeout(() => {
           const scoreInput = $('scoreInput');
           const searchBtn = $('searchBtn');
-          const salarySelect = $('salarySelect');
           
           if (scoreInput) {
             // Allow free typing - update state on input
@@ -1261,13 +1272,6 @@
             });
           }
           
-          if (salarySelect) {
-            salarySelect.addEventListener('change', (e) => {
-              state.salary = e.target.value;
-              autoRun();
-            });
-          }
-          
           // Auto-run search immediately to show results
           runSearch(false);
         }, 50);
@@ -1278,7 +1282,7 @@
         grid.style.gridTemplateColumns = '2fr 1fr'; // 2 columns: profession search, CTA
         
         grid.innerHTML = `
-          <!-- Profession (required - main focus) -->
+          <!-- Profession (main focus for Flow B) -->
           <div class="field">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -1330,7 +1334,7 @@
         // Button shows requirements when job is selected
         $('searchBtn').addEventListener('click', () => {
           if (!state.selectedProfession) {
-            alert('Please select a job from the list first.');
+            alert('Select a job from the list to see requirements.');
             return;
           }
           showJobRequirements();
@@ -1342,7 +1346,7 @@
         $('mergePromptContainer').innerHTML = '';
         $('results').innerHTML = '';
         $('mainHeading').textContent = 'Your evaluation';
-        $('mainHint').textContent = 'Select a job above and click the button to see requirements.';
+        $('mainHint').textContent = 'Select a job above to see requirements and alternatives.';
       }
     }
     
@@ -2306,6 +2310,108 @@
       const active = rows[dropIndex];
       if (active) active.scrollIntoView({block:"nearest"});
     }
+    
+    // Refine section dropdown functions
+    let dropIndexRefine = 0;
+    let filteredListRefine = [];
+    
+    function openDropRefine(){
+      $("dropPanelRefine").classList.add("open");
+    }
+    function closeDropRefine(){
+      $("dropPanelRefine").classList.remove("open");
+    }
+    
+    function renderDropListRefine(){
+      const q = $("professionInputRefine").value.trim().toLowerCase();
+      
+      let allMatching = PROFESSIONS
+        .filter(p => !q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.tags.join(" ").toLowerCase().includes(q));
+      
+      const eligible = allMatching.filter(isEligibleByScore);
+      const ineligible = allMatching.filter(p => !isEligibleByScore(p));
+      
+      filteredListRefine = [...eligible, ...ineligible].slice(0, 200);
+      dropIndexRefine = 0;
+      
+      const list = $("dropListRefine");
+      list.innerHTML = "";
+      
+      if (filteredListRefine.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "row";
+        empty.style.cursor = "default";
+        empty.innerHTML = `
+          <div class="rowIcon">${iconForCat("Other")}</div>
+          <div class="rowMain">
+            <div class="name">No matching professions found</div>
+            <div class="meta">Try a different search term or spelling</div>
+          </div>
+        `;
+        list.appendChild(empty);
+        return;
+      }
+      
+      filteredListRefine.forEach((p, i) => {
+        const isEligible = isEligibleByScore(p);
+        const req = (state.mode === "GPA") ? p.minGPA : p.minATAR;
+        const eligibilityText = isEligible ? "" : ` • Requires ${req}+ ${state.mode}`;
+        const row = document.createElement("div");
+        row.className = "row" + (i === 0 ? " active" : "") + (isEligible ? "" : " ineligible");
+        row.innerHTML = `
+          <div class="rowIcon">${iconForCat(p.cat)}</div>
+          <div class="rowMain">
+            <div class="name">${escapeHtml(p.name)}</div>
+            <div class="meta">${escapeHtml(p.cat)} • ${escapeHtml(p.tags.slice(0,3).join(" • "))}${eligibilityText}</div>
+          </div>
+        `;
+        row.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          state.selectedProfession = p;
+          $("professionInputRefine").value = p.name;
+          $("professionSubRefine").textContent = `Selected: ${p.cat} • ${p.tags.slice(0,3).join(" • ")}`;
+          closeDropRefine();
+          autoRun(); // Re-run search with profession filter
+        });
+        list.appendChild(row);
+      });
+    }
+    
+    function handleDropdownKeyboardRefine(e){
+      if (!$("dropPanelRefine").classList.contains("open")) return;
+      
+      if (e.key === "ArrowDown"){
+        e.preventDefault();
+        dropIndexRefine = Math.min(dropIndexRefine + 1, filteredListRefine.length - 1);
+        highlightRowRefine();
+      }
+      if (e.key === "ArrowUp"){
+        e.preventDefault();
+        dropIndexRefine = Math.max(dropIndexRefine - 1, 0);
+        highlightRowRefine();
+      }
+      if (e.key === "Enter"){
+        e.preventDefault();
+        const pick = filteredListRefine[dropIndexRefine];
+        if (pick){
+          state.selectedProfession = pick;
+          $("professionInputRefine").value = pick.name;
+          $("professionSubRefine").textContent = `Selected: ${pick.cat} • ${pick.tags.slice(0,3).join(" • ")}`;
+          closeDropRefine();
+          autoRun();
+        }
+      }
+      if (e.key === "Escape"){
+        closeDropRefine();
+      }
+    }
+    
+    function highlightRowRefine(){
+      const rows = $("dropListRefine").querySelectorAll(".row");
+      rows.forEach((r, i) => r.classList.toggle("active", i === dropIndexRefine));
+      const active = rows[dropIndexRefine];
+      if (active) active.scrollIntoView({block:"nearest"});
+    }
 
     function selectProfession(p){
       state.selectedProfession = p;
@@ -2343,7 +2449,7 @@
         $("ctaSub").textContent = sub;
       } else {
         // Score-first flow: focus on exploration
-        const main = p ? `Show paths from ${p}` : `Show careers for my ${modeWord}`;
+        const main = p ? `Show paths from ${p}` : `Show my options →`;
         const sub = p ? `Related options filtered by your ${modeWord}` : `Exploring by score`;
         $("ctaText").textContent = main;
         $("ctaSub").textContent = sub;
@@ -2387,20 +2493,32 @@
 
         if (scrollToResults){
           setTimeout(() => {
-            window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
+            // Scroll to the start of the results section instead of the bottom
+            const resultsStart = $('resultsFramingContainer') || $('mainHeading');
+            if (resultsStart) {
+              resultsStart.scrollIntoView({behavior: 'smooth', block: 'start'});
+            } else {
+              window.scrollTo({top: 0, behavior:"smooth"});
+            }
           }, 200);
         }
       } else {
         // Flow B: Job-first
         if (!state.selectedProfession){
-          alert("Please select a profession from the dropdown first.");
+          alert("Select a profession from the dropdown to continue.");
           return;
         }
         
         renderResultsFlowB();
         
         if (scrollToResults){
-          window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
+          // Scroll to the start of the results section instead of the bottom
+          const resultsStart = $('resultsFramingContainer') || $('mainHeading');
+          if (resultsStart) {
+            resultsStart.scrollIntoView({behavior: 'smooth', block: 'start'});
+          } else {
+            window.scrollTo({top: 0, behavior:"smooth"});
+          }
         }
       }
     }
@@ -2425,8 +2543,8 @@
       const scoreDisplay = state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0);
       framingContainer.innerHTML = `
         <div class="resultsFraming">
-          <div class="framingTitle">Based on your ${modeLabel} of ${scoreDisplay}</div>
-          <div class="framingText">These are your strongest realistic pathways. Click any card to see details.</div>
+          <div class="framingTitle">Based on a ${modeLabel} of ${scoreDisplay}, these are your strongest realistic pathways:</div>
+          <div class="framingText">Click any card to see details.</div>
         </div>
       `;
       
@@ -2436,6 +2554,103 @@
       
       // Show results
       renderResults();
+      
+      // Show refine results section
+      refineContainer.innerHTML = `
+        <div class="refineSection" id="refineSection">
+          <h3 id="refineToggle">
+            🔧 Refine results
+            <span class="refineToggle">▼</span>
+          </h3>
+          <div class="refineBody" id="refineBody">
+            <div class="refineGrid">
+              <!-- Profession filter (optional) -->
+              <div class="field">
+                <div class="icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 7h10v14H7V7z" stroke="#0f172a" stroke-width="1.8" />
+                    <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke="#0f172a" stroke-width="1.8"/>
+                  </svg>
+                </div>
+                <div class="fieldcol">
+                  <div class="label">Profession filter (optional)</div>
+                  <div class="dropdown">
+                    <input id="professionInputRefine" class="inputlike" placeholder="Filter by profession..." autocomplete="off" />
+                    <div class="sub" id="professionSubRefine">Leave blank to see all options</div>
+                    <div class="dropPanel" id="dropPanelRefine">
+                      <div class="dropHeader">
+                        <div class="t">Professions</div>
+                        <div class="h">Type to filter • Scroll • Enter to select</div>
+                      </div>
+                      <div class="dropList" id="dropListRefine"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Lifestyle goal -->
+              <div class="field">
+                <div class="icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20" stroke="#0f172a" stroke-width="1.8"/>
+                    <path d="M17 6.5c0-1.7-1.6-3-5-3s-5 1.3-5 3 1.2 2.6 5 3 5 1.3 5 3-1.6 3-5 3-5-1.3-5-3" stroke="#0f172a" stroke-width="1.8"/>
+                  </svg>
+                </div>
+                <div class="fieldcol">
+                  <div class="label">Lifestyle goal (long-term)</div>
+                  <div class="value" style="margin-top:2px;">
+                    <select id="salarySelectRefine" class="inputlike" style="font-size:18px;font-weight:950;">
+                      <option value="self" ${state.salary === 'self' ? 'selected' : ''}>Low — self only ($45k–$70k)</option>
+                      <option value="couple" ${state.salary === 'couple' ? 'selected' : ''}>Medium — couple/shared ($70k–$110k)</option>
+                      <option value="family" ${state.salary === 'family' ? 'selected' : ''}>High — family costs ($110k–$160k)</option>
+                      <option value="growth" ${state.salary === 'growth' ? 'selected' : ''}>High growth — ambitious ($160k+)</option>
+                    </select>
+                  </div>
+                  <div class="sub">Used to prioritise results, not remove options.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Attach refine section listeners
+      setTimeout(() => {
+        const refineToggle = $('refineToggle');
+        const refineSection = $('refineSection');
+        if (refineToggle && refineSection) {
+          refineToggle.addEventListener('click', () => {
+            refineSection.classList.toggle('collapsed');
+          });
+        }
+        
+        // Lifestyle goal selector
+        const salarySelectRefine = $('salarySelectRefine');
+        if (salarySelectRefine) {
+          salarySelectRefine.addEventListener('change', (e) => {
+            state.salary = e.target.value;
+            autoRun();
+          });
+        }
+        
+        // Profession filter (optional)
+        const professionInputRefine = $('professionInputRefine');
+        if (professionInputRefine) {
+          professionInputRefine.addEventListener('focus', () => {
+            openDropRefine();
+            renderDropListRefine();
+          });
+          professionInputRefine.addEventListener('input', () => {
+            if (state.selectedProfession && professionInputRefine.value.trim() !== state.selectedProfession.name) {
+              state.selectedProfession = null;
+              $('professionSubRefine').textContent = 'Leave blank to see all options';
+            }
+            openDropRefine();
+            renderDropListRefine();
+          });
+          professionInputRefine.addEventListener('keydown', handleDropdownKeyboardRefine);
+        }
+      }, 100);
       
       // Show merge prompt if not already merged
       if (!state.contextMerged && !state.selectedProfession){
@@ -2449,7 +2664,15 @@
           const btn = $('addDreamJobBtn');
           if (btn) btn.addEventListener('click', () => {
             state.contextMerged = true;
-            alert('You can now use the profession filter below results to refine your shortlist.');
+            // Open refine section and focus on profession filter
+            const refineSection = $('refineSection');
+            if (refineSection) {
+              refineSection.classList.remove('collapsed');
+              const professionInputRefine = $('professionInputRefine');
+              if (professionInputRefine) {
+                setTimeout(() => professionInputRefine.focus(), 100);
+              }
+            }
             mergeContainer.innerHTML = '';
           });
         }, 100);
@@ -2472,7 +2695,7 @@
       const p = state.selectedProfession;
       
       if (!p) {
-        alert('Please select a job first.');
+        alert('Select a job to see details.');
         return;
       }
       
@@ -2642,10 +2865,6 @@
           adjacentHTML = `
             <div class="evalSection">
               <h4>Adjacent Careers That Match Your Interests</h4>
-              <p style="margin:0 0 12px; font-weight:750; color:#334155;">
-                You chose <strong>${escapeHtml(p.name)}</strong> because it involves <strong>${p.tags.slice(0,2).join(', ')}</strong>. 
-                These careers share similar qualities and fit your ${modeLabel}:
-              </p>
             </div>
           `;
           
@@ -2654,6 +2873,19 @@
           adjacentCareers.forEach(item => {
             resultsDiv.appendChild(renderCard(item.p, item.score, false));
           });
+          
+          // Add "Why these matches" section after adjacent careers
+          const whyMatchesSection = document.createElement('div');
+          whyMatchesSection.className = 'evalSection';
+          whyMatchesSection.style.marginTop = '24px';
+          whyMatchesSection.innerHTML = `
+            <h4>Why these matches</h4>
+            <p style="margin:12px 0 0; font-weight:750; color:#334155; line-height:1.6;">
+              You chose <strong>${escapeHtml(p.name)}</strong> because it involves <strong>${p.tags.slice(0,2).join(', ')}</strong>. 
+              These careers also have similar qualities (${p.tags.slice(0,2).join(', ')}) and fit your ${modeLabel} of ${state.mode === 'ATAR' ? userScore.toFixed(2) : userScore.toFixed(0)}.
+            </p>
+          `;
+          resultsDiv.appendChild(whyMatchesSection);
         } else {
           adjacentHTML = `
             <div class="evalSection">
@@ -2764,7 +2996,7 @@
       $('evaluateWithScoreBtn').addEventListener('click', () => {
         const v = parseScore($('scoreInputMerge').value);
         if (v === null){
-          alert('Please enter a valid score.');
+          alert('Enter a valid score to continue.');
           return;
         }
         state.score = v;
