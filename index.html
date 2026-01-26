@@ -2297,17 +2297,17 @@
       // Studies & Interests matching boost (improved accuracy)
       if (state.studiesAndInterests && state.studiesAndInterests.length > 0) {
         let totalBoost = 0;
-        
+
         state.studiesAndInterests.forEach(subjectId => {
           const subject = SUBJECTS_LIST.find(s => s.id === subjectId);
           if (!subject) return;
-          
-          // Category match (strongest boost - 20 points)
+
+          // Category match (strongest boost - 30 points)
           if (subject.categories.includes(p.cat)) {
-            totalBoost += 20;
+            totalBoost += 30;
           }
-          
-          // Tag overlap (medium boost - 8 points per matching tag)
+
+          // Tag overlap (medium boost - 12 points per matching tag)
           const subjectTags = new Set(subject.tags.map(t => t.toLowerCase()));
           const professionTags = new Set(p.tags.map(t => t.toLowerCase()));
           let tagMatches = 0;
@@ -2316,17 +2316,17 @@
               tagMatches++;
             }
           });
-          totalBoost += tagMatches * 8;
-          
-          // Name/description keyword match (smaller boost - 5 points)
+          totalBoost += tagMatches * 12;
+
+          // Name/description keyword match (smaller boost - 8 points)
           const professionText = (p.name + " " + p.cat).toLowerCase();
           if (professionText.includes(subject.name.toLowerCase().split("/")[0])) {
-            totalBoost += 5;
+            totalBoost += 8;
           }
         });
-        
-        // Cap the total boost at 40 points to keep it balanced
-        base += Math.min(totalBoost, 40);
+
+        // Cap the total boost at 80 points to make correlation more visible
+        base += Math.min(totalBoost, 80);
       }
 
       // if profession selected, add similarity boost
@@ -2434,6 +2434,31 @@
       }
     }
 
+    function getMatchedSubjects(p){
+      // Returns array of subject names that match this profession
+      const matched = [];
+      if (!state.studiesAndInterests || state.studiesAndInterests.length === 0) return matched;
+
+      state.studiesAndInterests.forEach(subjectId => {
+        const subject = SUBJECTS_LIST.find(s => s.id === subjectId);
+        if (!subject) return;
+
+        // Check if subject matches profession
+        const categoryMatch = subject.categories.includes(p.cat);
+        const subjectTags = new Set(subject.tags.map(t => t.toLowerCase()));
+        const professionTags = new Set(p.tags.map(t => t.toLowerCase()));
+        const hasTagOverlap = [...subjectTags].some(tag => professionTags.has(tag));
+        const professionText = (p.name + " " + p.cat).toLowerCase();
+        const nameMatch = professionText.includes(subject.name.toLowerCase().split("/")[0]);
+
+        if (categoryMatch || hasTagOverlap || nameMatch) {
+          matched.push(subject.name);
+        }
+      });
+
+      return matched;
+    }
+
     function renderCard(p, score, isAnchor, showRealityCheck = false){
       const card = document.createElement("div");
       card.className = "card";
@@ -2441,9 +2466,16 @@
 
       const uniqueWhy = pickUniqueWhy(p, score);
       const uniqueStart = pickUniqueStart(p);
+      const matchedSubjects = getMatchedSubjects(p);
 
       const anchorTag = isAnchor ? `<span class="tag">Selected profession</span>` : ``;
-      
+
+      // Matched subjects indicator
+      const matchedSubjectsHTML = matchedSubjects.length > 0 ?
+        `<span class="tag" style="background-color: #10b981; color: white; font-weight: 600;">
+          ✓ Matches ${matchedSubjects.length} subject${matchedSubjects.length > 1 ? 's' : ''}: ${escapeHtml(matchedSubjects.join(', '))}
+        </span>` : '';
+
       // Reality check message for ineligible selected professions
       const realityCheckHTML = showRealityCheck ? `
         <div class="realityCheck">
@@ -2451,8 +2483,8 @@
           <div class="realityCheckContent">
             <div class="realityCheckTitle">Reality check</div>
             <div class="realityCheckText">
-              This career typically requires a ${state.mode === 'ATAR' ? 'ATAR' : 'GPA'} of ${state.mode === 'ATAR' ? p.minATAR.toFixed(2) : p.minGPA.toFixed(0)}+, 
-              and your current score is ${state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0)}. 
+              This career typically requires a ${state.mode === 'ATAR' ? 'ATAR' : 'GPA'} of ${state.mode === 'ATAR' ? p.minATAR.toFixed(2) : p.minGPA.toFixed(0)}+,
+              and your current score is ${state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0)}.
               While this path may be challenging, consider exploring alternative pathways or adjacent careers below that align with your interests and current score.
             </div>
           </div>
@@ -2465,6 +2497,7 @@
             <div class="cardTitle">${isAnchor ? "Your pick: " : ""}${escapeHtml(p.name)}</div>
             <div class="tags">
               ${anchorTag}
+              ${matchedSubjectsHTML}
               <span class="tag">${escapeHtml(p.cat)}</span>
               ${p.tags.slice(0,4).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}
             </div>
@@ -2531,6 +2564,13 @@
       const isEligible = isEligibleByScore(p);
 
       const base = [];
+
+      // Check for matched subjects
+      const matchedSubjects = getMatchedSubjects(p);
+      if (matchedSubjects.length > 0) {
+        base.push(`Matches your selected subject${matchedSubjects.length > 1 ? 's' : ''}: ${matchedSubjects.join(', ')}. This career aligns with your interests and background.`);
+      }
+
       if (state.selectedProfession){
         if (!isEligible) {
           base.push(`You selected this profession, but your current score is below the typical requirement.`);
@@ -2546,11 +2586,11 @@
         }
       }
 
-      if (margin < 8) base.push(`It’s close to your current score — competitive but plausible if you keep improving.`);
-      else if (margin < 20) base.push(`You’re comfortably above the rough cutoff, so it’s a solid “safe” option.`);
-      else base.push(`You’re well above the rough cutoff — you likely have many options in this area.`);
+      if (margin < 8) base.push(`It's close to your current score — competitive but plausible if you keep improving.`);
+      else if (margin < 20) base.push(`You're comfortably above the rough cutoff, so it's a solid "safe" option.`);
+      else base.push(`You're well above the rough cutoff — you likely have many options in this area.`);
 
-      // Inject profession-specific “why” but keep it different by adding score context + salary bias context
+      // Inject profession-specific "why" but keep it different by adding score context + salary bias context
       const salaryLine = {
         self: "You picked a lower-cost circumstance, so the shortlist leans toward faster-entry roles too.",
         couple: "You picked shared/couple, so the shortlist balances stability and growth.",
@@ -2559,7 +2599,7 @@
       }[state.salary];
 
       const custom = (p.why || []).slice(0,2);
-      return [...custom, ...base, salaryLine].slice(0,4);
+      return [...custom, ...base, salaryLine].slice(0,5); // Increased from 4 to 5 to accommodate subject match line
     }
 
     function dayToDayBullets(p){
@@ -2648,10 +2688,12 @@
     let filteredList = [];
 
     function openDrop(){
-      $("dropPanel").classList.add("open");
+      const panel = $("dropPanel");
+      if (panel) panel.classList.add("open");
     }
     function closeDrop(){
-      $("dropPanel").classList.remove("open");
+      const panel = $("dropPanel");
+      if (panel) panel.classList.remove("open");
     }
 
     function renderDropList(){
@@ -2729,10 +2771,12 @@
     let filteredListRefine = [];
     
     function openDropRefine(){
-      $("dropPanelRefine").classList.add("open");
+      const panel = $("dropPanelRefine");
+      if (panel) panel.classList.add("open");
     }
     function closeDropRefine(){
-      $("dropPanelRefine").classList.remove("open");
+      const panel = $("dropPanelRefine");
+      if (panel) panel.classList.remove("open");
     }
     
     function renderDropListRefine(){

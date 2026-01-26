@@ -1,5 +1,5 @@
 {
-  "claude.mcpServers": {
+  "mcpServers": {
     "chrome-devtools": {
       "command": "npx",
       "args": [
