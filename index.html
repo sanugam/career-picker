@@ -3315,8 +3315,8 @@
       let alternativesHTML = '';
       let adjacentHTML = '';
       
-      if (state.score !== null && state.mode){
-        // User has both job + score (merged context)
+      if (state.score > 0 && state.mode && state.contextMerged){
+        // User has both job + score (merged context - user explicitly entered score)
         const minReq = state.mode === 'ATAR' ? p.minATAR : p.minGPA;
         const userScore = state.score;
         const modeLabel = state.mode === 'ATAR' ? 'ATAR' : 'GPA';
@@ -3470,44 +3470,40 @@
     }
     
     function showScoreInputSection(){
+      // Switch to score-first flow while keeping the selected profession
+      const selectedProfession = state.selectedProfession;
+
+      // Change intent to score-first
+      state.intent = 'score-first';
+      state.score = 0;
+      state.hasSearched = false;
+      state.contextMerged = false;
+
+      // Hide results containers
+      const framingContainer = $('resultsFramingContainer');
+      const evalContainer = $('evaluationContainer');
       const mergeContainer = $('mergePromptContainer');
-      mergeContainer.innerHTML = `
-        <div class="refineSection">
-          <h3>Enter your ATAR/GPA for personalized evaluation</h3>
-          <div style="display:flex; gap:12px; align-items:flex-end;">
-            <div class="field" style="flex:1; margin:0;">
-              <div class="icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M7 3h10v18H7V3z" stroke="#0f172a" stroke-width="1.8"/>
-                  <path d="M9 7h6M9 11h6M9 15h4" stroke="#0f172a" stroke-width="1.8"/>
-                </svg>
-              </div>
-              <div class="fieldcol">
-                <div class="label" id="scoreLabelMerge">ATAR (0.00–99.95)</div>
-                <input id="scoreInputMerge" class="inputlike" inputmode="decimal" value="70.00" />
-                <div class="sub" id="modeTextMerge">Mode: ${state.mode}</div>
-              </div>
-            </div>
-            <button class="mergeBtn" id="evaluateWithScoreBtn" style="height:78px;">Evaluate →</button>
-          </div>
-        </div>
-      `;
-      
-      $('scoreInputMerge').addEventListener('input', () => {
-        const v = parseScore($('scoreInputMerge').value);
-        if (v !== null) state.score = v;
-      });
-      
-      $('evaluateWithScoreBtn').addEventListener('click', () => {
-        const v = parseScore($('scoreInputMerge').value);
-        if (v === null){
-          alert('Enter a valid score to continue.');
-          return;
-        }
-        state.score = v;
-        state.contextMerged = true;
-        renderResultsFlowB();
-      });
+      const refineContainer = $('refineContainer');
+      const resultsDiv = $('results');
+
+      if (framingContainer) framingContainer.style.display = 'none';
+      if (evalContainer) evalContainer.style.display = 'none';
+      if (mergeContainer) mergeContainer.style.display = 'none';
+      if (refineContainer) refineContainer.style.display = 'none';
+      if (resultsDiv) resultsDiv.style.display = 'none';
+
+      // Restore the selected profession (so it's remembered when they search)
+      state.selectedProfession = selectedProfession;
+
+      // Re-render the search row for score-first flow
+      renderSearchRow();
+
+      // Update headings
+      $('mainHeading').textContent = 'Find your next career';
+      $('mainHint').innerHTML = 'Enter your <strong>' + (state.mode === 'GPA' ? 'GPA' : 'ATAR') + '</strong> score below to see what careers are <strong>realistically achievable</strong> with your results.';
+
+      // Scroll to top
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     let autoTimer = null;
