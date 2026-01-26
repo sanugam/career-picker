@@ -89,6 +89,32 @@
     .pill.primary:hover{
       background: #f5f5f5;
     }
+    .backBtn{
+      border:1px solid rgba(255,255,255,.3);
+      color:#fff;
+      background: transparent;
+      padding:8px 16px;
+      border-radius:4px;
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      user-select:none;
+      transition: all .2s;
+      display:none;
+      align-items:center;
+      gap:6px;
+    }
+    .backBtn:hover{
+      background: rgba(255,255,255,.1);
+    }
+    .backBtn.visible{
+      display:flex;
+    }
+    .backBtn svg{
+      width:16px;
+      height:16px;
+      opacity:.9;
+    }
 
     /* Hero */
     .hero{
@@ -348,11 +374,147 @@
       align-items:center;
       user-select:none;
     }
+    .chip.clickable{
+      cursor:pointer;
+      transition: all 0.2s ease;
+    }
+    .chip.clickable:hover{
+      background: rgba(255,255,255,.3);
+      border-color: rgba(255,255,255,.5);
+      transform: translateY(-1px);
+    }
     .chip strong{color:#fff; font-weight:700;}
     .chip .dot2{
       width:6px;height:6px;border-radius:50%;
       background: var(--accent);
       box-shadow: 0 0 0 2px rgba(254,186,2,.3);
+    }
+
+    /* Studies & Interests Section */
+    .studiesSection{
+      margin-top: 20px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .studiesHeader{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .studiesIcon{
+      font-size: 20px;
+    }
+    .studiesTitle{
+      color: rgba(255,255,255,.95);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.1px;
+    }
+    .studiesInputWrapper{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .studiesTagsContainer{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 32px;
+    }
+    .studiesTag{
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: default;
+    }
+    .studiesTag .removeTag{
+      cursor: pointer;
+      font-weight: 900;
+      color: #64748b;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0 2px;
+    }
+    .studiesTag .removeTag:hover{
+      color: #dc2626;
+    }
+    .studiesInputContainer{
+      position: relative;
+    }
+    .studiesInput{
+      width: 100%;
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      outline: none;
+      transition: all .2s;
+    }
+    .studiesInput:focus{
+      background: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(254,186,2,.15);
+    }
+    .studiesInput::placeholder{
+      color: rgba(38,38,38,.5);
+      font-weight: 400;
+    }
+    .studiesDropdown{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 4px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+    .studiesDropdown.open{
+      display: block;
+    }
+    .studiesDropdownList{
+      padding: 4px;
+    }
+    .studiesDropdownItem{
+      padding: 10px 14px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transition: background .15s;
+    }
+    .studiesDropdownItem:hover{
+      background: #f3f4f6;
+    }
+    .studiesDropdownItem.selected{
+      background: #e0e7ff;
+      color: #1e40af;
+    }
+    .studiesHint{
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
     }
 
     /* Filter pills */
@@ -622,6 +784,35 @@
       transform: translateY(-2px);
     }
     .card:active{transform: translateY(1px);}
+    .realityCheck{
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .realityCheckIcon{
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .realityCheckContent{
+      flex: 1;
+    }
+    .realityCheckTitle{
+      font-size: 16px;
+      font-weight: 950;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+    .realityCheckText{
+      font-size: 14px;
+      font-weight: 600;
+      color: #78350f;
+      line-height: 1.5;
+    }
     .cardTop{
       display:flex;
       align-items:flex-start;
@@ -882,6 +1073,24 @@
       font-weight:800;
       font-size:13px;
     }
+    .modalFoot .btn{
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .modalFoot .btn:hover{
+      background: var(--brand2);
+      transform: translateY(-1px);
+    }
+    .modalFoot .btn:active{
+      transform: translateY(0);
+    }
 
     /* Responsive */
     @media (max-width: 980px){
@@ -899,6 +1108,12 @@
   <div class="topbar">
     <div class="brand"><span class="dot"></span><span>CareerPicker</span></div>
     <div class="top-actions">
+      <button class="backBtn" id="backBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </button>
       <div class="pill">About</div>
       <div class="pill primary">Save (later)</div>
     </div>
@@ -961,10 +1176,10 @@
                 <path d="M9 7h6M9 11h6M9 15h4" stroke="#0f172a" stroke-width="1.8"/>
               </svg>
             </div>
-            <div class="fieldcol">
+            <div class="fieldcol"> 
               <div class="label" id="scoreLabel">ATAR (0.00–99.95)</div>
               <div class="smallrow">
-                <input id="scoreInput" class="inputlike" type="number" step="0.05" min="0" max="99.95" placeholder="Enter your ATAR" />
+                <input id="scoreInput" class="inputlike" type="text" inputmode="decimal" placeholder="Enter your ATAR" />
               </div>
               <div class="sub" id="modeText">Mode: ATAR</div>
             </div>
@@ -1003,10 +1218,34 @@
       </div>
 
       <div class="chipRow">
-        <div class="chip"><span class="dot2"></span><strong>Real-list matching</strong></div>
-        <div class="chip"><span class="dot2"></span><strong>Explainable output</strong></div>
-        <div class="chip"><span class="dot2"></span><strong>Prototype-safe evidence notes</strong></div>
-        <div class="chip" id="eligibleChip"><span class="dot2"></span><strong>Eligible in list:</strong> 0 / 0</div>
+        <div class="chip clickable" data-chip="real-list"><span class="dot2"></span><strong>Real-list matching</strong></div>
+        <div class="chip clickable" data-chip="explainable"><span class="dot2"></span><strong>Explainable output</strong></div>
+        <div class="chip clickable" data-chip="evidence"><span class="dot2"></span><strong>Prototype-safe evidence notes</strong></div>
+        <div class="chip clickable" id="eligibleChip" data-chip="eligible"><span class="dot2"></span><strong>Eligible in list:</strong> 0 / 0</div>
+      </div>
+
+      <!-- Studies & Interests Input -->
+      <div class="studiesSection">
+        <div class="studiesHeader">
+          <span class="studiesIcon">📖</span>
+          <div class="studiesTitle">What have you studied so far and what are you liking?</div>
+        </div>
+        <div class="studiesInputWrapper">
+          <div class="studiesTagsContainer" id="studiesTagsContainer"></div>
+          <div class="studiesInputContainer">
+            <input 
+              type="text" 
+              id="studiesInput" 
+              class="studiesInput" 
+              placeholder="Type to search subjects (e.g., Biology, Math, Business)..."
+              autocomplete="off"
+            />
+            <div class="studiesDropdown" id="studiesDropdown">
+              <div class="studiesDropdownList" id="studiesDropdownList"></div>
+            </div>
+          </div>
+          <div class="studiesHint">Select subjects you're studying or interested in. This helps us match careers that align with your background.</div>
+        </div>
       </div>
 
       <div class="filters" id="filters">
@@ -1052,15 +1291,15 @@
 
   <main class="main">
     <div class="wrap">
-      <div id="resultsFramingContainer"></div>
+      <div id="resultsFramingContainer" style="display:none;"></div>
       
       <h2 id="mainHeading">Your shortlist</h2>
       <p class="hint" id="mainHint">Click a card to expand details. (Each card is different.)</p>
 
-      <div id="evaluationContainer"></div>
-      <div id="mergePromptContainer"></div>
-      <div id="refineContainer"></div>
-      <div id="results"></div>
+      <div id="evaluationContainer" style="display:none;"></div>
+      <div id="mergePromptContainer" style="display:none;"></div>
+      <div id="refineContainer" style="display:none;"></div>
+      <div id="results" style="display:none;"></div>
 
       <div class="btnRow">
         <button class="ghost" id="resetBtn">Reset</button>
@@ -1096,6 +1335,19 @@
     </div>
   </div>
 
+  <!-- Info modal -->
+  <div class="modalWrap" id="infoModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalTop">
+        <h3 id="infoModalTitle">Information</h3>
+        <p id="infoModalContent"></p>
+      </div>
+      <div class="modalFoot">
+        <button class="btn primary" id="infoModalClose">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ---------- State ----------
     const state = {
@@ -1104,6 +1356,7 @@
       score: 0,
       salary: "couple",            // self | couple | family | growth
       selectedProfession: null,    // profession object
+      studiesAndInterests: [],     // array of selected subject IDs
       filters: {
         study: "any",  // any | 0-1 | 2-3 | 4+
         ps: "any",     // any | people | systems
@@ -1169,19 +1422,32 @@
       }
       
       // Show both options (initial state)
+      const intentFork = $('intentFork');
+      if (intentFork) {
+        intentFork.style.display = 'grid';
+      }
       $('intentScoreFirst').style.display = 'block';
       $('intentJobFirst').style.display = 'block';
       $('heroLine').innerHTML = '<strong>First question:</strong> Do you already have a dream job in mind, or do you want to explore what\'s possible with your score?';
     }
     
     function selectIntent(intent){
+      console.log('selectIntent called with:', intent);
+      if (!intent) {
+        console.error('No intent provided to selectIntent');
+        return;
+      }
+      
       state.intent = intent;
       
       // Visual feedback
       document.querySelectorAll('.intentCard').forEach(card => {
         card.classList.remove('selected');
       });
-      $(`intent${intent === 'score-first' ? 'ScoreFirst' : 'JobFirst'}`).classList.add('selected');
+      const selectedCard = $(`intent${intent === 'score-first' ? 'ScoreFirst' : 'JobFirst'}`);
+      if (selectedCard) {
+        selectedCard.classList.add('selected');
+      }
       
       // Update hero text based on intent
       if (intent === 'score-first'){
@@ -1192,6 +1458,7 @@
       
       // Show mode selection modal
       showModeModal();
+      updateBackButton();
     }
     
     function renderSearchRow(){
@@ -1215,7 +1482,7 @@
             <div class="fieldcol">
               <div class="label" id="scoreLabel">${labelForMode().label}</div>
               <div class="smallrow">
-                <input id="scoreInput" class="inputlike" inputmode="decimal" value="${state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0)}" />
+                <input id="scoreInput" class="inputlike" inputmode="decimal" placeholder="Enter your ${state.mode}" />
               </div>
               <div class="sub" id="modeText">Mode: ${state.mode}</div>
             </div>
@@ -1236,23 +1503,29 @@
           const searchBtn = $('searchBtn');
           
           if (scoreInput) {
-            // Allow free typing - update state on input
+            // Allow free typing - update state on input (but don't show results until button is clicked)
             scoreInput.addEventListener('input', (e) => {
-              const rawValue = e.target.value;
+              const rawValue = e.target.value.trim();
               console.log('Score input changed:', rawValue);
               
-              // Parse and update state
-              const v = parseScore(rawValue);
-              if (v !== null) {
-                state.score = v;
-                console.log('State updated to:', state.score);
-                autoRun();
+              // Only parse and update state if there's actual input (don't run search yet)
+              if (rawValue) {
+                const v = parseScore(rawValue);
+                if (v !== null) {
+                  state.score = v;
+                  console.log('State updated to:', state.score);
+                  // Don't auto-run - wait for button click
+                }
+              } else {
+                // Clear state if input is empty
+                state.score = 0;
               }
             });
             
-            // Format the value when user finishes typing (blur)
+            // Format the value when user finishes typing (blur) - only if they entered something
             scoreInput.addEventListener('blur', (e) => {
-              if (state.score !== null) {
+              const rawValue = e.target.value.trim();
+              if (rawValue && state.score !== null && state.score > 0) {
                 if (state.mode === 'ATAR') {
                   e.target.value = state.score.toFixed(2);
                 } else {
@@ -1261,7 +1534,7 @@
               }
             });
             
-            // Make sure input is focused and ready
+            // Focus the input - it's empty so cursor will be at start, ready for typing
             scoreInput.focus();
           }
           
@@ -1272,8 +1545,8 @@
             });
           }
           
-          // Auto-run search immediately to show results
-          runSearch(false);
+          // Don't auto-run if input is empty - wait for user to type
+          // runSearch(false); // Removed - let user type first
         }, 50);
         
       } else {
@@ -1340,11 +1613,28 @@
           showJobRequirements();
         });
         
-        // Clear results initially - only show after button click
-        $('resultsFramingContainer').innerHTML = '';
-        $('evaluationContainer').innerHTML = '';
-        $('mergePromptContainer').innerHTML = '';
-        $('results').innerHTML = '';
+        // Clear and hide results initially - only show after button click
+        const framingContainerFlowB = $('resultsFramingContainer');
+        const evalContainerFlowB = $('evaluationContainer');
+        const mergeContainerFlowB = $('mergePromptContainer');
+        const resultsDivFlowB = $('results');
+        
+        if (framingContainerFlowB) {
+          framingContainerFlowB.innerHTML = '';
+          framingContainerFlowB.style.display = 'none';
+        }
+        if (evalContainerFlowB) {
+          evalContainerFlowB.innerHTML = '';
+          evalContainerFlowB.style.display = 'none';
+        }
+        if (mergeContainerFlowB) {
+          mergeContainerFlowB.innerHTML = '';
+          mergeContainerFlowB.style.display = 'none';
+        }
+        if (resultsDivFlowB) {
+          resultsDivFlowB.innerHTML = '';
+          resultsDivFlowB.style.display = 'none';
+        }
         $('mainHeading').textContent = 'Your evaluation';
         $('mainHint').textContent = 'Select a job above to see requirements and alternatives.';
       }
@@ -1889,6 +2179,63 @@
 
     const PROFESSIONS = buildProfessionList();
 
+    // ---------- Studies & Interests Subjects List ----------
+    const SUBJECTS_LIST = [
+      // Sciences
+      {id: "biology", name: "Biology", categories: ["Health", "Science", "Animals"], tags: ["Research", "Laboratory", "Medical"]},
+      {id: "chemistry", name: "Chemistry", categories: ["Health", "Science", "Engineering"], tags: ["Laboratory", "Research", "Pharmaceutical"]},
+      {id: "physics", name: "Physics", categories: ["Engineering", "Science", "Tech"], tags: ["Research", "Analysis", "Technology"]},
+      {id: "mathematics", name: "Mathematics", categories: ["Engineering", "Business", "Tech", "Science"], tags: ["Analysis", "Data", "Finance"]},
+      {id: "statistics", name: "Statistics", categories: ["Business", "Tech", "Science"], tags: ["Data", "Analysis", "Research"]},
+      
+      // Health & Medicine
+      {id: "medicine", name: "Medicine", categories: ["Health"], tags: ["Medical", "Care", "Diagnosis"]},
+      {id: "nursing", name: "Nursing", categories: ["Health"], tags: ["Care", "Hospital", "People"]},
+      {id: "psychology", name: "Psychology", categories: ["Health", "Education"], tags: ["Mental Health", "People", "Counselling"]},
+      {id: "pharmacy", name: "Pharmacy", categories: ["Health", "Science"], tags: ["Medical", "Pharmaceutical", "Care"]},
+      {id: "physiotherapy", name: "Physiotherapy", categories: ["Health", "Sports"], tags: ["Rehabilitation", "Care", "Active"]},
+      
+      // Engineering & Tech
+      {id: "engineering", name: "Engineering", categories: ["Engineering", "Tech", "Trades"], tags: ["Design", "Problem Solving", "Systems"]},
+      {id: "software", name: "Software/Computer Science", categories: ["Tech"], tags: ["Coding", "Programming", "Technology"]},
+      {id: "data-science", name: "Data Science", categories: ["Tech", "Business", "Science"], tags: ["Data", "Analysis", "Technology"]},
+      {id: "cybersecurity", name: "Cybersecurity", categories: ["Tech"], tags: ["Security", "Technology", "Systems"]},
+      {id: "information-technology", name: "Information Technology", categories: ["Tech"], tags: ["Technology", "Systems", "Networking"]},
+      
+      // Business & Finance
+      {id: "business", name: "Business", categories: ["Business"], tags: ["Management", "Finance", "Strategy"]},
+      {id: "accounting", name: "Accounting", categories: ["Business"], tags: ["Finance", "Numbers", "Analysis"]},
+      {id: "finance", name: "Finance", categories: ["Business"], tags: ["Finance", "Investment", "Analysis"]},
+      {id: "economics", name: "Economics", categories: ["Business", "Government"], tags: ["Analysis", "Policy", "Finance"]},
+      {id: "marketing", name: "Marketing", categories: ["Business", "Creative"], tags: ["Communication", "Strategy", "Creative"]},
+      
+      // Law & Justice
+      {id: "law", name: "Law", categories: ["Law", "Justice", "Government"], tags: ["Legal", "Justice", "Policy"]},
+      {id: "criminology", name: "Criminology", categories: ["Justice", "Law"], tags: ["Justice", "Investigation", "Policy"]},
+      {id: "policing", name: "Policing", categories: ["Justice"], tags: ["Public Service", "Safety", "Active"]},
+      
+      // Education
+      {id: "education", name: "Education", categories: ["Education"], tags: ["Teaching", "People", "Learning"]},
+      {id: "early-childhood", name: "Early Childhood Education", categories: ["Education"], tags: ["Teaching", "Children", "Care"]},
+      
+      // Creative & Arts
+      {id: "arts", name: "Arts", categories: ["Creative", "Education"], tags: ["Creative", "Design", "Media"]},
+      {id: "design", name: "Design", categories: ["Creative"], tags: ["Creative", "Design", "Visual"]},
+      {id: "media", name: "Media/Communications", categories: ["Creative", "Business"], tags: ["Media", "Communication", "Creative"]},
+      {id: "journalism", name: "Journalism", categories: ["Creative", "Media"], tags: ["Writing", "Media", "Communication"]},
+      
+      // Trades & Practical
+      {id: "trades", name: "Trades", categories: ["Trades"], tags: ["Hands-on", "Practical", "Building"]},
+      {id: "construction", name: "Construction", categories: ["Trades"], tags: ["Building", "Practical", "Active"]},
+      {id: "automotive", name: "Automotive", categories: ["Trades", "Transport"], tags: ["Mechanical", "Practical", "Repair"]},
+      
+      // Other
+      {id: "environmental", name: "Environmental Science", categories: ["Science", "Government"], tags: ["Environment", "Research", "Policy"]},
+      {id: "social-work", name: "Social Work", categories: ["Health", "Government"], tags: ["People", "Care", "Support"]},
+      {id: "sports", name: "Sports Science", categories: ["Sports", "Health"], tags: ["Fitness", "Active", "Health"]},
+      {id: "hospitality", name: "Hospitality", categories: ["Hospitality"], tags: ["Service", "People", "Active"]},
+    ];
+
     // ---------- Filtering + scoring ----------
     function isEligibleByScore(p){
       const s = state.score;
@@ -1946,6 +2293,41 @@
 
       // salary circumstance bias
       base += salaryBiasPoints(p.salary);
+
+      // Studies & Interests matching boost (improved accuracy)
+      if (state.studiesAndInterests && state.studiesAndInterests.length > 0) {
+        let totalBoost = 0;
+        
+        state.studiesAndInterests.forEach(subjectId => {
+          const subject = SUBJECTS_LIST.find(s => s.id === subjectId);
+          if (!subject) return;
+          
+          // Category match (strongest boost - 20 points)
+          if (subject.categories.includes(p.cat)) {
+            totalBoost += 20;
+          }
+          
+          // Tag overlap (medium boost - 8 points per matching tag)
+          const subjectTags = new Set(subject.tags.map(t => t.toLowerCase()));
+          const professionTags = new Set(p.tags.map(t => t.toLowerCase()));
+          let tagMatches = 0;
+          subjectTags.forEach(tag => {
+            if (professionTags.has(tag)) {
+              tagMatches++;
+            }
+          });
+          totalBoost += tagMatches * 8;
+          
+          // Name/description keyword match (smaller boost - 5 points)
+          const professionText = (p.name + " " + p.cat).toLowerCase();
+          if (professionText.includes(subject.name.toLowerCase().split("/")[0])) {
+            totalBoost += 5;
+          }
+        });
+        
+        // Cap the total boost at 40 points to keep it balanced
+        base += Math.min(totalBoost, 40);
+      }
 
       // if profession selected, add similarity boost
       if (state.selectedProfession){
@@ -2011,7 +2393,10 @@
 
     function renderResults(){
       const host = $("results");
+      if (!host) return;
       host.innerHTML = "";
+      // Make sure results container is visible when rendering
+      host.style.display = "block";
 
       const list = buildShortlist();
 
@@ -2038,7 +2423,10 @@
 
       // If a profession is selected, show it as #0 (anchor card)
       if (state.selectedProfession){
-        host.appendChild(renderCard(state.selectedProfession, 100, true));
+        const isEligible = isEligibleByScore(state.selectedProfession);
+        // Calculate actual match score, but cap it if not eligible
+        const actualScore = isEligible ? scoreProfession(state.selectedProfession) : Math.min(scoreProfession(state.selectedProfession), 30);
+        host.appendChild(renderCard(state.selectedProfession, actualScore, true, !isEligible));
       }
 
       for (let i=0;i<list.length;i++){
@@ -2046,7 +2434,7 @@
       }
     }
 
-    function renderCard(p, score, isAnchor){
+    function renderCard(p, score, isAnchor, showRealityCheck = false){
       const card = document.createElement("div");
       card.className = "card";
       card.setAttribute("tabindex","0");
@@ -2055,6 +2443,21 @@
       const uniqueStart = pickUniqueStart(p);
 
       const anchorTag = isAnchor ? `<span class="tag">Selected profession</span>` : ``;
+      
+      // Reality check message for ineligible selected professions
+      const realityCheckHTML = showRealityCheck ? `
+        <div class="realityCheck">
+          <div class="realityCheckIcon">💡</div>
+          <div class="realityCheckContent">
+            <div class="realityCheckTitle">Reality check</div>
+            <div class="realityCheckText">
+              This career typically requires a ${state.mode === 'ATAR' ? 'ATAR' : 'GPA'} of ${state.mode === 'ATAR' ? p.minATAR.toFixed(2) : p.minGPA.toFixed(0)}+, 
+              and your current score is ${state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0)}. 
+              While this path may be challenging, consider exploring alternative pathways or adjacent careers below that align with your interests and current score.
+            </div>
+          </div>
+        </div>
+      ` : '';
 
       card.innerHTML = `
         <div class="cardTop">
@@ -2068,7 +2471,7 @@
           </div>
           <div class="match">${Math.round(score)}% match</div>
         </div>
-
+        ${realityCheckHTML}
         <div class="facts">
           <div class="fact"><div class="k">Study length</div><div class="v">${fmtStudy(p.study)}</div></div>
           <div class="fact"><div class="k">Work style</div><div class="v">${fmtWork(p)}</div></div>
@@ -2125,12 +2528,22 @@
       const modeWord = state.mode === "GPA" ? "GPA" : "ATAR";
       const req = state.mode === "GPA" ? p.minGPA : p.minATAR;
       const margin = Math.max(0, s - req);
+      const isEligible = isEligibleByScore(p);
 
       const base = [];
       if (state.selectedProfession){
-        base.push(`It shares similarities with your chosen profession (category/tags/work style).`);
+        if (!isEligible) {
+          base.push(`You selected this profession, but your current score is below the typical requirement.`);
+          base.push(`Consider exploring alternative pathways or adjacent careers that match your interests.`);
+        } else {
+          base.push(`It shares similarities with your chosen profession (category/tags/work style).`);
+        }
       } else {
-        base.push(`Real list: this is a realistic option at your ${modeWord} score.`);
+        if (isEligible) {
+          base.push(`Real list: this is a realistic option at your ${modeWord} score.`);
+        } else {
+          base.push(`This career requires a higher ${modeWord} than your current score.`);
+        }
       }
 
       if (margin < 8) base.push(`It’s close to your current score — competitive but plausible if you keep improving.`);
@@ -2371,7 +2784,10 @@
           $("professionInputRefine").value = p.name;
           $("professionSubRefine").textContent = `Selected: ${p.cat} • ${p.tags.slice(0,3).join(" • ")}`;
           closeDropRefine();
-          autoRun(); // Re-run search with profession filter
+          // Only auto-update if results are already shown
+          if ($('results').style.display !== 'none') {
+            autoRun(); // Re-run search with profession filter
+          }
         });
         list.appendChild(row);
       });
@@ -2398,7 +2814,10 @@
           $("professionInputRefine").value = pick.name;
           $("professionSubRefine").textContent = `Selected: ${pick.cat} • ${pick.tags.slice(0,3).join(" • ")}`;
           closeDropRefine();
-          autoRun();
+          // Only auto-update if results are already shown
+          if ($('results') && $('results').style.display !== 'none') {
+            autoRun();
+          }
         }
       }
       if (e.key === "Escape"){
@@ -2478,7 +2897,13 @@
           return;
         }
         
-        const v = parseScore(scoreInput.value);
+        const rawValue = scoreInput.value.trim();
+        if (!rawValue) {
+          // Empty input - don't run search yet
+          return;
+        }
+        
+        const v = parseScore(rawValue);
         if (v === null){
           console.log('Invalid score value');
           return;
@@ -2490,6 +2915,7 @@
 
         renderResultsFlowA();
         updateEligibleCount();
+        updateBackButton();
 
         if (scrollToResults){
           setTimeout(() => {
@@ -2510,6 +2936,7 @@
         }
         
         renderResultsFlowB();
+        updateBackButton();
         
         if (scrollToResults){
           // Scroll to the start of the results section instead of the bottom
@@ -2534,9 +2961,20 @@
       const evalContainer = $('evaluationContainer');
       const mergeContainer = $('mergePromptContainer');
       const refineContainer = $('refineContainer');
+      const resultsDiv = $('results');
+      
+      // Show all result containers
+      if (framingContainer) framingContainer.style.display = 'block';
+      if (evalContainer) evalContainer.style.display = 'block';
+      if (mergeContainer) mergeContainer.style.display = 'block';
+      if (refineContainer) refineContainer.style.display = 'block';
+      if (resultsDiv) resultsDiv.style.display = 'block';
       
       // Clear evaluation (only for Flow B)
       evalContainer.innerHTML = '';
+      
+      // Update back button visibility
+      updateBackButton();
       
       // Show framing
       const modeLabel = state.mode === 'ATAR' ? 'ATAR' : 'GPA';
@@ -2629,7 +3067,10 @@
         if (salarySelectRefine) {
           salarySelectRefine.addEventListener('change', (e) => {
             state.salary = e.target.value;
-            autoRun();
+            // Only auto-update if results are already shown
+            if ($('results').style.display !== 'none') {
+              autoRun();
+            }
           });
         }
         
@@ -2687,6 +3128,12 @@
       const evalContainer = $('evaluationContainer');
       const mergeContainer = $('mergePromptContainer');
       const resultsDiv = $('results');
+      
+      // Show all result containers
+      if (framingContainer) framingContainer.style.display = 'block';
+      if (evalContainer) evalContainer.style.display = 'block';
+      if (mergeContainer) mergeContainer.style.display = 'block';
+      if (resultsDiv) resultsDiv.style.display = 'block';
       
       // Clear other containers
       framingContainer.innerHTML = '';
@@ -2797,11 +3244,21 @@
       const refineContainer = $('refineContainer');
       const resultsDiv = $('results');
       
+      // Show all result containers
+      if (framingContainer) framingContainer.style.display = 'block';
+      if (evalContainer) evalContainer.style.display = 'block';
+      if (mergeContainer) mergeContainer.style.display = 'block';
+      if (refineContainer) refineContainer.style.display = 'block';
+      if (resultsDiv) resultsDiv.style.display = 'block';
+      
       framingContainer.innerHTML = '';
       refineContainer.innerHTML = '';
       
       $('mainHeading').textContent = 'Dream Job Evaluation';
       $('mainHint').textContent = 'Reality check + smart alternatives based on what matters to you.';
+      
+      // Update back button visibility
+      updateBackButton();
       
       const p = state.selectedProfession;
       
@@ -3034,9 +3491,19 @@
 
       const info = labelForMode();
       
-      // adjust score format
-      const v = parseScore($("scoreInput")?.value) ?? (mode === "ATAR" ? 70.00 : 70);
-      state.score = v;
+      // Don't set default score - let user enter it
+      // Only parse if there's a value in the input
+      const scoreInputEl = $("scoreInput");
+      if (scoreInputEl && scoreInputEl.value.trim()) {
+        const v = parseScore(scoreInputEl.value);
+        if (v !== null) {
+          state.score = v;
+        } else {
+          state.score = 0;
+        }
+      } else {
+        state.score = 0;
+      }
 
       // Show search row and render appropriate fields based on intent
       if (state.intent) {
@@ -3047,6 +3514,9 @@
         if (intentFork) {
           intentFork.style.display = 'none';
         }
+        
+        // Update back button visibility
+        updateBackButton();
         
         // Show the search row with intent-specific layout
         renderSearchRow();
@@ -3096,43 +3566,270 @@
       }
     });
 
+    // ---------- Back button functionality ----------
+    function updateBackButton(){
+      const backBtn = $("backBtn");
+      if (!backBtn) return;
+      
+      // Show back button if user has navigated away from initial state
+      const hasNavigated = state.intent !== null || state.mode !== null || state.score > 0 || state.selectedProfession !== null;
+      if (hasNavigated) {
+        backBtn.classList.add("visible");
+      } else {
+        backBtn.classList.remove("visible");
+      }
+    }
+    
+    function goBackToStart(){
+      // Reset all state
+      state.intent = null;
+      state.mode = null;
+      state.score = 0;
+      state.selectedProfession = null;
+      state.salary = "couple";
+      state.contextMerged = false;
+      
+      // Reset filters
+      setFilter("study","any");
+      setFilter("ps","any");
+      setFilter("da","any");
+      setFilter("io","any");
+      
+      // Clear and hide UI
+      const framingContainer = $('resultsFramingContainer');
+      const evalContainer = $('evaluationContainer');
+      const mergeContainer = $('mergePromptContainer');
+      const refineContainer = $('refineContainer');
+      const resultsDiv = $('results');
+      
+      if (framingContainer) {
+        framingContainer.innerHTML = '';
+        framingContainer.style.display = 'none';
+      }
+      if (evalContainer) {
+        evalContainer.innerHTML = '';
+        evalContainer.style.display = 'none';
+      }
+      if (mergeContainer) {
+        mergeContainer.innerHTML = '';
+        mergeContainer.style.display = 'none';
+      }
+      if (refineContainer) {
+        refineContainer.innerHTML = '';
+        refineContainer.style.display = 'none';
+      }
+      if (resultsDiv) {
+        resultsDiv.innerHTML = '';
+        resultsDiv.style.display = 'none';
+      }
+      $('searchRow').style.display = 'none';
+      
+      // Close mode modal if open
+      hideModeModal();
+      
+      // Close any open dropdowns
+      const dropPanel = $('dropPanel');
+      if (dropPanel) {
+        dropPanel.classList.remove('open');
+      }
+      const dropPanelRefine = $('dropPanelRefine');
+      if (dropPanelRefine) {
+        dropPanelRefine.classList.remove('open');
+      }
+      
+      // Reset main heading
+      $('mainHeading').textContent = 'Your shortlist';
+      $('mainHint').textContent = 'Click a card to expand details. (Each card is different.)';
+      
+      // Explicitly show intent fork container and reset hero text
+      const intentFork = $('intentFork');
+      if (intentFork) {
+        intentFork.style.display = 'grid';
+      }
+      
+      // Remove selected state from intent cards
+      document.querySelectorAll('.intentCard').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // Also clear any profession input fields
+      const professionInput = $('professionInput');
+      if (professionInput) {
+        professionInput.value = '';
+      }
+      const professionInputRefine = $('professionInputRefine');
+      if (professionInputRefine) {
+        professionInputRefine.value = '';
+      }
+      
+      // Clear profession sub text
+      const professionSub = $('professionSub');
+      if (professionSub) {
+        professionSub.textContent = 'Select from real list of ~220 professions';
+      }
+      
+      // Clear studies and interests
+      state.studiesAndInterests = [];
+      const studiesInputEl = $('studiesInput');
+      if (studiesInputEl) {
+        studiesInputEl.value = '';
+      }
+      renderStudiesTags();
+      closeStudiesDropdown();
+      
+      // Show intent fork again (this will show both cards)
+      renderIntentFork();
+      updateBackButton();
+      
+      // Scroll to top
+      window.scrollTo({top: 0, behavior: "smooth"});
+    }
+    
+    // Wire up back button
+    $("backBtn").addEventListener("click", goBackToStart);
+    
     // Only attach if element exists (for initial page load)
     if ($("salarySelect")) {
       $("salarySelect").addEventListener("change", () => {
         state.salary = $("salarySelect").value;
-        autoRun();
+        // Only auto-update if results are already shown (this is for the old search row, not used in Flow A anymore)
+        if ($('results') && $('results').style.display !== 'none') {
+          autoRun();
+        }
       });
     }
 
     // These elements are created dynamically, so listeners are attached in renderSearchRow()
 
     $("resetBtn").addEventListener("click", () => {
+      // Reset state completely
+      state.intent = null;
+      state.mode = "ATAR";
+      state.score = 0;
       state.salary = "couple";
-      $("salarySelect").value = "couple";
-
-      // reset filters
+      state.selectedProfession = null;
+      state.studiesAndInterests = [];
+      state.filters = {};
+      state.contextMerged = false;
+      
+      // Reset salary select if it exists
+      if ($("salarySelect")) {
+        $("salarySelect").value = "couple";
+      }
+      
+      // Reset filters
       setFilter("study","any");
       setFilter("ps","any");
       setFilter("da","any");
       setFilter("io","any");
 
-      // clear profession
+      // Clear profession
       clearProfession();
 
-      // reset score
-      state.score = (state.mode === "ATAR") ? 70.00 : 70;
-      $("scoreInput").value = (state.mode === "ATAR") ? state.score.toFixed(2) : state.score.toFixed(0);
+      // Clear ALL score input fields
+      const scoreInput = $("scoreInput");
+      if (scoreInput) {
+        scoreInput.value = '';
+      }
+      const scoreInputMerge = $("scoreInputMerge");
+      if (scoreInputMerge) {
+        scoreInputMerge.value = '';
+      }
 
-      runSearch(false);
-      window.scrollTo({top:0, behavior:"smooth"});
+      // Clear studies and interests
+      const studiesInput = $("studiesInput");
+      if (studiesInput) {
+        studiesInput.value = '';
+      }
+      renderStudiesTags();
+      closeStudiesDropdown();
+
+      // Clear and hide all result containers
+      const framingContainer = $('resultsFramingContainer');
+      const evalContainer = $('evaluationContainer');
+      const mergeContainer = $('mergePromptContainer');
+      const refineContainer = $('refineContainer');
+      const resultsDiv = $('results');
+      
+      if (framingContainer) {
+        framingContainer.innerHTML = '';
+        framingContainer.style.display = 'none';
+      }
+      if (evalContainer) {
+        evalContainer.innerHTML = '';
+        evalContainer.style.display = 'none';
+      }
+      if (mergeContainer) {
+        mergeContainer.innerHTML = '';
+        mergeContainer.style.display = 'none';
+      }
+      if (refineContainer) {
+        refineContainer.innerHTML = '';
+        refineContainer.style.display = 'none';
+      }
+      if (resultsDiv) {
+        resultsDiv.innerHTML = '';
+        resultsDiv.style.display = 'none';
+      }
+      
+      // Hide search row
+      $('searchRow').style.display = 'none';
+      
+      // Close mode modal if open
+      hideModeModal();
+      
+      // Close any open dropdowns
+      const dropPanel = $('dropPanel');
+      if (dropPanel) {
+        dropPanel.classList.remove('open');
+      }
+      const dropPanelRefine = $('dropPanelRefine');
+      if (dropPanelRefine) {
+        dropPanelRefine.classList.remove('open');
+      }
+      
+      // Reset main heading
+      $('mainHeading').textContent = 'Your shortlist';
+      $('mainHint').textContent = 'Click a card to expand details. (Each card is different.)';
+      
+      // Remove selected state from intent cards
+      document.querySelectorAll('.intentCard').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // Clear any profession input fields
+      const professionInput = $('professionInput');
+      if (professionInput) {
+        professionInput.value = '';
+      }
+      const professionInputRefine = $('professionInputRefine');
+      if (professionInputRefine) {
+        professionInputRefine.value = '';
+      }
+      
+      // Clear profession sub text
+      const professionSub = $('professionSub');
+      if (professionSub) {
+        professionSub.textContent = 'Select from real list of ~220 professions';
+      }
+      
+      // Show intent fork again (this will show both cards)
+      renderIntentFork();
+      updateBackButton();
+      
+      // Scroll to top
+      window.scrollTo({top: 0, behavior: "smooth"});
     });
 
-    // filter pills click
+    // filter pills click - only auto-update if results are already shown
     $("filters").addEventListener("click", (e) => {
       const pill = e.target.closest(".filterPill");
       if (!pill) return;
       setFilter(pill.dataset.group, pill.dataset.value);
-      autoRun();
+      // Only auto-update if results are already visible
+      if ($('results') && $('results').style.display !== 'none') {
+        autoRun();
+      }
     });
 
     // dropdown open/close + keyboard
@@ -3208,13 +3905,250 @@
     }
     safeInit();
     
-    // Wire up intent fork CTAs
+    // Wire up intent fork CTAs - simple direct attachment (original working version)
     document.querySelectorAll('.intentCard').forEach(card => {
-      card.addEventListener('click', () => {
-        const intent = card.dataset.intent;
-        selectIntent(intent);
+      card.addEventListener('click', function() {
+        const intent = this.dataset.intent;
+        if (intent) {
+          selectIntent(intent);
+        }
       });
     });
+    
+    // Wire up chip buttons - use event delegation to handle dynamically created chips
+    document.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip.clickable');
+      if (chip) {
+        const chipType = chip.dataset.chip;
+        if (chipType) {
+          showInfoModal(chipType);
+        }
+      }
+    });
+    
+    // Info modal functions
+    function showInfoModal(type) {
+      const modal = $('infoModal');
+      const title = $('infoModalTitle');
+      const content = $('infoModalContent');
+      const closeBtn = $('infoModalClose');
+      
+      let titleText = '';
+      let contentText = '';
+      
+      switch(type) {
+        case 'real-list':
+          titleText = 'Real-list Matching';
+          contentText = 'This tool uses a curated list of ~220 real professions with verified ATAR/GPA requirements. Each career has been researched with actual entry requirements, not estimated values. This ensures you get accurate, actionable information about career pathways.';
+          break;
+        case 'explainable':
+          titleText = 'Explainable Output';
+          contentText = 'Every career recommendation includes clear explanations of why it matches your profile. You\'ll see how your ATAR/GPA, salary preferences, and study interests contribute to each match percentage. The system is transparent about eligibility requirements and alternative pathways.';
+          break;
+        case 'evidence':
+          titleText = 'Prototype-safe Evidence Notes';
+          contentText = 'All career information includes evidence tags indicating the source of requirements: "Formal" (official university requirements), "Rule" (rule-of-thumb estimates), and "Varies" (requirements that differ by institution). This helps you understand the reliability of each data point.';
+          break;
+        case 'eligible':
+          const eligibleCount = state.score > 0 ? PROFESSIONS.filter(p => isEligibleByScore(p)).length : 0;
+          titleText = 'Eligible Careers';
+          contentText = `This shows how many careers from our list of ${PROFESSIONS.length} professions are realistically achievable with your current ATAR/GPA. The count updates based on your score and filters. Careers are marked as eligible if your score meets or exceeds their minimum requirements.`;
+          break;
+        default:
+          titleText = 'Information';
+          contentText = 'Information about this feature.';
+      }
+      
+      title.textContent = titleText;
+      content.textContent = contentText;
+      
+      modal.style.display = '';
+      modal.classList.add('show');
+      
+      // Close button handler
+      closeBtn.onclick = () => {
+        hideInfoModal();
+      };
+      
+      // Close on backdrop click
+      modal.onclick = (e) => {
+        if (e.target === modal) {
+          hideInfoModal();
+        }
+      };
+    }
+    
+    function hideInfoModal() {
+      const modal = $('infoModal');
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+    
+    // Initialize back button state
+    updateBackButton();
+    
+    // ---------- Studies & Interests Dropdown Functions ----------
+    let studiesDropdownIndex = 0;
+    let filteredSubjects = [];
+    
+    function renderStudiesTags(){
+      const container = $('studiesTagsContainer');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      state.studiesAndInterests.forEach(subjectId => {
+        const subject = SUBJECTS_LIST.find(s => s.id === subjectId);
+        if (!subject) return;
+        
+        const tag = document.createElement('div');
+        tag.className = 'studiesTag';
+        tag.innerHTML = `
+          <span>${escapeHtml(subject.name)}</span>
+          <span class="removeTag" data-subject-id="${subjectId}">×</span>
+        `;
+        
+        const removeBtn = tag.querySelector('.removeTag');
+        removeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          removeSubject(subjectId);
+        });
+        
+        container.appendChild(tag);
+      });
+    }
+    
+    function removeSubject(subjectId){
+      state.studiesAndInterests = state.studiesAndInterests.filter(id => id !== subjectId);
+      renderStudiesTags();
+      if (state.intent && state.mode && state.score > 0) {
+        autoRun();
+      }
+    }
+    
+    function addSubject(subjectId){
+      if (state.studiesAndInterests.includes(subjectId)) return;
+      state.studiesAndInterests.push(subjectId);
+      renderStudiesTags();
+      $('studiesInput').value = '';
+      closeStudiesDropdown();
+      if (state.intent && state.mode && state.score > 0) {
+        autoRun();
+      }
+    }
+    
+    function openStudiesDropdown(){
+      const dropdown = $('studiesDropdown');
+      if (dropdown) {
+        dropdown.classList.add('open');
+      }
+    }
+    
+    function closeStudiesDropdown(){
+      const dropdown = $('studiesDropdown');
+      if (dropdown) {
+        dropdown.classList.remove('open');
+      }
+      studiesDropdownIndex = 0;
+    }
+    
+    function renderStudiesDropdown(filterText = ''){
+      const list = $('studiesDropdownList');
+      if (!list) return;
+      
+      const filter = filterText.trim().toLowerCase();
+      filteredSubjects = SUBJECTS_LIST.filter(s => {
+        if (state.studiesAndInterests.includes(s.id)) return false; // Hide already selected
+        if (!filter) return true;
+        return s.name.toLowerCase().includes(filter) || 
+               s.categories.some(c => c.toLowerCase().includes(filter)) ||
+               s.tags.some(t => t.toLowerCase().includes(filter));
+      });
+      
+      list.innerHTML = '';
+      studiesDropdownIndex = 0;
+      
+      if (filteredSubjects.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'studiesDropdownItem';
+        empty.style.cursor = 'default';
+        empty.textContent = 'No matching subjects found';
+        list.appendChild(empty);
+        return;
+      }
+      
+      filteredSubjects.forEach((subject, i) => {
+        const item = document.createElement('div');
+        item.className = 'studiesDropdownItem' + (i === 0 ? ' selected' : '');
+        item.innerHTML = `
+          <div style="font-weight: 700; margin-bottom: 2px;">${escapeHtml(subject.name)}</div>
+          <div style="font-size: 12px; color: #64748b; font-weight: 500;">
+            ${subject.categories.join(' • ')}
+          </div>
+        `;
+        item.addEventListener('click', () => {
+          addSubject(subject.id);
+        });
+        list.appendChild(item);
+      });
+    }
+    
+    function handleStudiesKeyboard(e){
+      const dropdown = $('studiesDropdown');
+      if (!dropdown || !dropdown.classList.contains('open')) return;
+      
+      const items = dropdown.querySelectorAll('.studiesDropdownItem');
+      
+      if (e.key === 'ArrowDown'){
+        e.preventDefault();
+        studiesDropdownIndex = Math.min(studiesDropdownIndex + 1, filteredSubjects.length - 1);
+        items.forEach((item, i) => {
+          item.classList.toggle('selected', i === studiesDropdownIndex);
+        });
+        items[studiesDropdownIndex]?.scrollIntoView({block: 'nearest'});
+      } else if (e.key === 'ArrowUp'){
+        e.preventDefault();
+        studiesDropdownIndex = Math.max(studiesDropdownIndex - 1, 0);
+        items.forEach((item, i) => {
+          item.classList.toggle('selected', i === studiesDropdownIndex);
+        });
+        items[studiesDropdownIndex]?.scrollIntoView({block: 'nearest'});
+      } else if (e.key === 'Enter'){
+        e.preventDefault();
+        if (filteredSubjects[studiesDropdownIndex]) {
+          addSubject(filteredSubjects[studiesDropdownIndex].id);
+        }
+      } else if (e.key === 'Escape'){
+        e.preventDefault();
+        closeStudiesDropdown();
+      }
+    }
+    
+    // Wire up studies input
+    const studiesInput = $('studiesInput');
+    if (studiesInput) {
+      studiesInput.addEventListener('focus', () => {
+        openStudiesDropdown();
+        renderStudiesDropdown(studiesInput.value);
+      });
+      
+      studiesInput.addEventListener('input', (e) => {
+        openStudiesDropdown();
+        renderStudiesDropdown(e.target.value);
+      });
+      
+      studiesInput.addEventListener('keydown', handleStudiesKeyboard);
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        const container = $('studiesInputWrapper');
+        if (container && !container.contains(e.target)) {
+          closeStudiesDropdown();
+        }
+      });
+    }
+    
+    // Initialize tags display
+    renderStudiesTags();
   </script>
 </body>
 </html>
