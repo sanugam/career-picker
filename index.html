@@ -3402,10 +3402,16 @@
         }
         
       } else {
-        // User hasn't provided score yet - just show job info
+        // User hasn't provided score yet - show job info + required score
+        const modeLabel = state.mode === 'GPA' ? 'GPA' : 'ATAR';
+        const reqScore = state.mode === 'GPA' ? p.minGPA.toFixed(0) : p.minATAR.toFixed(2);
+
         statusHTML = `
           <div class="evalSection">
             <h4>About ${escapeHtml(p.name)}</h4>
+            <div style="margin-bottom:12px;">
+              <strong>Typical ${modeLabel} required:</strong> ${reqScore}+
+            </div>
             <ul class="bullets">
               ${p.why.map(w => `<li>${escapeHtml(w)}</li>`).join('')}
             </ul>
