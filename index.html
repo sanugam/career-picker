@@ -3,31 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CareerPicker</title>
+  <meta name="description" content="CareerPicker helps you discover career paths that match your ATAR or GPA score, or find out what score you need for your dream job. Explore hundreds of real professions with tailored pathways." />
+  <title>CareerPicker – Your path to the right career</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f5f7fa;
+      --bg:#f1f5f9;
       --nav:#003580;
       --nav2:#0071c2;
       --card:#ffffff;
-      --muted:#6b7280;
-      --text:#262626;
+      --muted:#64748b;
+      --text:#0f172a;
 
-      --brand:#0071c2;  
+      --brand:#0071c2;
       --brand2:#003580;
 
-      --accent:#feba02;        /* booking.com yellow */
+      --accent:#feba02;
       --accent2:#ffcc00;
 
-      --shadow: 0 2px 8px rgba(0,0,0,.1);
-      --shadow2: 0 1px 3px rgba(0,0,0,.12);
-      --shadow-hover: 0 4px 16px rgba(0,0,0,.15);
+      --shadow: 0 1px 3px rgba(0,0,0,.06);
+      --shadow2: 0 2px 8px rgba(0,0,0,.08);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,.1);
+      --shadow-card: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
 
-      --radius: 8px;
-      --radius2: 4px;
+      --radius: 12px;
+      --radius2: 8px;
     }
 
     *{box-sizing:border-box}
@@ -164,33 +166,33 @@
     }
     .intentCard{
       background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: var(--radius);
-      padding: 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
       cursor: pointer;
-      box-shadow: var(--shadow2);
-      transition: all .2s ease;
+      box-shadow: var(--shadow-card);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       position: relative;
     }
     .intentCard:hover{
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-hover);
-      border-color: #bdbdbd;
+      border-color: #cbd5e1;
     }
     .intentCard.primary{
-      background: linear-gradient(135deg, #fffbf5 0%, #fff 100%);
-      border-color: var(--accent);
+      background: linear-gradient(160deg, #fffbeb 0%, #fff 100%);
+      border-color: rgba(254,186,2,.5);
       border-width: 2px;
-      box-shadow: 0 2px 8px rgba(254,186,2,.15);
+      box-shadow: 0 4px 12px rgba(254,186,2,.12);
     }
     .intentCard.primary:hover{
-      border-color: #e6a800;
-      box-shadow: 0 6px 20px rgba(254,186,2,.25);
-      background: linear-gradient(135deg, #fffaed 0%, #fff 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 8px 24px rgba(254,186,2,.18);
+      background: linear-gradient(160deg, #fffbeb 0%, #fff 100%);
     }
     .intentCard.selected{
       border-color: var(--brand);
-      background: #f0f8ff;
+      background: #f0f9ff;
     }
     .intentCard .emoji{
       font-size: 28px;
@@ -228,11 +230,11 @@
 
     /* Search row */
     .searchRow{
-      margin-top:20px;
-      background: var(--accent);
-      border-radius: var(--radius);
-      padding:3px;
-      box-shadow: 0 4px 16px rgba(0,0,0,.15), 0 0 0 1px rgba(254,186,2,.3);
+      margin-top: 24px;
+      background: linear-gradient(135deg, #fef3c7 0%, var(--accent) 100%);
+      border-radius: 16px;
+      padding: 4px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 0 0 1px rgba(254,186,2,.25);
       overflow: visible;
       position: relative;
       z-index: 10;
@@ -578,38 +580,38 @@
 
     /* Info chips row */
     .chipRow{
-      margin-top:16px;
-      background: rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.2);
-      padding:12px;
-      border-radius: var(--radius);
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      backdrop-filter: blur(10px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.15);
+      margin-top: 20px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 14px 18px;
+      border-radius: 12px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
     }
     .chip{
-      background: rgba(255,255,255,.2);
-      border:1px solid rgba(255,255,255,.3);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:4px;
-      font-weight:600;
-      font-size:13px;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      user-select:none;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.28);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      user-select: none;
     }
     .chip.clickable{
-      cursor:pointer;
-      transition: all 0.2s ease;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
     }
     .chip.clickable:hover{
-      background: rgba(255,255,255,.3);
-      border-color: rgba(255,255,255,.5);
+      background: rgba(255,255,255,.28);
+      border-color: rgba(255,255,255,.4);
       transform: translateY(-1px);
     }
     .chip strong{color:#fff; font-weight:700;}
@@ -839,10 +841,10 @@
       gap:16px;
     }
     .filterGroup{
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 8px;
-      padding: 16px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 12px;
+      padding: 18px;
     }
     .filterGroup .groupLabel{
       color: rgba(255,255,255,.9);
@@ -859,9 +861,9 @@
       gap: 6px;
     }
     .filterPill{
-      background:#fff;
-      border:1px solid #e0e0e0;
-      border-radius:6px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
       padding:9px 14px;
       font-weight:600;
       font-size:13px;
@@ -898,17 +900,31 @@
       color:var(--text);
     }
     .hint{
-      color:#717171;
-      font-weight:400;
-      font-size:15px;
-      margin:0 0 20px;
+      color: #64748b;
+      font-weight: 500;
+      font-size: 15px;
+      margin: 0 0 20px;
+      line-height: 1.5;
+    }
+    .appFooter{
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .appFooter p{
+      margin: 0;
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+      line-height: 1.5;
+      max-width: 640px;
     }
     .resultsFraming{
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-      border: 2px solid #bae6fd;
+      background: linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #bae6fd;
       border-radius: 16px;
-      padding: 18px 22px;
-      margin: 20px 0 18px;
+      padding: 20px 24px;
+      margin: 24px 0 20px;
     }
     .resultsFraming .framingTitle{
       font-size: 18px;
@@ -974,11 +990,11 @@
       border: 2px solid #fca5a5;
     }
     .mergePrompt{
-      background: #fff;
-      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
       border-radius: 16px;
-      padding: 20px;
-      margin: 20px 0;
+      padding: 24px;
+      margin: 24px 0;
       text-align: center;
     }
     .mergePrompt .mergeTitle{
@@ -1083,18 +1099,18 @@
 
     /* Cards */
     .card{
-      background: linear-gradient(135deg, #fff 0%, #fafbfc 100%);
-      border:1px solid #e0e0e0;
-      border-radius: var(--radius);
-      padding:20px;
-      box-shadow: var(--shadow2);
-      margin: 12px 0;
-      cursor:pointer;
-      transition: all .2s ease;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      margin: 14px 0;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
     }
     .card:hover{
       box-shadow: var(--shadow-hover);
-      border-color: #bdbdbd;
+      border-color: #cbd5e1;
       transform: translateY(-2px);
     }
     .card:active{transform: translateY(1px);}
@@ -1151,13 +1167,13 @@
       margin-bottom:12px;
     }
     .tag{
-      font-size:12px;
-      font-weight:600;
-      color:#595959;
-      background:#f5f5f5;
-      border:1px solid #e0e0e0;
-      padding:4px 10px;
-      border-radius:4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 5px 11px;
+      border-radius: 8px;
     }
     .facts{
       display:grid;
@@ -1166,19 +1182,19 @@
       margin-top:10px;
     }
     .fact{
-      background:#fafafa;
-      border:1px solid #e0e0e0;
-      border-radius: 6px;
-      padding:10px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
     }
-    .fact .k{font-size:11px;color:#717171;font-weight:700;margin-bottom:4px;text-transform:uppercase;}
+    .fact .k{font-size:11px;color:#64748b;font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
     .fact .v{font-size:14px;color:var(--text);font-weight:600;}
 
     .cardBody{
-      margin-top:12px;
-      display:none;
-      border-top:1px solid #e5e7eb;
-      padding-top:14px;
+      margin-top: 16px;
+      display: none;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 18px;
     }
     .card.open .cardBody{display:block;}
 
@@ -1221,23 +1237,31 @@
       font-weight:400;
     }
 
+    .main .wrap{ padding-bottom: 24px; }
+    #mainHeading{
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      margin: 0 0 8px;
+    }
     .btnRow{
-      display:flex;
-      gap:12px;
-      margin-top:20px;
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
     }
     .ghost{
-      background:#fff;
-      border:1px solid #e0e0e0;
-      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
       padding:12px 20px;
       font-weight:600;
       cursor:pointer;
       transition: all .2s;
     }
     .ghost:hover{
-      border-color: #bdbdbd;
-      background: #fafafa;
+      border-color: #cbd5e1;
+      background: #f8fafc;
     }
 
     /* Profession dropdown (booking-ish) */
@@ -1446,6 +1470,8 @@
     }
     .jobDetailContent .universityItem strong{ font-size: 15px; color: var(--text); }
     .jobDetailContent .universityItem .univNote{ font-size: 13px; color: #64748b; margin-top: 4px; }
+    .jobDetailContent .universityItem .universityLink{ color: var(--primary, #0f766e); text-decoration: none; font-weight: 700; }
+    .jobDetailContent .universityItem .universityLink:hover{ text-decoration: underline; }
 
     /* Responsive */
     @media (max-width: 980px){
@@ -1457,6 +1483,7 @@
       .intentCard .badge-primary{top: 12px; right: 12px; font-size: 10px; padding: 4px 8px;}
     }
   </style>
+  <script src="countries-and-locations.js"></script>
 </head>
 
 <body>
@@ -1485,6 +1512,19 @@
             </div>
           </div>
           <div class="countryHint">Select your country for tailored opportunities</div>
+        </div>
+        <div class="countryField" id="regionField">
+          <label for="regionInput" id="regionFieldLabel">State or region (optional)</label>
+          <input 
+            type="text" 
+            id="regionInput" 
+            class="inputlike" 
+            placeholder="Select a country first for suggestions" 
+            autocomplete="off"
+            list="regionSuggestions"
+          />
+          <datalist id="regionSuggestions"></datalist>
+          <div class="countryHint" id="regionFieldHint">We'll mark universities as suitable for your area when they match</div>
         </div>
         <button class="cta countryContinueBtn" id="countryContinueBtn" type="button">
           Continue →
@@ -1757,6 +1797,10 @@
       <div class="btnRow">
         <button class="ghost" id="resetBtn">Reset</button>
       </div>
+
+      <footer class="appFooter">
+        <p>CareerPicker uses rule-of-thumb score cutoffs and real profession data to suggest pathways. Always check official university and employer requirements.</p>
+      </footer>
     </div>
   </main>
   </div>
@@ -1815,6 +1859,7 @@
     const state = {
       country: null,              // user's country name (e.g. "Australia")
       selectedCountry: null,     // full country object { name, usesATAR } - set on front screen
+      region: null,              // state/region within country (e.g. "Western Cape") for "suitable for your area"
       mode: null,                 // "ATAR" | "GPA"
       intent: null,               // "score-first" | "job-first" - tracks user's primary entry flow
       score: 0,
@@ -2640,123 +2685,172 @@
         why: p.why || [],
         start: p.start || [],
         evidence: p.evidence || {formal:[], rule:[], varies:[]},
-        sources: p.sources || ["Prototype notes (add links later)."],
+        sources: p.sources || ["Requirements vary by institution and employer. Check official sources for your region."],
       };
     }
 
     const PROFESSIONS = buildProfessionList();
 
-    // ---------- Countries List (for location + ATAR/GPA availability) ----------
-    // usesATAR: true = Australia etc. (ATAR available), false = USA etc. (GPA only)
-    const COUNTRY_LIST = [
-      { id: "australia", name: "Australia", usesATAR: true },
-      { id: "new-zealand", name: "New Zealand", usesATAR: false },
-      { id: "usa", name: "United States", usesATAR: false },
-      { id: "usa-alt", name: "USA", usesATAR: false },
-      { id: "canada", name: "Canada", usesATAR: false },
-      { id: "uk", name: "United Kingdom", usesATAR: false },
-      { id: "uk-alt", name: "UK", usesATAR: false },
-      { id: "ireland", name: "Ireland", usesATAR: false },
-      { id: "india", name: "India", usesATAR: false },
-      { id: "china", name: "China", usesATAR: false },
-      { id: "singapore", name: "Singapore", usesATAR: false },
-      { id: "malaysia", name: "Malaysia", usesATAR: false },
-      { id: "south-africa", name: "South Africa", usesATAR: false },
-      { id: "germany", name: "Germany", usesATAR: false },
-      { id: "france", name: "France", usesATAR: false },
-      { id: "netherlands", name: "Netherlands", usesATAR: false },
-      { id: "japan", name: "Japan", usesATAR: false },
-      { id: "south-korea", name: "South Korea", usesATAR: false },
-      { id: "pakistan", name: "Pakistan", usesATAR: false },
-      { id: "bangladesh", name: "Bangladesh", usesATAR: false },
-      { id: "nigeria", name: "Nigeria", usesATAR: false },
-      { id: "brazil", name: "Brazil", usesATAR: false },
-      { id: "mexico", name: "Mexico", usesATAR: false },
-      { id: "philippines", name: "Philippines", usesATAR: false },
-      { id: "indonesia", name: "Indonesia", usesATAR: false },
-      { id: "thailand", name: "Thailand", usesATAR: false },
-      { id: "vietnam", name: "Vietnam", usesATAR: false },
-      { id: "hong-kong", name: "Hong Kong", usesATAR: false },
-      { id: "uae", name: "United Arab Emirates", usesATAR: false },
-      { id: "saudi-arabia", name: "Saudi Arabia", usesATAR: false },
-      { id: "egypt", name: "Egypt", usesATAR: false },
-      { id: "spain", name: "Spain", usesATAR: false },
-      { id: "italy", name: "Italy", usesATAR: false },
-      { id: "sweden", name: "Sweden", usesATAR: false },
-      { id: "norway", name: "Norway", usesATAR: false },
-      { id: "denmark", name: "Denmark", usesATAR: false },
-      { id: "finland", name: "Finland", usesATAR: false },
-      { id: "switzerland", name: "Switzerland", usesATAR: false },
-      { id: "austria", name: "Austria", usesATAR: false },
-      { id: "belgium", name: "Belgium", usesATAR: false },
-      { id: "poland", name: "Poland", usesATAR: false },
-      { id: "russia", name: "Russia", usesATAR: false },
-      { id: "ukraine", name: "Ukraine", usesATAR: false },
-      { id: "turkey", name: "Turkey", usesATAR: false },
-      { id: "israel", name: "Israel", usesATAR: false },
-      { id: "argentina", name: "Argentina", usesATAR: false },
-      { id: "chile", name: "Chile", usesATAR: false },
-      { id: "colombia", name: "Colombia", usesATAR: false },
-      { id: "peru", name: "Peru", usesATAR: false },
-      { id: "kenya", name: "Kenya", usesATAR: false },
-      { id: "ghana", name: "Ghana", usesATAR: false },
-      { id: "ethiopia", name: "Ethiopia", usesATAR: false },
-      { id: "morocco", name: "Morocco", usesATAR: false },
-      { id: "other", name: "Other", usesATAR: true },
-    ];
+    // COUNTRY_LIST and LOCATIONS_BY_COUNTRY are loaded from countries-and-locations.js
+    // LOCATIONS_BY_COUNTRY[countryNameLowerCase] = { type: "states"|"cities", list: string[] }
 
     // ---------- Universities by country and field (for job detail view) ----------
-    // fields: profession categories/tags this university is strong in
-    const UNIVERSITIES = [
-      { name: "Deakin University", country: "Australia", note: "Strong nutrition & dietetics", fields: ["Health","Food","Science","Nutrition"] },
-      { name: "University of Sydney", country: "Australia", note: "Top health sciences", fields: ["Health","Science","Medicine","Business"] },
-      { name: "University of Melbourne", country: "Australia", note: "Leading research university", fields: ["Health","Engineering","Tech","Law","Business","Science"] },
-      { name: "Monash University", country: "Australia", note: "Strong in health & pharmacy", fields: ["Health","Engineering","Tech","Science","Business"] },
-      { name: "UNSW Sydney", country: "Australia", note: "Excellent engineering & tech", fields: ["Engineering","Tech","Business","Law","Science"] },
-      { name: "University of Queensland", country: "Australia", note: "Strong health & sciences", fields: ["Health","Science","Engineering","Business"] },
-      { name: "University of Western Australia", country: "Australia", note: "Strong research programs", fields: ["Health","Engineering","Science","Business"] },
-      { name: "University of Adelaide", country: "Australia", note: "Health & wine science", fields: ["Health","Science","Engineering"] },
-      { name: "Queensland University of Technology", country: "Australia", note: "Practical, industry-focused", fields: ["Tech","Creative","Business","Engineering"] },
-      { name: "University of Newcastle", country: "Australia", note: "Strong nursing & health", fields: ["Health","Education","Engineering"] },
-      { name: "University of Oxford", country: "United Kingdom", note: "World-leading across disciplines", fields: ["Health","Law","Science","Engineering","Business"] },
-      { name: "University of Cambridge", country: "United Kingdom", note: "Top global university", fields: ["Health","Engineering","Science","Law","Tech"] },
-      { name: "Imperial College London", country: "United Kingdom", note: "Science, engineering, medicine", fields: ["Engineering","Health","Science","Tech"] },
-      { name: "UCL", country: "United Kingdom", note: "Strong health & sciences", fields: ["Health","Science","Law","Engineering"] },
-      { name: "King's College London", country: "United Kingdom", note: "Leading health & law", fields: ["Health","Law","Business","Science"] },
-      { name: "London School of Economics", country: "United Kingdom", note: "Social sciences & business", fields: ["Business","Law","Government"] },
-      { name: "MIT", country: "United States", note: "Top engineering & tech", fields: ["Engineering","Tech","Science","Business"] },
-      { name: "Stanford University", country: "United States", note: "Tech, business, medicine", fields: ["Tech","Business","Health","Engineering"] },
-      { name: "Harvard University", country: "United States", note: "World-leading across fields", fields: ["Health","Law","Business","Science","Government"] },
-      { name: "Johns Hopkins University", country: "United States", note: "Top medical & health", fields: ["Health","Science","Engineering"] },
-      { name: "UC Berkeley", country: "United States", note: "Strong tech & sciences", fields: ["Tech","Engineering","Science","Business"] },
-      { name: "University of Michigan", country: "United States", note: "Strong across disciplines", fields: ["Health","Engineering","Business","Law"] },
-      { name: "University of Toronto", country: "Canada", note: "Leading Canadian university", fields: ["Health","Engineering","Tech","Law","Business"] },
-      { name: "University of British Columbia", country: "Canada", note: "Strong health & sciences", fields: ["Health","Science","Engineering","Business"] },
-      { name: "McGill University", country: "Canada", note: "Medical & health sciences", fields: ["Health","Engineering","Science","Law"] },
-      { name: "University of Auckland", country: "New Zealand", note: "Top NZ university", fields: ["Health","Engineering","Business","Science"] },
-      { name: "National University of Singapore", country: "Singapore", note: "Leading Asian university", fields: ["Tech","Engineering","Business","Health"] },
+    // Load world list from Hipo dataset; merge with curated entries (keep our note/fields where we have them)
+    const ALL_PROFESSION_FIELDS = ["Health","Engineering","Tech","Business","Science","Law","Education","Creative","Government","Trades","Food","Agriculture","Built","Media","Sports","Justice","Hospitality"];
+    const CURATED_UNIVERSITIES = [
+      { name: "Deakin University", country: "Australia", region: "Victoria", note: "Strong nutrition & dietetics", fields: ["Health","Food","Science","Nutrition"], url: "https://www.deakin.edu.au" },
+      { name: "University of Sydney", country: "Australia", region: "New South Wales", note: "Top health sciences", fields: ["Health","Science","Medicine","Business"], url: "https://www.sydney.edu.au" },
+      { name: "University of Melbourne", country: "Australia", region: "Victoria", note: "Leading research university", fields: ["Health","Engineering","Tech","Law","Business","Science"], url: "https://www.unimelb.edu.au" },
+      { name: "Monash University", country: "Australia", region: "Victoria", note: "Strong in health & pharmacy", fields: ["Health","Engineering","Tech","Science","Business"], url: "https://www.monash.edu" },
+      { name: "UNSW Sydney", country: "Australia", region: "New South Wales", note: "Excellent engineering & tech", fields: ["Engineering","Tech","Business","Law","Science"], url: "https://www.unsw.edu.au" },
+      { name: "University of Queensland", country: "Australia", region: "Queensland", note: "Strong health & sciences", fields: ["Health","Science","Engineering","Business"], url: "https://www.uq.edu.au" },
+      { name: "University of Western Australia", country: "Australia", region: "Western Australia", note: "Strong research programs", fields: ["Health","Engineering","Science","Business"], url: "https://www.uwa.edu.au" },
+      { name: "University of Adelaide", country: "Australia", region: "South Australia", note: "Health & wine science", fields: ["Health","Science","Engineering"], url: "https://www.adelaide.edu.au" },
+      { name: "Queensland University of Technology", country: "Australia", region: "Queensland", note: "Practical, industry-focused", fields: ["Tech","Creative","Business","Engineering"], url: "https://www.qut.edu.au" },
+      { name: "University of Newcastle", country: "Australia", region: "New South Wales", note: "Strong nursing & health", fields: ["Health","Education","Engineering"], url: "https://www.newcastle.edu.au" },
+      { name: "University of Oxford", country: "United Kingdom", region: "England", note: "World-leading across disciplines", fields: ["Health","Law","Science","Engineering","Business"], url: "https://www.ox.ac.uk" },
+      { name: "University of Cambridge", country: "United Kingdom", region: "England", note: "Top global university", fields: ["Health","Engineering","Science","Law","Tech"], url: "https://www.cam.ac.uk" },
+      { name: "Imperial College London", country: "United Kingdom", region: "England", note: "Science, engineering, medicine", fields: ["Engineering","Health","Science","Tech"], url: "https://www.imperial.ac.uk" },
+      { name: "UCL", country: "United Kingdom", region: "England", note: "Strong health & sciences", fields: ["Health","Science","Law","Engineering"], url: "https://www.ucl.ac.uk" },
+      { name: "King's College London", country: "United Kingdom", region: "England", note: "Leading health & law", fields: ["Health","Law","Business","Science"], url: "https://www.kcl.ac.uk" },
+      { name: "London School of Economics", country: "United Kingdom", region: "England", note: "Social sciences & business", fields: ["Business","Law","Government"], url: "https://www.lse.ac.uk" },
+      { name: "MIT", country: "United States", region: "Massachusetts", note: "Top engineering & tech", fields: ["Engineering","Tech","Science","Business"], url: "https://www.mit.edu" },
+      { name: "Stanford University", country: "United States", region: "California", note: "Tech, business, medicine", fields: ["Tech","Business","Health","Engineering"], url: "https://www.stanford.edu" },
+      { name: "Harvard University", country: "United States", region: "Massachusetts", note: "World-leading across fields", fields: ["Health","Law","Business","Science","Government"], url: "https://www.harvard.edu" },
+      { name: "Johns Hopkins University", country: "United States", region: "Maryland", note: "Top medical & health", fields: ["Health","Science","Engineering"], url: "https://www.jhu.edu" },
+      { name: "UC Berkeley", country: "United States", region: "California", note: "Strong tech & sciences", fields: ["Tech","Engineering","Science","Business"], url: "https://www.berkeley.edu" },
+      { name: "University of Michigan", country: "United States", region: "Michigan", note: "Strong across disciplines", fields: ["Health","Engineering","Business","Law"], url: "https://www.umich.edu" },
+      { name: "University of Toronto", country: "Canada", region: "Ontario", note: "Leading Canadian university", fields: ["Health","Engineering","Tech","Law","Business"], url: "https://www.utoronto.ca" },
+      { name: "University of British Columbia", country: "Canada", region: "British Columbia", note: "Strong health & sciences", fields: ["Health","Science","Engineering","Business"], url: "https://www.ubc.ca" },
+      { name: "McGill University", country: "Canada", region: "Quebec", note: "Medical & health sciences", fields: ["Health","Engineering","Science","Law"], url: "https://www.mcgill.ca" },
+      { name: "University of Auckland", country: "New Zealand", region: "Auckland", note: "Top NZ university", fields: ["Health","Engineering","Business","Science"], url: "https://www.auckland.ac.nz" },
+      { name: "National University of Singapore", country: "Singapore", region: "Singapore", note: "Leading Asian university", fields: ["Tech","Engineering","Business","Health"], url: "https://www.nus.edu.sg" },
+      { name: "University of Cape Town", country: "South Africa", region: "Western Cape", note: "Leading African research university", fields: ["Health","Engineering","Science","Law","Business"], url: "https://www.uct.ac.za" },
+      { name: "University of the Witwatersrand", country: "South Africa", region: "Gauteng", note: "Strong health, engineering & sciences", fields: ["Health","Engineering","Science","Law","Business"], url: "https://www.wits.ac.za" },
+      { name: "Stellenbosch University", country: "South Africa", region: "Western Cape", note: "Strong in sciences & agriculture", fields: ["Health","Science","Engineering","Business"], url: "https://www.sun.ac.za" },
+      { name: "University of Pretoria", country: "South Africa", region: "Gauteng", note: "Largest contact university in SA", fields: ["Health","Engineering","Law","Business","Science"], url: "https://www.up.ac.za" },
+      { name: "University of Johannesburg", country: "South Africa", region: "Gauteng", note: "Industry-focused programs", fields: ["Tech","Engineering","Business","Health"], url: "https://www.uj.ac.za" },
+      { name: "Rhodes University", country: "South Africa", region: "Eastern Cape", note: "Strong humanities & journalism", fields: ["Education","Creative","Business","Science"], url: "https://www.ru.ac.za" },
+      { name: "University of KwaZulu-Natal", country: "South Africa", region: "KwaZulu-Natal", note: "Health, law & engineering", fields: ["Health","Law","Engineering","Science"], url: "https://www.ukzn.ac.za" },
+      { name: "North-West University", country: "South Africa", region: "North West", note: "Diverse programs across campuses", fields: ["Health","Education","Business","Science"], url: "https://www.nwu.ac.za" },
+      { name: "University of Colombo", country: "Sri Lanka", region: "Western", note: "Leading research university, strong in law, medicine & sciences", fields: ["Health","Law","Science","Engineering","Tech","Business","Education"], url: "https://www.cmb.ac.lk" },
+      { name: "University of Peradeniya", country: "Sri Lanka", region: "Central", note: "Top engineering, science & agriculture", fields: ["Engineering","Science","Health","Agriculture","Business"], url: "https://www.pdn.ac.lk" },
+      { name: "University of Moratuwa", country: "Sri Lanka", region: "Western", note: "Premier engineering & technology university", fields: ["Engineering","Tech","Architecture","Built","Science"], url: "https://www.mrt.ac.lk" },
+      { name: "University of Sri Jayewardenepura", country: "Sri Lanka", region: "Western", note: "Strong business, management & social sciences", fields: ["Business","Law","Health","Science","Education"], url: "https://www.sjp.ac.lk" },
+      { name: "University of Kelaniya", country: "Sri Lanka", region: "Western", note: "Humanities, sciences & medicine", fields: ["Health","Science","Education","Business","Creative"], url: "https://www.kln.ac.lk" },
+      { name: "University of Ruhuna", country: "Sri Lanka", region: "Southern", note: "Engineering, medicine & science", fields: ["Engineering","Health","Science","Agriculture","Business"], url: "https://www.ruh.ac.lk" },
+      { name: "University of Jaffna", country: "Sri Lanka", region: "Northern", note: "Engineering, science & humanities", fields: ["Engineering","Science","Health","Business","Education"], url: "https://www.jfn.ac.lk" },
+      { name: "Eastern University, Sri Lanka", country: "Sri Lanka", region: "Eastern", note: "Arts, science & management", fields: ["Science","Business","Education","Health","Creative"], url: "https://www.esn.ac.lk" },
+      { name: "South Eastern University of Sri Lanka", country: "Sri Lanka", region: "Eastern", note: "Science, management & Islamic studies", fields: ["Science","Business","Education","Health"], url: "https://www.seu.ac.lk" },
+      { name: "Rajarata University of Sri Lanka", country: "Sri Lanka", region: "North Central", note: "Applied sciences, management & medicine", fields: ["Science","Health","Business","Agriculture","Education"], url: "https://www.rjt.ac.lk" },
+      { name: "Sabaragamuwa University of Sri Lanka", country: "Sri Lanka", region: "Sabaragamuwa", note: "Management, science & technology", fields: ["Business","Science","Tech","Health","Agriculture"], url: "https://www.sab.ac.lk" },
+      { name: "Wayamba University of Sri Lanka", country: "Sri Lanka", region: "North Western", note: "Management, science & technology", fields: ["Business","Science","Tech","Agriculture","Education"], url: "https://www.wyb.ac.lk" },
+      { name: "Uva Wellassa University", country: "Sri Lanka", region: "Uva", note: "Science, technology & management", fields: ["Science","Tech","Business","Engineering","Creative"], url: "https://www.uwu.ac.lk" },
+      { name: "Open University of Sri Lanka", country: "Sri Lanka", region: "Western", note: "Distance learning across many disciplines", fields: ["Education","Business","Tech","Health","Science","Engineering"], url: "https://www.ou.ac.lk" },
+      { name: "University of the Visual and Performing Arts", country: "Sri Lanka", region: "Western", note: "Music, dance, drama & visual arts", fields: ["Creative","Education","Media"], url: "https://www.uvpa.ac.lk" },
+      { name: "Gampaha Wickramarachchi University of Indigenous Medicine", country: "Sri Lanka", region: "Western", note: "Ayurveda & indigenous medicine", fields: ["Health","Science"], url: "https://www.gwu.ac.lk" },
+      { name: "University of Vavuniya", country: "Sri Lanka", region: "Northern", note: "Science, technology & management", fields: ["Science","Tech","Business","Education"], url: "https://www.vau.ac.lk" },
+      { name: "University of Vocational Technology", country: "Sri Lanka", region: "Western", note: "Vocational & technical education", fields: ["Tech","Trades","Engineering","Business"], url: "https://www.univotec.ac.lk" },
+      { name: "General Sir John Kotelawala Defence University", country: "Sri Lanka", region: "Western", note: "Defence, engineering & management", fields: ["Engineering","Tech","Business","Health","Science"], url: "https://www.kdu.ac.lk" },
+      { name: "Buddhist and Pali University of Sri Lanka", country: "Sri Lanka", region: "Western", note: "Buddhist studies, Pali & philosophy", fields: ["Education","Creative"], url: "https://www.bpu.ac.lk" },
+      { name: "Ocean University of Sri Lanka", country: "Sri Lanka", region: "Western", note: "Marine sciences & fisheries", fields: ["Science","Engineering"], url: "https://www.ousl.lk" },
+      { name: "Sri Lanka Institute of Information Technology", country: "Sri Lanka", region: "Western", note: "Leading private university for IT & engineering", fields: ["Tech","Engineering","Business","Creative"], url: "https://www.sliit.lk" },
+      { name: "South Asian Institute of Technology and Medicine", country: "Sri Lanka", region: "Western", note: "Medicine, nursing & health sciences", fields: ["Health","Science"], url: "https://www.saitm.edu.lk" },
+      { name: "Informatics Institute of Technology", country: "Sri Lanka", region: "Western", note: "Computing, engineering & business", fields: ["Tech","Engineering","Business"], url: "https://www.iit.ac.lk" },
+      { name: "SLTC Research University", country: "Sri Lanka", region: "Western", note: "Engineering, tech & innovation", fields: ["Engineering","Tech","Science","Business"], url: "https://www.sltc.edu.lk" },
+      { name: "National Institute of Business Management", country: "Sri Lanka", region: "Western", note: "Business, management & IT", fields: ["Business","Tech","Education"], url: "https://www.nibm.lk" },
+      { name: "Horizon Campus", country: "Sri Lanka", region: "Western", note: "Business, IT & law", fields: ["Business","Tech","Law","Creative"], url: "https://www.horizoncampus.edu.lk" },
+      { name: "Saegis Campus", country: "Sri Lanka", region: "Western", note: "Law, business & IT", fields: ["Law","Business","Tech"], url: "https://www.saegis.edu.lk" },
+      { name: "International College of Business and Technology", country: "Sri Lanka", region: "Western", note: "Business, computing & engineering", fields: ["Business","Tech","Engineering"], url: "https://www.icbt.lk" },
+      { name: "Aquinas College of Higher Studies", country: "Sri Lanka", region: "Western", note: "Liberal arts, business & sciences", fields: ["Business","Education","Science","Creative"], url: "https://www.aquinas.lk" },
+      { name: "National School of Business Management", country: "Sri Lanka", region: "Western", note: "Business & management studies", fields: ["Business","Education"], url: "https://www.nsbm.ac.lk" },
+      { name: "Sri Lanka Institute of Development Administration", country: "Sri Lanka", region: "Western", note: "Public administration & management", fields: ["Government","Business","Education"], url: "https://www.slida.lk" },
     ];
 
+    const curatedByKey = {};
+    CURATED_UNIVERSITIES.forEach(function(u) {
+      curatedByKey[(u.name || "").toLowerCase() + "\n" + (u.country || "").toLowerCase()] = u;
+    });
+    let UNIVERSITIES = CURATED_UNIVERSITIES.slice();
+    fetch("https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json")
+      .then(function(r) { return r.json(); })
+      .then(function(world) {
+        if (!Array.isArray(world)) return;
+        const broadFields = ALL_PROFESSION_FIELDS.slice();
+        const merged = [];
+        const seen = {};
+        world.forEach(function(e) {
+          const name = (e && e.name) ? String(e.name).trim() : "";
+          const country = (e && e.country) ? String(e.country).trim() : "";
+          if (!name || !country) return;
+          const key = name.toLowerCase() + "\n" + country.toLowerCase();
+          if (seen[key]) return;
+          seen[key] = true;
+          const cur = curatedByKey[key];
+          if (cur) {
+            merged.push(cur);
+            return;
+          }
+          const url = (e.web_pages && e.web_pages[0]) ? e.web_pages[0] : "";
+          if (!url && !e.domains) return;
+          const fallbackUrl = (e.domains && e.domains[0]) ? "https://" + e.domains[0] : "";
+          merged.push({
+            name: name,
+            country: country,
+            region: (e["state-province"] && String(e["state-province"]).trim()) || null,
+            note: "University offering a range of programs",
+            fields: broadFields,
+            url: url || fallbackUrl
+          });
+        });
+        UNIVERSITIES = merged;
+      })
+      .catch(function() {});
+
+    function normCountryName(countryStr) {
+      if (!countryStr) return "";
+      const l = String(countryStr).toLowerCase();
+      if (l.includes("united states") || l === "usa") return "united states";
+      if (l.includes("united kingdom") || l === "uk") return "united kingdom";
+      if (l.includes("russian federation")) return "russia";
+      if (l.includes("republic of korea") || (l.includes("korea") && l.includes("republic"))) return "south korea";
+      if (l.includes("democratic people") && l.includes("korea")) return "north korea";
+      if (l.includes("tanzania")) return "tanzania";
+      if (l.includes("viet nam")) return "vietnam";
+      if (l.includes("lao")) return "laos";
+      if (l.includes("bolivia")) return "bolivia";
+      if (l.includes("venezuela")) return "venezuela";
+      if (l.includes("iran")) return "iran";
+      if (l.includes("syrian")) return "syria";
+      if (l.includes("côte d'ivoire") || l.includes("ivory coast")) return "côte d'ivoire";
+      return l;
+    }
+
     function getUniversitiesForProfession(p, countryName){
-      const c = (countryName || "").toLowerCase();
+      const c = normCountryName(countryName);
       const profFields = new Set([p.cat, ...(p.tags || [])].map(f => f.toLowerCase()));
       const inCountry = u => {
-        const uc = u.country.toLowerCase();
+        const uc = normCountryName(u.country);
+        if (!c) return true;
+        if (uc === c) return true;
         if (c.includes("australia")) return uc.includes("australia");
-        if (c.includes("united states") || c.includes("usa")) return uc.includes("united states");
-        if (c.includes("united kingdom") || c.includes("uk")) return uc.includes("united kingdom");
+        if (c.includes("united states") || c === "usa") return uc.includes("united states");
+        if (c.includes("united kingdom") || c === "uk") return uc.includes("united kingdom");
         if (c.includes("canada")) return uc.includes("canada");
         if (c.includes("new zealand")) return uc.includes("new zealand");
         if (c.includes("singapore")) return uc.includes("singapore");
-        return true;
+        if (c.includes("south africa")) return uc.includes("south africa");
+        if (c.includes("sri lanka")) return uc.includes("sri lanka");
+        return uc === c || uc.includes(c) || c.includes(uc);
       };
       const matchesField = u => {
         const uf = new Set((u.fields||[]).map(f=>f.toLowerCase()));
         return uf.has(p.cat.toLowerCase()) || [...profFields].some(pf=>uf.has(pf));
       };
       let list = UNIVERSITIES.filter(u => inCountry(u) && matchesField(u));
-      if (list.length === 0) list = UNIVERSITIES.filter(matchesField).slice(0, 8);
-      return list.slice(0, 8);
+      if (list.length === 0 && c) list = UNIVERSITIES.filter(u => inCountry(u));
+      if (list.length === 0 && !c) list = UNIVERSITIES.filter(matchesField);
+      return list.slice(0, 25);
     }
 
     // ---------- Studies & Interests Subjects List ----------
@@ -3116,7 +3210,7 @@
           </div>
 
           <div class="sources">
-            <strong>Sources (placeholder):</strong>
+            <strong>References:</strong>
             ${p.sources.map(s=>escapeHtml(s)).join(" • ")}
           </div>
         </div>
@@ -3141,18 +3235,24 @@
       const matchedSubjects = getMatchedSubjects(p);
       const countryName = state.selectedCountry ? state.selectedCountry.name : state.country;
       const universities = getUniversitiesForProfession(p, countryName);
+      const userRegion = (state.region || "").trim().toLowerCase().replace(/\s+/g, " ");
+      const norm = s => (s || "").trim().toLowerCase().replace(/\s+/g, " ");
 
       const univHTML = universities.length > 0 ? `
         <div class="jobDetailSection">
-          <div class="jobDetailSectionTitle">Universities in your area</div>
-          <p style="margin: 0 0 12px; font-size: 14px; color: #64748b;">Institutions with strong programs for ${escapeHtml(p.name)}:</p>
+          <div class="jobDetailSectionTitle">Universities in your country</div>
+          <p style="margin: 0 0 12px; font-size: 14px; color: #64748b;">Institutions with strong programs for ${escapeHtml(p.name)}. Click to visit their website.</p>
           <div class="universityList">
-            ${universities.map(u => `
+            ${universities.map(u => {
+              const areaLabel = userRegion ? (norm(u.region) === userRegion ? " (Suitable for your area)" : " (Non-suitable for your area)") : "";
+              const nameBlock = (u.url) ? `<a href="${escapeHtml(u.url)}" target="_blank" rel="noopener" class="universityLink">${escapeHtml(u.name)}</a>` : escapeHtml(u.name);
+              return `
               <div class="universityItem">
-                <strong>${escapeHtml(u.name)}</strong>
+                <strong>${nameBlock}${escapeHtml(areaLabel)}</strong>
                 <div class="univNote">${escapeHtml(u.note || "")}</div>
               </div>
-            `).join("")}
+            `;
+            }).join("")}
           </div>
         </div>
       ` : `
@@ -3683,7 +3783,7 @@
       const scoreDisplay = state.mode === 'ATAR' ? state.score.toFixed(2) : state.score.toFixed(0);
       framingContainer.innerHTML = `
         <div class="resultsFraming">
-          <div class="framingTitle">Based on a ${modeLabel} of ${scoreDisplay}, these are your strongest realistic pathways:</div>
+          <div class="framingTitle">Based on ${modeLabel === 'ATAR' ? 'an' : 'a'} ${modeLabel} of ${scoreDisplay}, these are your strongest realistic pathways:</div>
           <div class="framingText">Click any card to see details.</div>
         </div>
       `;
@@ -4330,6 +4430,7 @@
       state.mode = null;
       state.country = null;
       state.selectedCountry = null;
+      state.region = null;
       state.score = 0;
       state.selectedProfession = null;
       state.salary = "couple";
@@ -4465,6 +4566,7 @@
       state.selectedProfession = null;
       state.country = null;
       state.selectedCountry = null;
+      state.region = null;
       state.studiesAndInterests = [];
       state.filters = {};
       state.contextMerged = false;
@@ -4722,6 +4824,40 @@
       state.selectedCountry = country;
       const input = $('countryInput');
       if (input) input.value = country.name;
+      updateRegionField(country);
+    }
+
+    function updateRegionField(country) {
+      const labelEl = $('regionFieldLabel');
+      const inputEl = $('regionInput');
+      const datalistEl = $('regionSuggestions');
+      const hintEl = $('regionFieldHint');
+      if (!labelEl || !inputEl || !datalistEl) return;
+      const key = (country && country.name ? country.name : '').toLowerCase().trim();
+      const aliasKey = (key === 'usa') ? 'united states' : (key === 'uk') ? 'united kingdom' : key;
+      const loc = (typeof LOCATIONS_BY_COUNTRY !== 'undefined' && LOCATIONS_BY_COUNTRY[aliasKey]) ? LOCATIONS_BY_COUNTRY[aliasKey] : (LOCATIONS_BY_COUNTRY && LOCATIONS_BY_COUNTRY[key]) ? LOCATIONS_BY_COUNTRY[key] : null;
+      if (loc && loc.type === 'cities') {
+        labelEl.textContent = 'City (optional)';
+        inputEl.placeholder = 'e.g. ' + (loc.list.slice(0, 2).join(', '));
+        hintEl.textContent = 'Pick a city in ' + (country ? country.name : 'your country') + ' so we can mark universities suitable for your area.';
+      } else if (loc && loc.type === 'states') {
+        labelEl.textContent = 'State or region (optional)';
+        inputEl.placeholder = 'e.g. ' + (loc.list.slice(0, 2).join(', '));
+        hintEl.textContent = 'We\'ll mark universities as suitable for your area when they match.';
+      } else {
+        labelEl.textContent = 'State or region (optional)';
+        inputEl.placeholder = 'e.g. state, province or city';
+        hintEl.textContent = 'We\'ll mark universities as suitable for your area when they match.';
+      }
+      inputEl.value = '';
+      datalistEl.innerHTML = '';
+      if (loc && loc.list && loc.list.length) {
+        loc.list.forEach(function(opt) {
+          var o = document.createElement('option');
+          o.value = opt;
+          datalistEl.appendChild(o);
+        });
+      }
     }
     
     function showAppContent() {
@@ -4740,6 +4876,8 @@
       }
       state.country = countryObj ? countryObj.name : (typed || null);
       state.selectedCountry = countryObj || null;
+      const regionInput = $('regionInput');
+      state.region = (regionInput && regionInput.value.trim()) || null;
       showAppContent();
     }
     
@@ -4748,10 +4886,21 @@
     const countryInput = $('countryInput');
     
     if (countryContinueBtn) countryContinueBtn.addEventListener('click', hideCountryScreen);
+
+    const regionInputEl = $('regionInput');
+    if (regionInputEl) regionInputEl.addEventListener('focus', function() {
+      const countryInput = $('countryInput');
+      const typed = countryInput ? countryInput.value.trim() : '';
+      if (typed && typeof COUNTRY_LIST !== 'undefined') {
+        const resolved = COUNTRY_LIST.find(function(c) { return c.name.toLowerCase() === typed.toLowerCase(); });
+        if (resolved) updateRegionField(resolved);
+      }
+    });
     
     if (countrySkipBtn) countrySkipBtn.addEventListener('click', () => {
       state.country = null;
       state.selectedCountry = null;
+      state.region = null;
       showAppContent();
     });
     
