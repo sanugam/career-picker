@@ -1583,6 +1583,266 @@
       letter-spacing: 0.3px;
     }
 
+    /* ========== AI Chat Panel ========== */
+    .chatToggleBtn{
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #0071c2 0%, #003580 100%);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      z-index: 95;
+      box-shadow: 0 4px 16px rgba(0,53,128,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .25s ease;
+    }
+    .chatToggleBtn:hover{ transform: scale(1.08); box-shadow: 0 6px 24px rgba(0,53,128,.45); }
+    .chatToggleBtn:active{ transform: scale(0.95); }
+
+    .chatPanel{
+      position: fixed;
+      top: 64px;
+      right: 0;
+      bottom: 0;
+      width: 380px;
+      background: var(--card);
+      border-left: 1px solid #e2e8f0;
+      box-shadow: -4px 0 24px rgba(0,0,0,.08);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .chatPanel.open{ transform: translateX(0); }
+
+    .chatHeader{
+      background: linear-gradient(180deg, #003d99 0%, #003580 50%, #002a66 100%);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .chatHeaderTitle{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .chatHeaderTitle svg{ opacity: .9; }
+    .chatHeaderActions{ display: flex; gap: 4px; }
+    .chatHeaderActions button{
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .chatHeaderActions button:hover{ background: rgba(255,255,255,.22); }
+
+    .chatApiKeySection{
+      padding: 24px 20px;
+      background: #fefce8;
+      border-bottom: 1px solid #fde68a;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .chatApiKeySection h4{ margin: 8px 0 6px; font-size: 16px; color: var(--text); }
+    .chatApiKeySection p{ font-size: 13px; color: #64748b; margin: 0 0 14px; line-height: 1.5; }
+    .chatApiKeyInputField{
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    .chatApiKeyInputField:focus{ border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,113,194,.12); }
+    .chatApiKeySaveBtn{
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(180deg, #0071c2 0%, #003580 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .chatApiKeySaveBtn:hover{ background: linear-gradient(180deg, #0080e0 0%, #0071c2 100%); }
+    .chatApiKeyLink{
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .chatApiKeyLink:hover{ text-decoration: underline; }
+
+    .chatMessages{
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chatMsg{
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+    .chatMsg p{ margin: 0 0 8px; }
+    .chatMsg p:last-child{ margin-bottom: 0; }
+    .chatMsg ul, .chatMsg ol{ margin: 4px 0 8px 16px; padding: 0; }
+    .chatMsg li{ margin-bottom: 4px; }
+    .chatMsg strong{ font-weight: 700; }
+    .chatMsg-user{
+      align-self: flex-end;
+      background: linear-gradient(135deg, #0071c2, #003580);
+      color: #fff;
+      border-radius: 16px 16px 4px 16px;
+    }
+    .chatMsg-model{
+      align-self: flex-start;
+      background: #f1f5f9;
+      color: var(--text);
+      border-radius: 16px 16px 16px 4px;
+    }
+
+    .chatTyping{
+      align-self: flex-start;
+      padding: 10px 18px;
+      background: #f1f5f9;
+      border-radius: 16px 16px 16px 4px;
+      margin: 0 16px;
+      flex-shrink: 0;
+    }
+    .chatTypingDots{ display: flex; gap: 4px; }
+    .chatTypingDots span{
+      width: 8px;
+      height: 8px;
+      background: #94a3b8;
+      border-radius: 50%;
+      animation: chatBounce .6s ease-in-out infinite;
+    }
+    .chatTypingDots span:nth-child(2){ animation-delay: .15s; }
+    .chatTypingDots span:nth-child(3){ animation-delay: .3s; }
+    @keyframes chatBounce{
+      0%, 80%, 100%{ transform: translateY(0); }
+      40%{ transform: translateY(-6px); }
+    }
+
+    .chatInputArea{
+      padding: 12px 16px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+      background: #fff;
+    }
+    .chatInputField{
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      line-height: 1.5;
+      max-height: 100px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .chatInputField:focus{ border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,113,194,.12); }
+    .chatSendBtn{
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(180deg, #0071c2 0%, #003580 100%);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .chatSendBtn:hover{ background: linear-gradient(180deg, #0080e0 0%, #0071c2 100%); transform: scale(1.05); }
+    .chatSendBtn:disabled{ opacity: .5; cursor: not-allowed; transform: none; }
+
+    .chatQuickActions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .chatQuickChip{
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .2s;
+    }
+    .chatQuickChip:hover{ background: #f0f8ff; border-color: var(--brand); }
+
+    .chatSettingsPanel{
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 16px;
+      flex-shrink: 0;
+    }
+    .chatSettingsItem{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 13px;
+      color: #64748b;
+    }
+    .chatSettingsAction{
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .chatSettingsAction:hover{ background: #f0f8ff; }
+
     /* Responsive */
     @media (max-width: 980px){
       .searchGrid{grid-template-columns: 1fr; }
@@ -1591,6 +1851,10 @@
       .hero h1{font-size:42px;}
       .intentFork{grid-template-columns: 1fr;}
       .intentCard .badge-primary{top: 12px; right: 12px; font-size: 10px; padding: 4px 8px;}
+    }
+    @media (max-width: 768px){
+      .chatPanel{ width: 100%; border-left: none; }
+      .chatToggleBtn{ bottom: 16px; right: 16px; width: 48px; height: 48px; }
     }
   </style>
   <script src="countries-and-locations.js"></script>
@@ -1969,6 +2233,45 @@
     <div class="modal uniDetailModal">
       <button class="uniDetailClose" id="uniDetailClose" type="button" aria-label="Close">×</button>
       <div id="uniDetailContent" class="uniDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- AI Chat Assistant -->
+  <button class="chatToggleBtn" id="chatToggleBtn" type="button" aria-label="Open AI Career Advisor">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <div class="chatPanel" id="chatPanel" role="complementary" aria-label="AI Career Advisor">
+    <div class="chatHeader">
+      <div class="chatHeaderTitle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>AI Career Advisor</span>
+      </div>
+      <div class="chatHeaderActions">
+        <button id="chatSettingsBtn" type="button" aria-label="Chat settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button id="chatCloseBtn" type="button" aria-label="Close chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="chatApiKeySection" id="chatApiKeySection">
+      <div style="font-size:28px;">🔑</div>
+      <h4>Connect to Google Gemini</h4>
+      <p>Enter your Gemini API key to enable the AI career advisor. Your key is stored locally and only sent to Google.</p>
+      <input type="password" id="chatApiKeyInput" class="chatApiKeyInputField" placeholder="Paste your API key here" autocomplete="off"/>
+      <button class="chatApiKeySaveBtn" id="chatApiKeySaveBtn" type="button">Connect</button>
+      <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="chatApiKeyLink">Get a free API key from Google AI Studio</a>
+    </div>
+    <div class="chatMessages" id="chatMessages"></div>
+    <div class="chatTyping" id="chatTyping" style="display:none;">
+      <div class="chatTypingDots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="chatInputArea" id="chatInputArea">
+      <textarea id="chatInput" class="chatInputField" placeholder="Ask about careers, universities, scores..." rows="1"></textarea>
+      <button class="chatSendBtn" id="chatSendBtn" type="button" aria-label="Send message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      </button>
     </div>
   </div>
 
@@ -5548,6 +5851,351 @@
       });
     }
     
+    // ========== AI Chat Assistant ==========
+
+    // --- API KEY SETUP (for site owner) ---
+    // To set your Gemini API key, open your browser console and run:
+    //   copy(btoa("YOUR_API_KEY_HERE").split('').reverse().join(''))
+    // Then paste the result below between the quotes.
+    var _EK = "";  // <-- Paste your encoded key here
+
+    function _dk(e) {
+      try { return atob(e.split('').reverse().join('')); } catch(x) { return ''; }
+    }
+
+    const chatState = {
+      apiKey: _dk(_EK) || localStorage.getItem('gemini_api_key') || null,
+      messages: [],
+      isOpen: false,
+      isLoading: false,
+      lastRequestTime: 0
+    };
+
+    function toggleChatPanel() {
+      chatState.isOpen = !chatState.isOpen;
+      var panel = $('chatPanel');
+      var btn = $('chatToggleBtn');
+      if (chatState.isOpen) {
+        panel.classList.add('open');
+        btn.style.display = 'none';
+        if (chatState.messages.length === 0 && chatState.apiKey) renderChatWelcome();
+        setTimeout(function(){ var inp = $('chatInput'); if (inp) inp.focus(); }, 350);
+      } else {
+        panel.classList.remove('open');
+        btn.style.display = '';
+      }
+    }
+
+    function saveChatApiKey() {
+      var input = $('chatApiKeyInput');
+      var key = (input.value || '').trim();
+      if (!key) return;
+      chatState.apiKey = key;
+      localStorage.setItem('gemini_api_key', key);
+      $('chatApiKeySection').style.display = 'none';
+      $('chatInputArea').style.display = '';
+      renderChatWelcome();
+    }
+
+    function clearChatApiKey() {
+      localStorage.removeItem('gemini_api_key');
+      // Fall back to embedded key if available
+      var embedded = _dk(_EK);
+      chatState.apiKey = embedded || null;
+      if (!chatState.apiKey) {
+        $('chatApiKeySection').style.display = '';
+        $('chatInputArea').style.display = 'none';
+      }
+      $('chatMessages').innerHTML = '';
+      chatState.messages = [];
+    }
+
+    function initChatApiKey() {
+      if (chatState.apiKey) {
+        // Key available (embedded or from localStorage) — hide key input, show chat
+        $('chatApiKeySection').style.display = 'none';
+        $('chatInputArea').style.display = '';
+      } else {
+        // No key at all — show key input as fallback
+        $('chatInputArea').style.display = 'none';
+      }
+    }
+
+    function buildChatSystemPrompt() {
+      var parts = [];
+      parts.push('You are CareerPicker AI, a helpful career guidance assistant embedded in the CareerPicker web application. You help users with career guidance, university advice, study planning, and life/career coaching.');
+      parts.push('\n## Your Personality\n- Warm, encouraging, and practical\n- Give clear, actionable advice\n- Mention specific careers from the app database when relevant\n- Keep responses concise (2-4 short paragraphs max) unless the user asks for detail\n- Use bullet points and bold for readability');
+
+      parts.push('\n## User Context');
+      if (state.country) parts.push('- Country: ' + state.country);
+      if (state.region) parts.push('- Region/State: ' + state.region);
+      if (state.mode) parts.push('- Score type: ' + state.mode);
+      if (state.score > 0) {
+        parts.push('- Score: ' + state.score + ' (' + state.mode + ')');
+        var eligible = PROFESSIONS.filter(function(p){ return isEligibleByScore(p); });
+        parts.push('- Eligible for ' + eligible.length + ' out of ' + PROFESSIONS.length + ' careers in our database');
+      }
+      if (state.selectedProfession) {
+        var sp = state.selectedProfession;
+        parts.push('- Currently looking at: ' + sp.name + ' (Category: ' + sp.cat + ')');
+        var req = state.mode === 'GPA' ? sp.minGPA : sp.minATAR;
+        parts.push('- Required ' + state.mode + ': ' + req);
+        if (state.score > 0) {
+          parts.push('- User ' + (isEligibleByScore(sp) ? 'IS' : 'is NOT') + ' eligible for this career');
+        }
+      }
+      if (state.salary) {
+        var salaryLabels = { self: 'Low (self-support, $45k-$70k)', couple: 'Medium (couple/shared, $70k-$110k)', family: 'High (family costs, $110k-$160k)', growth: 'High growth (ambitious, $160k+)' };
+        parts.push('- Lifestyle/salary goal: ' + (salaryLabels[state.salary] || state.salary));
+      }
+      if (state.studiesAndInterests && state.studiesAndInterests.length > 0) {
+        var subjectNames = state.studiesAndInterests
+          .map(function(id){ return SUBJECTS_LIST.find(function(s){ return s.id === id; }); })
+          .filter(Boolean)
+          .map(function(s){ return s.name; });
+        if (subjectNames.length > 0) parts.push('- Studies & interests: ' + subjectNames.join(', '));
+      }
+      if (state.intent) {
+        parts.push('- User flow: ' + (state.intent === 'score-first' ? 'Exploring careers based on score' : 'Checking requirements for a specific dream job'));
+      }
+
+      // Top matching careers
+      if (state.score > 0) {
+        try {
+          var eligibleP = PROFESSIONS.filter(function(p){ return isEligibleByScore(p) && passesFilters(p); });
+          var scored = eligibleP.map(function(p){ return { prof: p, score: scoreProfession(p) }; });
+          scored.sort(function(a, b){ return b.score - a.score; });
+          var top8 = scored.slice(0, 8);
+          if (top8.length > 0) {
+            parts.push('\n## Top Matching Careers for This User');
+            top8.forEach(function(item){
+              var r = state.mode === 'GPA' ? item.prof.minGPA : item.prof.minATAR;
+              parts.push('- ' + item.prof.name + ' (' + item.prof.cat + ') — match: ' + item.score + '%, requires ' + state.mode + ': ' + r + ', salary: ' + item.prof.salary + ', study: ' + item.prof.study + ' years');
+            });
+          }
+        } catch(e) {}
+      }
+
+      parts.push('\n## Guidelines\n- Refer to specific careers from the database when possible\n- If the user asks about a career not in the database, you can still discuss it\n- For university questions, recommend checking official university websites for exact requirements\n- Be honest: this is rule-of-thumb guidance, not official requirements\n- Encourage users to explore different career options using the app');
+
+      return parts.join('\n');
+    }
+
+    function formatChatMarkdown(text) {
+      // Escape HTML first
+      text = escapeHtml(text);
+      // Bold
+      text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      // Bullet lists
+      text = text.replace(/^[\-\*]\s+(.+)$/gm, '<li>$1</li>');
+      // Wrap consecutive <li> in <ul>
+      text = text.replace(/((?:<li>.*?<\/li>\s*)+)/g, '<ul>$1</ul>');
+      // Numbered lists
+      text = text.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
+      text = text.replace(/((?:<li>.*?<\/li>\s*)+)/g, function(match) {
+        // Only wrap if not already wrapped
+        if (match.indexOf('<ul>') === -1) return '<ol>' + match + '</ol>';
+        return match;
+      });
+      // Paragraphs
+      text = text.replace(/\n\n/g, '</p><p>');
+      text = text.replace(/\n/g, '<br>');
+      return '<p>' + text + '</p>';
+    }
+
+    function appendChatMessage(role, text) {
+      var messagesDiv = $('chatMessages');
+      var msgEl = document.createElement('div');
+      msgEl.className = 'chatMsg chatMsg-' + role;
+      if (role === 'model') {
+        msgEl.innerHTML = formatChatMarkdown(text);
+      } else {
+        msgEl.textContent = text;
+      }
+      messagesDiv.appendChild(msgEl);
+      scrollChatToBottom();
+    }
+
+    function scrollChatToBottom() {
+      var messagesDiv = $('chatMessages');
+      requestAnimationFrame(function(){
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      });
+    }
+
+    function renderChatWelcome() {
+      var messagesDiv = $('chatMessages');
+      messagesDiv.innerHTML = '';
+
+      var welcome = document.createElement('div');
+      welcome.className = 'chatMsg chatMsg-model';
+      welcome.innerHTML = '<p>Hi! I\'m your <strong>AI Career Advisor</strong>. I can help you with:</p><ul><li>Career guidance based on your score</li><li>University and study advice</li><li>Comparing career pathways</li><li>Understanding entry requirements</li></ul><p>What would you like to know?</p>';
+      messagesDiv.appendChild(welcome);
+
+      var actions = document.createElement('div');
+      actions.className = 'chatQuickActions';
+      var suggestions = [
+        'What careers match my score?',
+        'How do I improve my ATAR?',
+        'Compare career pathways',
+        'University advice for my area'
+      ];
+      suggestions.forEach(function(text){
+        var chip = document.createElement('button');
+        chip.className = 'chatQuickChip';
+        chip.textContent = text;
+        chip.addEventListener('click', function(){
+          $('chatInput').value = text;
+          handleChatSend();
+        });
+        actions.appendChild(chip);
+      });
+      messagesDiv.appendChild(actions);
+    }
+
+    function sendToGemini(userMessage) {
+      if (!chatState.apiKey) return;
+
+      // Rate limit
+      var now = Date.now();
+      if (now - chatState.lastRequestTime < 1000) {
+        appendChatMessage('model', 'Please wait a moment before sending another message.');
+        return;
+      }
+      chatState.lastRequestTime = now;
+
+      // Add user message
+      chatState.messages.push({ role: 'user', text: userMessage, timestamp: now });
+      appendChatMessage('user', userMessage);
+
+      // Remove quick actions if present
+      var qa = document.querySelector('.chatQuickActions');
+      if (qa) qa.remove();
+
+      // Show typing indicator
+      chatState.isLoading = true;
+      $('chatTyping').style.display = '';
+      $('chatSendBtn').disabled = true;
+      scrollChatToBottom();
+
+      var systemPrompt = buildChatSystemPrompt();
+
+      // Build conversation (last 20 messages)
+      var recentMessages = chatState.messages.slice(-20);
+      var contents = recentMessages.map(function(msg){
+        return { role: msg.role, parts: [{ text: msg.text }] };
+      });
+
+      var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + chatState.apiKey;
+
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: contents,
+          generationConfig: {
+            temperature: 0.7,
+            topP: 0.9,
+            maxOutputTokens: 1024
+          }
+        })
+      })
+      .then(function(response){
+        if (!response.ok) {
+          return response.json().catch(function(){ return {}; }).then(function(err){
+            throw new Error((err.error && err.error.message) || 'API error: ' + response.status);
+          });
+        }
+        return response.json();
+      })
+      .then(function(data){
+        var aiText = '';
+        try { aiText = data.candidates[0].content.parts[0].text; } catch(e){}
+        if (!aiText) throw new Error('No response from AI. The response may have been blocked by safety filters.');
+        chatState.messages.push({ role: 'model', text: aiText, timestamp: Date.now() });
+        appendChatMessage('model', aiText);
+      })
+      .catch(function(err){
+        console.error('Gemini API error:', err);
+        var errorMsg = 'Sorry, I encountered an error. ';
+        if (err.message && err.message.indexOf('API_KEY') !== -1) {
+          errorMsg += 'Your API key appears to be invalid. Please check it in settings.';
+        } else if (err.message && (err.message.indexOf('quota') !== -1 || err.message.indexOf('429') !== -1)) {
+          errorMsg += 'Rate limit reached. Please wait a moment and try again.';
+        } else if (err.message && err.message.indexOf('safety') !== -1) {
+          errorMsg += 'The response was blocked by safety filters. Try rephrasing your question.';
+        } else {
+          errorMsg += (err.message || 'Please try again.');
+        }
+        appendChatMessage('model', errorMsg);
+      })
+      .finally(function(){
+        chatState.isLoading = false;
+        $('chatTyping').style.display = 'none';
+        $('chatSendBtn').disabled = false;
+        scrollChatToBottom();
+      });
+    }
+
+    function handleChatSend() {
+      var input = $('chatInput');
+      var text = (input.value || '').trim();
+      if (!text || chatState.isLoading) return;
+      input.value = '';
+      input.style.height = 'auto';
+      sendToGemini(text);
+    }
+
+    function toggleChatSettings() {
+      var existing = document.querySelector('.chatSettingsPanel');
+      if (existing) { existing.remove(); return; }
+
+      var hasEmbeddedKey = !!_dk(_EK);
+      var panel = document.createElement('div');
+      panel.className = 'chatSettingsPanel';
+      var keyRow = hasEmbeddedKey ? '' : '<div class="chatSettingsItem"><span>API Key: ' + (chatState.apiKey ? '••••' + escapeHtml(chatState.apiKey.slice(-4)) : 'Not set') + '</span><button class="chatSettingsAction" id="chatClearKeyBtn">Change key</button></div>';
+      panel.innerHTML = keyRow + '<div class="chatSettingsItem"><button class="chatSettingsAction" id="chatClearHistoryBtn">Clear chat history</button></div>';
+      var chatMessages = $('chatMessages');
+      chatMessages.parentNode.insertBefore(panel, chatMessages);
+
+      var clearKeyBtn = $('chatClearKeyBtn');
+      if (clearKeyBtn) clearKeyBtn.addEventListener('click', function(){ clearChatApiKey(); panel.remove(); });
+      $('chatClearHistoryBtn').addEventListener('click', function(){ chatState.messages = []; renderChatWelcome(); panel.remove(); });
+    }
+
+    // Chat initialization
+    (function initChat(){
+      $('chatToggleBtn').addEventListener('click', toggleChatPanel);
+      $('chatCloseBtn').addEventListener('click', toggleChatPanel);
+
+      $('chatApiKeySaveBtn').addEventListener('click', saveChatApiKey);
+      $('chatApiKeyInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') saveChatApiKey(); });
+
+      $('chatSettingsBtn').addEventListener('click', toggleChatSettings);
+
+      $('chatSendBtn').addEventListener('click', handleChatSend);
+      $('chatInput').addEventListener('keydown', function(e){
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleChatSend();
+        }
+      });
+      $('chatInput').addEventListener('input', function(){
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+      });
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && chatState.isOpen) {
+          var anyModalOpen = document.querySelector('.modalWrap.show');
+          if (!anyModalOpen) toggleChatPanel();
+        }
+      });
+
+      initChatApiKey();
+    })();
+
     // Initialize tags display
     renderStudiesTags();
   </script>
